@@ -1,0 +1,13 @@
+1) Montar um heap invertido de tamanho k com os k primeiros elementos;
+PIOR [k * lg(k)]         MELHOR [k]
+          
+2) Para cada um dos $n-k$ demais elementos, se ele for menor que a cabeça do heap, substituí-lo pela cabeça do heap e reorganizar o heap.
+PIOR [(n-k) * lg(k)]        MELHOR [n-k]
+                
+3) Aplicar a reconstrução no heap de tamanho k   
+PIOR [k * lg(k)]         MELHOR [k * lg(k)]
+                      
+===============================================================
+Total
+PIOR [O((n*lg(k))]        MELHOR [O(n + k*lg(k))]
+===============================================================
