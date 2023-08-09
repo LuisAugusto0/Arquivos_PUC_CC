@@ -1,3 +1,6 @@
+Luís Augusto Lima de Oliveira - 805413
+
+
 01.) Fazer as conversões de decimal para binário:
  01 a.) manualmente (em arquivo texto)
 	a.) 26(10)	=	11010(2)
@@ -7,11 +10,11 @@
 	e.) 365(10)	=	101101101(2)
 	
  Extras / Opcionais:
- 01 c.) mediante uso de uma função dec2bin(x) (em linguagem de programação)			?????
+ 01 c.) mediante uso de uma função dec2bin(x) (em linguagem de programação)
  01 d.) mediante uso de uma planilha (programada com funções intrínsecas)
 
 
-	X(10)	2⁹	2⁸	2⁷	2⁶	2⁵	2⁴	2³	2²	2¹	2⁰	  ∑			X(2)   
+	X(10)		2⁹	2⁸	2⁷	2⁶	2⁵	2⁴	2³	2²	2¹	2⁰	  ∑			X(2)   
 			512	256	128	64	32	16	8	4	2	1
 	26		0	0	0	0	0	1	1	0	1	0	16+8+2			11010
 	53		0	0	0	0	1	1	0	1	0	1	32+16+4+1		110101
@@ -33,7 +36,7 @@
  02 d.) mediante uso de uma planilha (programada com funções intrínsecas)
 
 
-	X(10)	2⁹	2⁸	2⁷	2⁶	2⁵	2⁴	2³	2²	2¹	2⁰	  ∑			X(2)   
+	X(10)		2⁹	2⁸	2⁷	2⁶	2⁵	2⁴	2³	2²	2¹	2⁰	  ∑			X(2)   
 			512	256	128	64	32	16	8	4	2	1
 	22		0	0	0	0	0	1	0	1	1	0	16+4+2			10110
 	27		0	0	0	0	0	1	1	0	1	1	16+8+2+1		11011
@@ -52,34 +55,34 @@
  Extras / Opcionais:
  03 c.) mediante uso de uma função dec2base(base, x) (em linguagem de programação)
  03 d.) mediante uso de uma planilha (programada com funções intrínsecas)
--------------------------------------------------
+----------------------------------------------------------------
 	X(10)		X(10)/4		X(10)%4		X(4)
 	61		15		1		1
 	15		3		3		31
 	3		0		3		331
 	0		PARAR		PARAR		331(4)
--------------------------------------------------
+----------------------------------------------------------------
 	X(10)		X(10)/8		X(10)%8		X(8)
 	54		6		6		6
 	6		0		6		66
 	0		PARAR		PARAR		66(8)
--------------------------------------------------
+----------------------------------------------------------------
 	X(10)		X(10)/16	X(10)%16	X(16)
 	77		4		13		D
 	4		0		4		4D
 	0		PARAR		PARAR		4D(16)
--------------------------------------------------
+----------------------------------------------------------------
 	X(10)		X(10)/16	X(10)%16	X(16)
 	151		9		7		7
 	9		0		9		97
 	0		PARAR		PARAR		97(16)
--------------------------------------------------
+----------------------------------------------------------------
 	X(10)		X(10)/16	X(10)%16	X(16)
 	738		46		2		2
 	46		2		14		2E
 	2		0		2		2E2
 	0		PARAR		PARAR		2E2(16)
--------------------------------------------------
+----------------------------------------------------------------
 04.) Fazer as conversões de base entre as bases indicadas por agrupamento:
  04 a.) manualmente
 	a.) 10101(2)	=	111(4)
@@ -125,7 +128,7 @@ DICAS: Para conferir, comparar os valores decimais equivalentes.
 	X(10)   2⁷      2⁶      2⁵      2⁴      2³      2²      2¹      2⁰              ∑                       nova base
                 128     64      32      16      8       4       2       1
 
-        26      0       0       1       0       1       0       0       1               16 + 8 + 2              11010(2)
+        41      0       0       1       0       1       0       0       1               32 + 8 + 1              11010(2)
                 2¹      2⁰      2²      2¹      2⁰      2²      2¹      2⁰
 
                         8²                      8¹                      8⁰
@@ -152,5 +155,6 @@ DICAS: Para conferir, comparar os valores decimais equivalentes.
 
 Extras / Opcionais
  05c.) mediante uso de funções ASCII2hex(x) e hex2ASCII(xx) (em linguagem de programação)
- 05d.) mediante uso de uma planilha (programada com funções intrínsecas para buscar códigos)
+ 05d.) mediante uso de uma planilha (programada com funções intrínsecas para buscar códigos) 
+	ENTREGA EM ARQUIVO
 
