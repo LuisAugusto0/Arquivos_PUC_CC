@@ -1,3 +1,22 @@
 01.) Fazer as conversões entre as bases indicadas:
  01a.) manualmente
- -
+  a.) 0,01101(2) = 0,40635(10)
+  b.) 0,10011(2) = 0,59375(10)
+  c.) 0,10101(2) = 0,65625(10)
+  d.) 1,11011(2) = 1,84375(10)
+  e.) 11,11011(2) = 3.84375(10)
+ 01b.) Arquivo .v (modificado do original)
+ 01c.) Arquivo .java
+ 01d) Planilha
+
+
+02.) Fazer as conversões entre as bases indicadas
+ 2a.) manualmente
+  a.) 0.75 (10) = 0.11 (2)
+  b.) 1.375 (10) = 1.011 (2)
+  c.) 2.625 (10) = 10.101 (2)
+  d.) 6.875 (10) = 110.111 (2)
+  e.) 11.03125 (10) = 1011.00001 (2)
+ 2b.) Arquivo .v (modificado do original)
+ 2c.) Arquivo .java
+ 2c.) Planilha
