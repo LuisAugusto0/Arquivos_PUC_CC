@@ -1,3 +1,5 @@
+LUÍS AUGUSTO LIMA DE OLIVEIRA - 805413
+
 01.) Fazer as conversões entre as bases indicadas:
  01a.) manualmente
   a.) 0,01101(2) = 0,40635(10)
@@ -19,4 +21,44 @@
   e.) 11.03125 (10) = 1011.00001 (2)
  2b.) Arquivo .v (modificado do original)
  2c.) Arquivo .java
- 2c.) Planilha
+ 2d.) Planilha
+
+03.) Fazer as conversões de base entre as bases indicadas:
+ 3a.) manualmente 
+  a.) 0,010010 (2) = 0,102 (4)
+  b.) 0,100101 (2) = 0,45(8)
+  c.) 0,101011 (2) = 0,AC(16)
+  d.) 1,110001 (2) = 1,61(8)
+  e.) 1110,1001 (2) = E,9(16)
+ 3b.) Arquivo .v (modificado do original)
+ 3c.) Arquivo .java
+ 3d.) Planilha
+
+04.) Fazer as conversões de base entre as bases indicadas:
+ 4a.) manualmente
+  a.) 0,312 (4) = 0,110110 (2)
+  b.) 0,3E7 (16) = 0,033213 (4)
+  c.) 0,751 (8) = 0,111101001 (2)
+  d.) 7,231 (8) = 13,10303 (4)
+  e.) A,B52 (16) = 22,231102 (4)
+ 4b.) Arquivo .v
+ 4c.) Arquivo .java
+ 4d.) Planilha
+
+05.) Fazer as operações indicadas:
+ 5a.) manualmente
+  a.) 101,01 + 11,111 (2) = 1001,001
+  b.) 1001,111 - 10,11 (2) = 0111,001
+
+  c.) 100,101 * 11,11 =    100101
+                          100101-
+                         100101-- +
+                        100101---
+                       __________
+                       10001,01011 (2)
+  
+  d.) 10110,01 / 10,011 = 1001,0101110... (2)
+  e.) 1101101 % 1011 = 1010(2)
+ 5b.) Arquivo.v
+ 5c.) Arquivo.java
+ 5d.) Planilha

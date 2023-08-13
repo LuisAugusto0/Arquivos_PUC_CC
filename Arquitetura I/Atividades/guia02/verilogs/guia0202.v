@@ -1,6 +1,6 @@
 /*
 Guia_0202.v
-999999 - Xxx Yyy Zzz
+LUÍS AUGUSTO LIMA DE OLIVEIRA - 805413
 */
 module Guia_0202;
 // define data
@@ -36,7 +36,7 @@ begin : main
 		 end // end if
 		y=y-1;
 	end // end while
-        $display ( "%f = %b.%b" , x+in, bB, bA );
+        $display ( "a) %f = %b.%b" , x+in, bB, bA );
 
         in = 1;
         x = 0.375;
@@ -59,7 +59,7 @@ begin : main
                  end // end if
                 y=y-1;
         end // end while
-        $display ( "%f = %b.%b" , x+in, bB, bA );
+        $display ( "b) %f = %b.%b" , x+in, bB, bA );
 
         in = 2;
         x = 0.625;
@@ -82,7 +82,7 @@ begin : main
                  end // end if
                 y=y-1;
         end // end while
-        $display ( "%f = %b.%b" , x+in, bB, bA );
+        $display ( "c) %f = %b.%b" , x+in, bB, bA );
 
         in = 6;
         x = 0.875;
@@ -105,7 +105,7 @@ begin : main
                  end // end if
                 y=y-1;
         end // end while
-        $display ( "%f = %b.%b" , x+in, bB, bA );
+        $display ( "d) %f = %b.%b" , x+in, bB, bA );
 
         in = 11;
         x = 0.03125;
@@ -128,7 +128,7 @@ begin : main
                  end // end if
                 y=y-1;
         end // end while
-        $display ( "%f = %b.%b" , x+in, bB, bA );
+        $display ( "e) %f = %b.%b" , x+in, bB, bA );
 
 end // main
 endmodule // Guia_0202
