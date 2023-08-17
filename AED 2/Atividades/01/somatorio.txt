@@ -49,4 +49,41 @@ sn = b + b + ∑ (a+b
 
 --- Exercício resolvido 5: ---
 
+  --------------- 
+  |             |
+  |   n*(n+1)   |
+  |   -------   |
+  |      2      |
+  |             |
+  ---------------
+
+--- Exercício resolvido 6: ---
+
+  int somatorio(int n){
+    return ((n*(n+1))/2);
+  }
+
+ -Diretamente pela fórmula matemática.  
+ -Pois, fazendo comutatividade temos: 2Sn = n ∑ 1  = n*(n+1)/2
+                                              1<=i<=n
+
+--- Exercício resolvido 7 ---
+∑ (n - i - 1)
+0≤i≤n-2
+
+sn = n ∑ (1) - (n ∑1)/2 - ∑1
+
+sn = n*(n-1) - ((n-2) (n-1))/2 - (n-1)
+sn = 2n*(n-1) - ((n-2) (n-1)) - 2(n-1)
+     --------------------------------
+                     2
+sn = 2n*(n-1) -(n² -n -2n + 2) - 2n + 2
+     ----------------------------------
+                      2
+sn = 2n² -2n - n² +3n -2 -2n +2
+    ----------------------------
+                 2
+sn = n² - n
+     ------
+       2
 
