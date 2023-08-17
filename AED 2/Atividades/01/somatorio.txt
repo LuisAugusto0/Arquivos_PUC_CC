@@ -87,3 +87,11 @@ sn = n² - n
      ------
        2
 
+--- Exercício resolvido 8 ---
+
+a) Isso ocorre pois com o valor inicial zero não altera o valor final, 0+1+2 é igual a 1+2 por exemplo.
+b) Isso ocorre pois nesse caso, o valor inicial 0 adiciona uma constante a mais no valor final. Exemplo:
+3+3+3 = 9, 3+3=6 (sendo a primeira iniciando em 0 e a segunda em 1).
+c) isso ocorre pois diminuiu 1 tanto do valor de entrada quanto de saida, permanecendo a mesma quantidade de repetições.
+
+
