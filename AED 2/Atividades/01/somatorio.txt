@@ -83,10 +83,11 @@ sn = 2n*(n-1) -(n² -n -2n + 2) - 2n + 2
 sn = 2n² -2n - n² +3n -2 -2n +2
     ----------------------------
                  2
-sn = n² - n
-     ------
-       2
-
+  --------------
+  |sn = n² - n |
+  |     ------ |
+  |       2    |
+  --------------
 --- Exercício resolvido 8 ---
 
 a) Isso ocorre pois com o valor inicial zero não altera o valor final, 0+1+2 é igual a 1+2 por exemplo.
@@ -94,4 +95,34 @@ b) Isso ocorre pois nesse caso, o valor inicial 0 adiciona uma constante a mais 
 3+3+3 = 9, 3+3=6 (sendo a primeira iniciando em 0 e a segunda em 1).
 c) isso ocorre pois diminuiu 1 tanto do valor de entrada quanto de saida, permanecendo a mesma quantidade de repetições.
 
+--- Exercício resolvido 9 ---
+
+  ----------
+  | n      |
+  | ∑a + a | 
+  | i=1    |
+  ----------
+
+--- Exercício resolvido 10 ---
+
+  ---------------
+  |  n     m-1  |
+  |  ∑ a - ∑a   |
+  |  1     m-2  |
+  ---------------
+
+--- Exercício resolvido 11 ---
+
+Sn = ∑a.x^î+1
+     0≤i≤n
+
+Sn = ∑a.x.x^î
+     0≤i≤n
+
+Sn = a.x.∑x^î
+         0≤i≤n
+
+Sn = a.x.∑x^î
+         0≤i≤n
+Sn
 
