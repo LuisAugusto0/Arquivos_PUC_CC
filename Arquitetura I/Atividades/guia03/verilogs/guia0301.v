@@ -1,6 +1,6 @@
 /*
-Guia_0301.v
-999999 - Xxx Yyy Zzz
+guia0301.v
+LUÍS AUGUSTO LIMA DE OLIVEIRA - 805413
 */
 module Guia_0301;
 // define data
