@@ -1,0 +1,21 @@
+---------- Exercício resolvido (1) ----------
+a) 2^10 = 1024
+b) lg(1024) = 10
+c) lg(17) = 4,087...
+d) lg(17) = 5
+e) lg(17) = 4
+
+----------- Exercício resolvido (2) ----------
+a > b > c > d > e > f
+
+----------- Exercício resolvido (3) ----------
+
+Melhor caso:
+3 subtrações = θ(1) 
+
+Pior caso:
+5 subtações = θ(1)
+
+----------- Exercício resolvido (4) ----------
+
+
