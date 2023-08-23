@@ -18,4 +18,14 @@ Pior caso:
 
 ----------- Exercício resolvido (4) ----------
 
+São realizadas 2n subtrações sendo θ(n) 
 
+----------- Exercício resolvido (5) ----------
+
+São realizadas 3n² sendo θ(n²)
+
+----------- Exercício resolvido (6) ----------
+
+São realizadas lg(n)+1 multiplicações sendo θ(lg(n))
+
+----------- Exercício resolvido (7) 
