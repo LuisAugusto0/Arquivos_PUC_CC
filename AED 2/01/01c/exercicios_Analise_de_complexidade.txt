@@ -1,14 +1,14 @@
----------- Exercício resolvido (1) ----------
+	---------- Exercício resolvido (1) ----------
 a) 2^10 = 1024
 b) lg(1024) = 10
 c) lg(17) = 4,087...
 d) lg(17) = 5
 e) lg(17) = 4
 
------------ Exercício resolvido (2) ----------
+	----------- Exercício resolvido (2) ----------
 a > b > c > d > e > f
 
------------ Exercício resolvido (3) ----------
+	----------- Exercício resolvido (3) ----------
 
 Melhor caso:
 3 subtrações = θ(1) 
@@ -16,16 +16,51 @@ Melhor caso:
 Pior caso:
 5 subtações = θ(1)
 
------------ Exercício resolvido (4) ----------
+	----------- Exercício resolvido (4) ----------
 
 São realizadas 2n subtrações sendo θ(n) 
 
------------ Exercício resolvido (5) ----------
+	----------- Exercício resolvido (5) ----------
 
 São realizadas 3n² sendo θ(n²)
 
------------ Exercício resolvido (6) ----------
+	----------- Exercício resolvido (6) ----------
 
 São realizadas lg(n)+1 multiplicações sendo θ(lg(n))
 
------------ Exercício resolvido (7) 
+	----------- Exercício resolvido (7) ----------
+
+Pior caso: 
+n subtrações = θ(n)
+
+Melhor caso:
+1 subtrações = θ(1)
+
+	---------- Exercício resolvido (8) ----------
+
+Caso executar apenas uma pesquisa sequencial seriam feitas n comparações.
+
+Ao executar ordenação do array e em seguida uma pesquisa binária serão feitas n*lg(n) + lg(n) comparações.
+
+Como é apenas procurar um elemento é melhor realizar a pesquisa sequencial.
+
+	---------- Exercício resolvido (9) ----------
+
+a) Falso
+b) Verdadeiro
+c) Verdadeiro
+d) Verdadeiro
+e) Verdadeiro
+f) Falso
+g) Falso
+h) Verdadeiro
+i) Falso
+
+	---------- Exercício resolvido (10) ---------
+
+são feitas θ(n³) comparaçoes
+
+	---------- Exercicio resolvido (11) ---------
+
+a) θ(n^8)
+b) 

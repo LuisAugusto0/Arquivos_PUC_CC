@@ -3,6 +3,7 @@
 #include <string.h>
 bool ehPalindromo(char frase[], int tam){
 	bool palindromo=true;
+
 	for(int pos=0; pos<=(tam-1)/2; pos++){
 		//para testar se possui caractere especial e tratar se tiver
 		if((int)frase[pos] == -61){
@@ -22,23 +23,26 @@ bool ehPalindromo(char frase[], int tam){
 int main (void) {
 	//declaração de variáveis
 	int tam=0;
-        char frase[150];
+        char frase[400];	
 
 	//leitura de dados e verificar tam do array	
-	fgets(frase, 150, stdin);
+	fgets(frase, 400, stdin);
+	//frase[strcspn(frase, "\n\r")] = '\0';
 	tam = strlen(frase)-1;
+
 	//executar enquanto a variável frase não tiver um tamanho de 3 caracteres e que seja diferente de FIM.
 	while(tam != 3 || frase[0]!='F' || frase[1]!='I' || frase[2]!='M'){
 		bool palindromo = ehPalindromo(frase, tam);
 		if(palindromo){
-			puts("SIM");
+			printf("SIM\n");
 		} else {
-			puts("NAO");
+			printf("NAO\n");
 		}
 
 		//leitura de dados e verificar tam do array 
-		fgets(frase, 150, stdin); 
+		fgets(frase, 400, stdin); 
 	        //while(frase[tam] != '\n') tam++;
+		//frase[strcspn(frase, "\n\r")] = '\0';
 		tam = strlen(frase)-1;
 	}
 	return 0;
