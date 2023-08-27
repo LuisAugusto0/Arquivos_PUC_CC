@@ -1,21 +1,20 @@
 
 /*
-Guia_0401.v
+Guia_0403.v
 LUÍS AUGUSTO LIMA DE OLIVEIRA - 805413
 */
 
 // ---------------------
 // -- expressões
 // ---------------------
-module fxy (output s, input x, y, z, input [3:0] letra);
+module fxy (output s, input x, y, w, z, input [3:0] letra);
   reg aux;  
   always @(*) begin
         case (letra) 
-            4'ha: aux = x & ~(~y | ~z);
-            4'hb: aux = ~(~x | y) & z;
-            4'hc: aux = ~(~x & ~y) & ~z;
-            4'hd: aux = ~(x & ~y) & z;
-            4'he: aux = (~x | y) & ( ~y | ~z);
+	    //                2              3            6          7
+            4'ha: aux = (~x & y & ~z) | (~x & y & z) | (x&y&~z) | (x&y&z);
+            //                1         3          5          7
+	    4'hb: aux = (~x&~y&~z) | (~x&y&z) | (x&~y&z) | (x&y&z);
         endcase
     end
    assign s = aux;
@@ -26,13 +25,13 @@ endmodule // fxy
 // ---------------------
 module test_module;
     
-    reg x, y, z; 
+    reg x, y, w, z; 
     reg c1, c2;
     reg [3:0] letra;
     wire s;
 
     // instancias
-    fxy FXY1 (s, x, y, z, letra);
+    fxy FXY1 (s, x, y, w, z, letra);
  
     // valores iniciais
     initial begin: start
@@ -44,15 +43,15 @@ module test_module;
       // identificacao
       $display("Test 0401");
       letra = 4'ha; 
-      x=0; y=0; z=0;
+      x=0; y=0; w=0; z=0;
 
       // monitoramento
       $monitor("  %2b %2b %2b = %2b", x, y, z, s);
   
       // sinalizacao
-      repeat (5) begin
+      repeat (2) begin
 	$display("%x.)", letra);
-        $display("   x  y  z =  s");
+	$display("   x  y  z =  s");
 	
         #1 x=0; y=0; z=1;
         #1 x=0; y=1; z=0;
@@ -63,6 +62,6 @@ module test_module;
 	#1 x=1; y=1; z=1; 	
 	#1 x=0; y=0; z=0; letra = letra + 1;
       end
-      $display("Aviso: Numero a mais, desconsiderar o ultimo número extra");
+	$display("Aviso: Numero a mais, desconsiderar o ultimo número extra");
      end// begin
  endmodule // test_module

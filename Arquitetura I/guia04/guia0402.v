@@ -93,9 +93,8 @@ module test_module;
         #1 x=0; y=1;
         #1 x=1; y=0;
         #1 x=1; y=1;
-	#1 letra = letra + 1;
-	#1 x=0; y=0;
-	$display("Aviso: Numero a mais, desconsiderar o ultimo número extra");
+	#1 x=0; y=0; letra = letra + 1;
       end
-     end// begin
+      $display("Aviso: Numero a mais, desconsiderar o ultimo número extra"); 
+    end// begin
  endmodule // test_module
