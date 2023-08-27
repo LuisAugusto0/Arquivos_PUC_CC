@@ -11,11 +11,12 @@ module fxy (output s, input x, y, z, input [3:0] letra);
   reg aux;  
   always @(*) begin
         case (letra) 
-            4'ha: aux = x & ~(~y | ~z);
-            4'hb: aux = ~(~x | y) & z;
-            4'hc: aux = ~(~x & ~y) & ~z;
-            4'hd: aux = ~(x & ~y) & z;
-            4'he: aux = (~x | y) & ( ~y | ~z);
+            4'b1010: aux = x & (y | z);
+            4'b1011: aux = x & (y | z);
+            4'b1100: aux = x & (y | z);
+            4'b1101: aux = x & (y | z);
+            4'b1110: aux = x & (y | z);
+            default: aux = 0; // Valor padrão caso letra não seja 'a' a 'e
         endcase
     end
    assign s = aux;
@@ -25,8 +26,8 @@ endmodule // fxy
 // -- test_module
 // ---------------------
 module test_module;
-    
-    reg x, y, z; 
+ 
+    reg x, y, z;
     reg c1, c2;
     reg [3:0] letra;
     wire s;
@@ -43,27 +44,26 @@ module test_module;
     initial begin: main
       // identificacao
       $display("Test 0401");
-      letra = 4'ha; 
-      x=0; y=0; z=0;
-
+      letra = 4'h9; 
+      x=0; y=0; z=0; 
       // monitoramento
       $monitor("  %2b %2b %2b = %2b", x, y, z, s);
   
       // sinalizacao
       repeat (5) begin
-	$display("%x.)", letra);
+	letra = letra + 1;
+        $display("%x.)", letra);
         $display("   x  y  z =  s");
-	
+
+	#1 x=0; y=0; z=0;
         #1 x=0; y=0; z=1;
         #1 x=0; y=1; z=0;
         #1 x=0; y=1; z=1;
         #1 x=1; y=0; z=0;
         #1 x=1; y=0; z=1;
         #1 x=1; y=1; z=0;
-	#1 x=1; y=1; z=1; 	
-	#1 letra = letra + 1;
-	#1 x=0; y=0; z=0;
-	$display("Aviso: Numero a mais, desconsiderar o ultimo número extra");
+        #1 x=1; y=1; z=1;
+	#1;
       end
      end// begin
  endmodule // test_module
