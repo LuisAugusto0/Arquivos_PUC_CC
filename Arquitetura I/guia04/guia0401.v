@@ -5,9 +5,8 @@ LUÍS AUGUSTO LIMA DE OLIVEIRA - 805413
 */
 
 // ---------------------
-// -- expressão
+// -- expressões
 // ---------------------
-
 module fxy (output s, input x, y, z, input [3:0] letra);
   reg aux;  
   always @(*) begin
@@ -22,6 +21,7 @@ module fxy (output s, input x, y, z, input [3:0] letra);
     end
    assign s = aux;
 endmodule // fxy
+
 // ---------------------
 // -- test_module
 // ---------------------
@@ -44,17 +44,18 @@ module test_module;
     initial begin: main
       // identificacao
       $display("Test 0401");
-   
+      letra = 4'h9; 
+      x=0; y=0; z=0; 
       // monitoramento
-      $display("  x   y   z  =  s");
       $monitor("  %2b %2b %2b = %2b", x, y, z, s);
   
       // sinalizacao
-      letra = 4'h9;
       repeat (5) begin
-        letra = letra + 1;
+	letra = letra + 1;
         $display("%x.)", letra);
-        #1 x=0; y=0; z=0;
+        $display("   x  y  z =  s");
+
+	#1 x=0; y=0; z=0;
         #1 x=0; y=0; z=1;
         #1 x=0; y=1; z=0;
         #1 x=0; y=1; z=1;
@@ -62,7 +63,7 @@ module test_module;
         #1 x=1; y=0; z=1;
         #1 x=1; y=1; z=0;
         #1 x=1; y=1; z=1;
-        #1 x=1'bx; y=1'bx; z=1'bx; 
+	#1;
       end
      end// begin
  endmodule // test_module
