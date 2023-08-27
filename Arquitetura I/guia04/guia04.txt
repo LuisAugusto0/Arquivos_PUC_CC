@@ -103,16 +103,21 @@
 
 02.) Simplificar as expressões abaixo pelas propriedades da álgebra de Boole.
  a.) x'.(x+y')' = x'.(x'+y)
-                 (x.x)' +  (x'.y)
+                 (x'.x') +  (x'.y)
+                    x'  + (x'.y)
  
- b.) (x'+y)'.z = (x+y').z
-                 (x.y) +  (y'+z)
+ b.)  (x'+y') + (x.y') = (x.y)' + (x.y')
+			 (x.y)'
+			
 
- c.) (x'.y')'.z' = (x.y).z'
+ c.) (x.y)' . (x'+y') = (x'+y') . (x'+y')
+                              x'+y'
 
- d.) (x.y')'.z = (x'.y).z
+ d.) (x.y)' + (x+y)' = (x.y)' + (x'.y')
+                            (x.y)'
  
- e.) (x'+y).(y'+z') = x'+z'
+ e.) (y+x)' . (y'+x') = (y'.x') . (y'+x')
+                             (y'.x')
 
 03.)
  a.) f (x,y,z) = ∑ m ( 2, 3, 6, 7 )
