@@ -1,481 +1,93 @@
-#! /usr/bin/vvp
-:ivl_version "11.0 (stable)";
-:ivl_delay_selection "TYPICAL";
-:vpi_time_precision + 0;
-:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
-:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
-:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
-:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
-:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
-S_0x5644e2a534c0 .scope module, "test_module" "test_module" 2 39;
- .timescale 0 0;
-v0x5644e2a79e00_0 .var "letra", 3 0;
-v0x5644e2a79ea0_0 .net "s", 0 0, L_0x5644e2a45570;  1 drivers
-v0x5644e2a79f40_0 .var "w", 0 0;
-v0x5644e2a79fe0_0 .var "x", 0 0;
-v0x5644e2a7a0b0_0 .var "y", 0 0;
-v0x5644e2a7a1a0_0 .var "z", 0 0;
-S_0x5644e2a53650 .scope module, "FXY1" "fxy" 2 47, 2 10 0, S_0x5644e2a534c0;
- .timescale 0 0;
-    .port_info 0 /OUTPUT 1 "s";
-    .port_info 1 /INPUT 1 "x";
-    .port_info 2 /INPUT 1 "y";
-    .port_info 3 /INPUT 1 "w";
-    .port_info 4 /INPUT 1 "z";
-    .port_info 5 /INPUT 4 "letra";
-L_0x5644e2a45570 .functor BUFZ 1, v0x5644e2a458e0_0, C4<0>, C4<0>, C4<0>;
-v0x5644e2a458e0_0 .var "aux", 0 0;
-v0x5644e2a79490_0 .net "letra", 3 0, v0x5644e2a79e00_0;  1 drivers
-v0x5644e2a79570_0 .net "s", 0 0, L_0x5644e2a45570;  alias, 1 drivers
-v0x5644e2a79610_0 .net "w", 0 0, v0x5644e2a79f40_0;  1 drivers
-v0x5644e2a796d0_0 .net "x", 0 0, v0x5644e2a79fe0_0;  1 drivers
-v0x5644e2a797e0_0 .net "y", 0 0, v0x5644e2a7a0b0_0;  1 drivers
-v0x5644e2a798a0_0 .net "z", 0 0, v0x5644e2a7a1a0_0;  1 drivers
-E_0x5644e2a14aa0/0 .event edge, v0x5644e2a79490_0, v0x5644e2a796d0_0, v0x5644e2a797e0_0, v0x5644e2a798a0_0;
-E_0x5644e2a14aa0/1 .event edge, v0x5644e2a79610_0;
-E_0x5644e2a14aa0 .event/or E_0x5644e2a14aa0/0, E_0x5644e2a14aa0/1;
-S_0x5644e2a79a20 .scope begin, "main" "main" 2 55, 2 55 0, S_0x5644e2a534c0;
- .timescale 0 0;
-S_0x5644e2a79c20 .scope begin, "start" "start" 2 50, 2 50 0, S_0x5644e2a534c0;
- .timescale 0 0;
-    .scope S_0x5644e2a53650;
-T_0 ;
-    %wait E_0x5644e2a14aa0;
-    %load/vec4 v0x5644e2a79490_0;
-    %dup/vec4;
-    %pushi/vec4 12, 0, 4;
-    %cmp/u;
-    %jmp/1 T_0.0, 6;
-    %dup/vec4;
-    %pushi/vec4 13, 0, 4;
-    %cmp/u;
-    %jmp/1 T_0.1, 6;
-    %dup/vec4;
-    %pushi/vec4 14, 0, 4;
-    %cmp/u;
-    %jmp/1 T_0.2, 6;
-    %jmp T_0.3;
-T_0.0 ;
-    %load/vec4 v0x5644e2a796d0_0;
-    %inv;
-    %load/vec4 v0x5644e2a797e0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a796d0_0;
-    %inv;
-    %load/vec4 v0x5644e2a797e0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %inv;
-    %load/vec4 v0x5644e2a797e0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %inv;
-    %load/vec4 v0x5644e2a797e0_0;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %inv;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %load/vec4 v0x5644e2a797e0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %load/vec4 v0x5644e2a797e0_0;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %inv;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %load/vec4 v0x5644e2a797e0_0;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %and;
-    %or;
-    %store/vec4 v0x5644e2a458e0_0, 0, 1;
-    %jmp T_0.3;
-T_0.1 ;
-    %load/vec4 v0x5644e2a796d0_0;
-    %inv;
-    %load/vec4 v0x5644e2a797e0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %and;
-    %load/vec4 v0x5644e2a796d0_0;
-    %inv;
-    %load/vec4 v0x5644e2a797e0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %inv;
-    %load/vec4 v0x5644e2a797e0_0;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %inv;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %inv;
-    %load/vec4 v0x5644e2a797e0_0;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %inv;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %load/vec4 v0x5644e2a797e0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %load/vec4 v0x5644e2a797e0_0;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %inv;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %load/vec4 v0x5644e2a797e0_0;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %and;
-    %or;
-    %store/vec4 v0x5644e2a458e0_0, 0, 1;
-    %jmp T_0.3;
-T_0.2 ;
-    %load/vec4 v0x5644e2a796d0_0;
-    %inv;
-    %load/vec4 v0x5644e2a797e0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a796d0_0;
-    %inv;
-    %load/vec4 v0x5644e2a797e0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %inv;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %inv;
-    %load/vec4 v0x5644e2a797e0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %inv;
-    %load/vec4 v0x5644e2a797e0_0;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %load/vec4 v0x5644e2a797e0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %inv;
-    %and;
-    %or;
-    %load/vec4 v0x5644e2a796d0_0;
-    %load/vec4 v0x5644e2a797e0_0;
-    %and;
-    %load/vec4 v0x5644e2a798a0_0;
-    %inv;
-    %and;
-    %load/vec4 v0x5644e2a79610_0;
-    %and;
-    %or;
-    %store/vec4 v0x5644e2a458e0_0, 0, 1;
-    %jmp T_0.3;
-T_0.3 ;
-    %pop/vec4 1;
-    %jmp T_0;
-    .thread T_0, $push;
-    .scope S_0x5644e2a534c0;
-T_1 ;
-    %fork t_1, S_0x5644e2a79c20;
-    %jmp t_0;
-    .scope S_0x5644e2a79c20;
-t_1 ;
-    %pushi/vec4 1, 1, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 1, 1, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 1, 1, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %pushi/vec4 15, 15, 4;
-    %store/vec4 v0x5644e2a79e00_0, 0, 4;
-    %end;
-    .scope S_0x5644e2a534c0;
-t_0 %join;
-    %end;
-    .thread T_1;
-    .scope S_0x5644e2a534c0;
-T_2 ;
-    %fork t_3, S_0x5644e2a79a20;
-    %jmp t_2;
-    .scope S_0x5644e2a79a20;
-t_3 ;
-    %vpi_call 2 57 "$display", "Test 0401" {0 0 0};
-    %pushi/vec4 12, 0, 4;
-    %store/vec4 v0x5644e2a79e00_0, 0, 4;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %vpi_call 2 62 "$monitor", "  %2b %2b %2b %2b = %2b", v0x5644e2a79fe0_0, v0x5644e2a7a0b0_0, v0x5644e2a79f40_0, v0x5644e2a7a1a0_0, v0x5644e2a79ea0_0 {0 0 0};
-    %pushi/vec4 3, 0, 32;
-T_2.0 %dup/vec4;
-    %pushi/vec4 0, 0, 32;
-    %cmp/s;
-    %jmp/1xz T_2.1, 5;
-    %jmp/1 T_2.1, 4;
-    %pushi/vec4 1, 0, 32;
-    %sub;
-    %vpi_call 2 66 "$display", "%x.)", v0x5644e2a79e00_0 {0 0 0};
-    %vpi_call 2 67 "$display", "   x  y  w  z =  s" {0 0 0};
-    %delay 1, 0;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %delay 1, 0;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79fe0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a0b0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a79f40_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x5644e2a7a1a0_0, 0, 1;
-    %load/vec4 v0x5644e2a79e00_0;
-    %addi 1, 0, 4;
-    %store/vec4 v0x5644e2a79e00_0, 0, 4;
-    %jmp T_2.0;
-T_2.1 ;
-    %pop/vec4 1;
-    %vpi_call 2 87 "$display", "Aviso: Numero a mais, desconsiderar o ultimo n\303\272mero extra" {0 0 0};
-    %end;
-    .scope S_0x5644e2a534c0;
-t_2 %join;
-    %end;
-    .thread T_2;
-# The file index is used to find the file name in the following table.
-:file_names 3;
-    "N/A";
-    "<interactive>";
-    "guia0403_cde.v";
+
+/*
+Guia_0401.v
+LUÍS AUGUSTO LIMA DE OLIVEIRA - 805413
+*/
+
+// ---------------------
+// -- expressões
+// ---------------------
+module fxy (output s, input x, y, w, z, input [3:0] letra);
+  reg aux;  
+  always @(*) begin
+        case (letra) 
+            4'hc: aux =     (~x & ~y & ~w & z) |
+    (~x & ~y & w & z) |
+    (~x & y & ~w & ~z) |
+    (~x & y & w & ~z) |
+    (x & ~y & ~w & z) |
+    (x & ~y & w & ~z) |
+    (x & y & w & z);
+    
+            4'hd: aux =    (~x & ~y & ~w & z) |
+    (~x & ~y & w & ~z) |
+    (~x & y & ~w & z) |
+    (~x & y & w & ~z) |
+    (x & ~y & ~w & ~z) |
+    (x & ~y & w & ~z) |
+    (x & y & ~w & ~z);
+    
+            4'he:     (~x & ~y & ~w & ~z) |
+    (~x & ~y & w & ~z) |
+    (~x & ~y & w & z) |
+    (~x & y & w & z) |
+    (x & ~y & ~w & ~z) |
+    (x & y & ~w & z);
+        endcase
+    end
+   assign s = aux;
+endmodule // fxy
+
+// ---------------------
+// -- test_module
+// ---------------------
+module test_module;
+    
+    reg x, y, w, z; 
+    reg c1, c2;
+    reg [3:0] letra;
+    wire s;
+
+    // instancias
+    fxy FXY1 (s, x, y, w, z, letra);
+ 
+    // valores iniciais
+    initial begin: start
+      x=1'bx; y=1'bx; z=1'bx; letra=4'bxxxx; // indefinidos
+    end
+
+    // parte principal
+    initial begin: main
+      // identificacao
+      $display("Test 0401");
+      letra = 4'hc; 
+      x=0; y=0; w=0; z=0;
+
+      // monitoramento
+      $monitor("  %2b %2b %2b %2b = %2b", x, y, w, z, s);
+  
+      // sinalizacao
+      repeat (3) begin
+	$display("%x.)", letra);
+        $display("   x  y  w  z =  s");
+	
+	#1 x=0; y=0; w=0; z=1;
+	#1 x=0; y=0; w=1; z=0;
+	#1 x=0; y=0; w=1; z=1;
+	#1 x=0; y=1; w=0; z=0;
+	#1 x=0; y=1; w=0; z=1;
+	#1 x=0; y=1; w=1; z=0;
+	#1 x=0; y=1; w=1; z=1;
+	#1 x=1; y=0; w=0; z=0;
+	#1 x=1; y=0; w=0; z=1;
+	#1 x=1; y=0; w=1; z=0;
+	#1 x=1; y=0; w=1; z=1;
+	#1 x=1; y=1; w=0; z=0;
+	#1 x=1; y=1; w=0; z=1;
+	#1 x=1; y=1; w=1; z=0;
+	#1 x=1; y=1; w=1; z=1;
+	#1 x=0; y=0; w=0; z=0; letra = letra + 1;
+      end
+      $display("Aviso: Numero a mais, desconsiderar o ultimo número extra");
+     end// begin
+ endmodule // test_module
