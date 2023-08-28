@@ -1,6 +1,6 @@
 
 /*
-Guia_0403.v
+Guia_0405.v
 LUÍS AUGUSTO LIMA DE OLIVEIRA - 805413
 */
 
@@ -11,14 +11,8 @@ module fxy (output s, input x, y, z, input [3:0] letra);
   reg aux;  
   always @(*) begin
         case (letra) 
-            4'ha: aux = (~x | y | ~z) &
-    (~x | y | z) &
-    (x | ~y | ~z) &
-    (x | y | z);
-	    4'hb: aux =     (~x | ~y | z) &
-    (~x | y | ~z) &
-    (x | ~y | z) &
-    (x | y | z);
+            4'hc: aux =     (~x & ~y & ~z) | ~x & ~y & z) | (~x & y & z) | (x & ~y & z) | (x & y & z);
+	    4'hd: aux = (~x | ~y | z) & (x | ~y | z) & (x | y | ~z) & (x | y | z);
         endcase
     end
    assign s = aux;
@@ -46,7 +40,7 @@ module test_module;
     initial begin: main
       // identificacao
       $display("Test 0401");
-      letra = 4'ha; 
+      letra = 4'hc; 
       x=0; y=0; z=0;
 
       // monitoramento

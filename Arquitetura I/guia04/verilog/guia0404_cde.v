@@ -1,6 +1,6 @@
 
 /*
-Guia_0401.v
+Guia_0404_cd.v
 LUÍS AUGUSTO LIMA DE OLIVEIRA - 805413
 */
 
@@ -11,28 +11,30 @@ module fxy (output s, input x, y, w, z, input [3:0] letra);
   reg aux;  
   always @(*) begin
         case (letra) 
-            4'hc: aux =     (~x & ~y & ~w & z) |
-    (~x & ~y & w & z) |
-    (~x & y & ~w & ~z) |
-    (~x & y & w & ~z) |
-    (x & ~y & ~w & z) |
-    (x & ~y & w & ~z) |
-    (x & y & w & z);
+            4'hc: aux =     (~x | ~y | ~w | ~z) &
+    (~x | ~y | ~w | z) &
+    (~x | ~y | w | ~z) &
+    (~x | y | ~w | ~z) &
+    (~x | y | w | ~z) &
+    (x | ~y | ~w | ~z) &
+    (x | ~y | ~w | z); 
     
-            4'hd: aux =    (~x & ~y & ~w & z) |
-    (~x & ~y & w & ~z) |
-    (~x & y & ~w & z) |
-    (~x & y & w & ~z) |
-    (x & ~y & ~w & ~z) |
-    (x & ~y & w & ~z) |
-    (x & y & ~w & ~z);
+            4'hd: aux =    (~x | ~y | ~w | z) &
+    (~x | ~y | w | ~z) &
+    (~x | y | ~w | ~z) &
+    (~x | y | w | ~z) &
+    (x | ~y | ~w | z) &
+    (x | ~y | ~w | ~z) &
+    (x | ~y | w | z);
     
-            4'he:     (~x & ~y & ~w & ~z) |
-    (~x & ~y & w & ~z) |
-    (~x & ~y & w & z) |
-    (~x & y & w & z) |
-    (x & ~y & ~w & ~z) |
-    (x & y & ~w & z);
+            4'he: aux =        (~x | ~y | ~w | ~z) &
+    (~x | ~y | ~w | z) &
+    (~x | ~y | w | ~z) &
+    (~x | ~y | w | z) &
+    (~x | y | ~w | z) &
+    (x | ~y | w | z) &
+    (x | y | w | z);
+    
         endcase
     end
    assign s = aux;
