@@ -29,5 +29,6 @@ class criarCopia{
 		finally{
 			MyIO.println("Fim do código");
 		}
+		//teste
 	}
 }
