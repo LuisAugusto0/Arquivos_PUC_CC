@@ -27,9 +27,8 @@ int main (void) {
 
 	//leitura de dados e verificar tam do array	
 	fgets(frase, 400, stdin);
-	//frase[strcspn(frase, "\n\r")] = '\0';
+	
 	tam = strlen(frase)-1;
-
 	//executar enquanto a variável frase não tiver um tamanho de 3 caracteres e que seja diferente de FIM.
 	while(tam != 3 || frase[0]!='F' || frase[1]!='I' || frase[2]!='M'){
 		bool palindromo = ehPalindromo(frase, tam);
