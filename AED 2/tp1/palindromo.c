@@ -12,7 +12,14 @@ bool ehPalindromo(char frase[], int tam){
 				pos=tam;
 			}
 			pos++;
-		} else if(frase[pos] != frase[tam-pos-1]){
+                } else if((int)frase[pos] == -17){
+                       if(frase[tam-pos-1] != frase[pos+2]){
+                                palindromo=false;
+                                pos=tam;
+                       }
+                       pos+=2;
+                }
+                else if(frase[pos] != frase[tam-pos-1]){
 			palindromo = false;
 			pos = tam;
 		}
