@@ -1,16 +1,18 @@
-class Testes{
+class Ls{
 
 	static boolean ehVogal(char teste){
         teste = Character.toLowerCase(teste);
 		return ( (teste=='a' || teste=='e' || teste=='i' || teste=='o' || teste == 'u') );
 	}	 
+    static boolean ehNum(char teste){
+         return teste>47 && teste<58;
+    }
     static boolean ehConsoante(char teste){
         teste = Character.toLowerCase(teste);
-        return ( !(teste=='a' || teste=='e' || teste=='i' || teste=='o' || teste == 'u') && !ehNum(teste) );
+        return ( !ehVogal(teste) && (teste>='a' && teste<='z') );
     }
-    static boolean ehNum(char teste){
-        return teste>47 && teste<58;
-    }
+
+
 	static boolean apenasVogais(String teste){
 		boolean verdadeiro = true;
 		for(int i=0; i<teste.length(); i++){
