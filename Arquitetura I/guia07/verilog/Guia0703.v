@@ -93,7 +93,7 @@ module test_f7;
     begin : main
         $display("Guia_0701 - Luís Augusto Lima de Oliveira - 805413");
         $display("Test LU's module");
-        $display("\nPrevisão - ( ((x+y).s') + (~(x+y).s) ).Sgrupo' + ( ((x.y).s') + (~(x.y).s) ).Sgrupo \n\t - Para Sgrupo=0 e s=0 SoP(1,2,3) OR\n\t - Para Sgrupo=0 e s=1 SoP(0) NOR\n\t - Para Sgrupo=1 e s=0 SoP(3) AND \n\t - Para Sgrupo=1 e s=1 SoP(0,1,2)  NAND\n");
+        $display("\nPrevisão - ( ((x+y).s') + (~(x+y).s) ).Sgrupo' + ( ((x.y).s') + (~(x.y).s) ).Sgrupo \n\t - Para S=0 e Sgrupo=0   SoP(x,y) = m(1,2,3)\t OR\n\t - Para S=1 e Sgrupo=0   SoP(x,y) = m(0)\t NOR\n\t - Para S=0 e Sgrupo=1   SoP(x,y) = m(3)\t AND \n\t - Para S=1 e Sgrupo=1   SoP(x,y) = m(0,1,2)\t NAND\n");
         
         $display("-------------------------------------------------------------------------------------");
         $display("|   Entradas   |    Seleção        |          Saídas padrão          |   Saída MUX  |");

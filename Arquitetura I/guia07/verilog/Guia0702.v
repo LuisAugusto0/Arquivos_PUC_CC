@@ -53,7 +53,7 @@ module test_f7;
     begin : main
         $display("Guia_0701 - Luís Augusto Lima de Oliveira - 805413");
         $display("Test LU's module");
-        $display("\nPrevisão - ((x+y).s') + (~(x+y).s) \n\t - Para s=1 SoP(1,2,3) \n\t - Para s=0 SoP(0)\n");
+        $display("\nPrevisão - ((x+y).s') + (~(x+y).s) \n\t - Para s=1 SoP(x,y) = m(1,2,3) \n\t - Para s=0 SoP(x,y) = m(0)\n");
         
         $display("-------------------------------------------------------------------");
         $display("|   Entradas   |    Seleção   |   Saídas padrão    |   Saída MUX  |");
