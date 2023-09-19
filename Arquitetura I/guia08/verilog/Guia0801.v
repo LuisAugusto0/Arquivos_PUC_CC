@@ -84,7 +84,7 @@ module test_fullAdder;
             end
         end
  
-        #1 a=0; b=0; First_carryIn=0;
+        #1 a=0; b=0; First_carryIn=1;
         fim_repet=0;
         while (fim_repet==0) begin
              while (b<63) begin
