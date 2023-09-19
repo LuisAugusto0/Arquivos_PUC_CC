@@ -49,18 +49,55 @@ endmodule //operations
 
 module test_fullAdder;
     // ------------------------- definir dados
-    reg [5:0] a;
+    reg [6:0] a;
     reg [5:0] b;
+    reg First_carryIn;
+    reg fim_repet;
     wire [6:0] carry; // “vai-um”
     wire [6:0] s;
-
+    
+    assign carry[0] = First_carryIn;
     // halfAdder HA0 ( carry, soma[0], x[0], y[0] );
-    fullAdder FA0 ( s, carry[6:1], a, b, carry[0] );
+    operations O1 ( s, carry[6:1], a[5:0], b[5:0], carry[0] );
     // ------------------------- parte principal
       
     initial begin
         $display("Guia_0800 - xxx yyy zzz - 999999");
-        $display("Test ALU’s full adder");
-        // projetar testes do somador completo
+        $display("Test ALU’s full adder\n");
+
+        $display("-------------------------------------------------------------------");
+        $display("|      vai-um     +     a      +     b       |        soma        |");
+        #1 $monitor("|      %7b        %6b       %6b    |       %6b      |", carry, a[5:0], b[5:0], s);
+        #1 $display("-------------------------------------------------------------------");
+        #1 a=0; b=0; First_carryIn=0;
+        fim_repet=0;
+        while (fim_repet==0) begin
+            while (b<63) begin
+                #1 b++;
+            end
+            #1 $display("-------------------------------------------------------------------");
+            if(a<63) begin 
+                #1 a++; b=0;
+            end 
+            else begin 
+                #1 fim_repet=1;
+            end
+        end
+ 
+        #1 a=0; b=0; First_carryIn=0;
+        fim_repet=0;
+        while (fim_repet==0) begin
+             while (b<63) begin
+                 #1 b++;
+             end
+             #1 $display("-------------------------------------------------------------------");
+             if(a<63) begin
+                 #1 a++; b=0;
+             end
+             else begin
+                 #1 fim_repet=1;
+             end
+         end
+
     end
 endmodule // test_fullAdder
