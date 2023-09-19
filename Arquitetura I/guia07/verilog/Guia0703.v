@@ -1,5 +1,5 @@
 // -------------------------
-// Guia_0700 - GATES
+// Guia_0703 - GATES
 // Nome: Luís Augusto Lima de Oliveira
 // Matricula: 805413
 
@@ -91,7 +91,7 @@ module test_f7;
     
     initial
     begin : main
-        $display("Guia_0701 - Luís Augusto Lima de Oliveira - 805413");
+        $display("Guia_0703 - Luís Augusto Lima de Oliveira - 805413");
         $display("Test LU's module");
         $display("\nPrevisão - ( ((x+y).s') + (~(x+y).s) ).Sgrupo' + ( ((x.y).s') + (~(x.y).s) ).Sgrupo \n\t - Para S=0 e Sgrupo=0   SoP(x,y) = m(1,2,3)\t OR\n\t - Para S=1 e Sgrupo=0   SoP(x,y) = m(0)\t NOR\n\t - Para S=0 e Sgrupo=1   SoP(x,y) = m(3)\t AND \n\t - Para S=1 e Sgrupo=1   SoP(x,y) = m(0,1,2)\t NAND\n");
         
