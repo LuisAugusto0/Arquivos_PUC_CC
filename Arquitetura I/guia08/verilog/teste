@@ -1,0 +1,62 @@
+#! /usr/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+S_0x55a851ddb350 .scope module, "halfAdder" "halfAdder" 2 10;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "s0";
+    .port_info 1 /OUTPUT 1 "s1";
+    .port_info 2 /INPUT 1 "a";
+    .port_info 3 /INPUT 1 "b";
+o0x7f76e37cf018 .functor BUFZ 1, C4<z>; HiZ drive
+o0x7f76e37cf048 .functor BUFZ 1, C4<z>; HiZ drive
+L_0x55a851e28eb0 .functor XOR 1, o0x7f76e37cf018, o0x7f76e37cf048, C4<0>, C4<0>;
+L_0x55a851e28fb0 .functor AND 1, o0x7f76e37cf018, o0x7f76e37cf048, C4<1>, C4<1>;
+v0x55a851ddb0f0_0 .net "a", 0 0, o0x7f76e37cf018;  0 drivers
+v0x55a851ddd000_0 .net "b", 0 0, o0x7f76e37cf048;  0 drivers
+v0x55a851e01fc0_0 .net "s0", 0 0, L_0x55a851e28eb0;  1 drivers
+v0x55a851e27e80_0 .net "s1", 0 0, L_0x55a851e28fb0;  1 drivers
+S_0x55a851e16200 .scope module, "test_fullAdder" "test_fullAdder" 2 25;
+ .timescale 0 0;
+v0x55a851e28b30_0 .var "a", 5 0;
+v0x55a851e28c10_0 .var "b", 5 0;
+o0x7f76e37cf2e8 .functor BUFZ 7, C4<zzzzzzz>; HiZ drive
+v0x55a851e28ce0_0 .net "carry", 6 0, o0x7f76e37cf2e8;  0 drivers
+v0x55a851e28de0_0 .net "s", 6 0, L_0x55a851e29400;  1 drivers
+S_0x55a851e27ff0 .scope module, "FA0" "fullAdder" 2 33, 2 18 0, S_0x55a851e16200;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 7 "s";
+    .port_info 1 /INPUT 6 "a";
+    .port_info 2 /INPUT 6 "b";
+    .port_info 3 /INPUT 7 "carryIn";
+L_0x55a851e290a0 .functor NOT 1, L_0x55a851e29110, C4<0>, C4<0>, C4<0>;
+L_0x55a851e29250 .functor NOT 1, L_0x55a851e292c0, C4<0>, C4<0>, C4<0>;
+v0x55a851e28210_0 .net *"_ivl_0", 0 0, L_0x55a851e290a0;  1 drivers
+o0x7f76e37cf1c8 .functor BUFZ 5, C4<zzzzz>; HiZ drive
+; Elide local net with no drivers, v0x55a851e28310_0 name=_ivl_10
+v0x55a851e283f0_0 .net *"_ivl_3", 0 0, L_0x55a851e29110;  1 drivers
+v0x55a851e284e0_0 .net *"_ivl_4", 0 0, L_0x55a851e29250;  1 drivers
+v0x55a851e285c0_0 .net *"_ivl_7", 0 0, L_0x55a851e292c0;  1 drivers
+v0x55a851e286a0_0 .net "a", 5 0, v0x55a851e28b30_0;  1 drivers
+v0x55a851e28780_0 .net "b", 5 0, v0x55a851e28c10_0;  1 drivers
+v0x55a851e28860_0 .net "carryIn", 6 0, o0x7f76e37cf2e8;  alias, 0 drivers
+v0x55a851e28940_0 .net "s", 6 0, L_0x55a851e29400;  alias, 1 drivers
+L_0x55a851e29110 .part v0x55a851e28b30_0, 0, 1;
+L_0x55a851e292c0 .part v0x55a851e28c10_0, 0, 1;
+L_0x55a851e29400 .concat [ 1 1 5 0], L_0x55a851e29250, L_0x55a851e290a0, o0x7f76e37cf1c8;
+    .scope S_0x55a851e16200;
+T_0 ;
+    %vpi_call 2 37 "$display", "Guia_0800 - xxx yyy zzz - 999999" {0 0 0};
+    %vpi_call 2 38 "$display", "Test ALU\342\200\231s full adder" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "Guia0801.v";
