@@ -36,47 +36,47 @@ endmodule // fullAdder
 // Operations
 // -------------------------
 
-module operations ( output [6:0] s, output [6:1] carryIn, input [5:0] a, input [5:0] b, input First_carryIn );
+module operations ( output [5:0] s, output [5:1] carryIn, input [4:0] a, input [4:0] b, input First_carryIn );
    fullAdder FA1 (s[0], carryIn[1], a[0], b[0], First_carryIn);
    fullAdder FA2 (s[1], carryIn[2], a[1], b[1], carryIn[1]);
    fullAdder FA3 (s[2], carryIn[3], a[2], b[2], carryIn[2]);
    fullAdder FA4 (s[3], carryIn[4], a[3], b[3], carryIn[3]);
    fullAdder FA5 (s[4], carryIn[5], a[4], b[4], carryIn[4]);
-   fullAdder FA6 (s[5], carryIn[6], a[5], b[5], carryIn[5]);
-   assign s[6] = carryIn[6];
+   assign s[5] = carryIn[5];
 endmodule //operations
 
 
 module test_fullAdder;
     // ------------------------- definir dados
-    reg [6:0] a;
-    reg [5:0] b;
+    reg [5:0] a;
+    reg [4:0] b;
     reg First_carryIn;
     reg fim_repet;
-    wire [6:0] carry; // “vai-um”
-    wire [6:0] s;
+    wire [5:0] carry; // “vai-um”
+    wire [5:0] s;
     
     assign carry[0] = First_carryIn;
+    
     // halfAdder HA0 ( carry, soma[0], x[0], y[0] );
-    operations O1 ( s, carry[6:1], a[5:0], b[5:0], carry[0] );
+    operations O1 ( s, carry[5:1], a[4:0], b[4:0], carry[0] );
     // ------------------------- parte principal
       
     initial begin
         $display("Guia_0800 - xxx yyy zzz - 999999");
         $display("Test ALU’s full adder\n");
 
-        $display("-------------------------------------------------------------------");
-        $display("|      vai-um     +     a      +     b       |        soma        |");
-        #1 $monitor("|      %7b        %6b       %6b    |       %6b      |", carry, a[5:0], b[5:0], s);
-        #1 $display("-------------------------------------------------------------------");
+        $display("---------------------------------------------------------------");
+        $display("|      vai-um    +     a     +     b      |        soma       |");
+        #1 $monitor("|      %6b        %5b       %5b    |       %5b      |", carry, a[4:0], b[4:0], s);
+        #1 $display("---------------------------------------------------------------");
         #1 a=0; b=0; First_carryIn=0;
         fim_repet=0;
         while (fim_repet==0) begin
-            while (b<63) begin
+            while (b<5'b11111) begin
                 #1 b++;
             end
-            #1 $display("-------------------------------------------------------------------");
-            if(a<63) begin 
+            #1 $display("---------------------------------------------------------------");
+            if(a<5'b11111) begin 
                 #1 a++; b=0;
             end 
             else begin 
@@ -87,11 +87,11 @@ module test_fullAdder;
         #1 a=0; b=0; First_carryIn=1;
         fim_repet=0;
         while (fim_repet==0) begin
-             while (b<63) begin
+             while (b<5'b11111) begin
                  #1 b++;
              end
-             #1 $display("-------------------------------------------------------------------");
-             if(a<63) begin
+             #1 $display("---------------------------------------------------------------");
+             if(a<5'b11111) begin
                  #1 a++; b=0;
              end
              else begin
