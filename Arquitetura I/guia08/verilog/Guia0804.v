@@ -8,7 +8,7 @@
 // -------------------------
 module equals (output s, input a, input b);
     // descrever por portas
-    xnor XNOR1 ( s, a, b );
+    xor XNOR1 ( s, a, b );
 endmodule
 
 // -------------------------
@@ -40,7 +40,7 @@ module test_fullAdder;
         $display("Test ALU’s full adder\n");
 
         $display("------------------------------------------------");
-        $display("|        a     +     b      |     igualdade    |");
+        $display("|        a     +     b      |   desigualdade   |");
         #1 $monitor("|      %5b       %5b    |       %5b      |", a[4:0], b[4:0], s);
         #1 $display("------------------------------------------------");
         #1 a=0; b=0;
