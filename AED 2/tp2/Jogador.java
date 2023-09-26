@@ -15,11 +15,13 @@ class Jogador{
     private String estadoNascimento;
     
     Jogador(){
-
+        
     }
 
     Jogador(int id, String nome, int altura, int peso, String universidade, int anoNascimento, String cidadeNascimento, String estadoNascimento){
-
+        setId(id);
+        setNome(nome);
+        setAltura(altura);
     }
 
     //metodos set
@@ -36,16 +38,29 @@ class Jogador{
         this.peso = peso;
     }
     void setUniversidade(String universidade){
-        this.universidade = universidade;
+       if(universidade == ""){
+            this.estadoNascimento = "nao informado";
+        } else {
+            this.universidade = universidade;
+        }
     }
+    
     void setAnoNascimento(int ano){
         this.anoNascimento = ano;
     }
     void setCidadeNascimento(String cidade){
-        this.cidadeNascimento = cidade;
+        if(cidade == ""){
+            this.estadoNascimento = "nao informado";
+        } else {
+            this.cidadeNascimento = cidade;
+        }
     }
     void setEstadoNascimento(String estado){
-        this.estadoNascimento = estado;
+        if(estado == ""){
+            this.estadoNascimento = "nao informado";
+        } else {
+            this.estadoNascimento = estado;
+        }
     }
 
     //metodos get
@@ -75,15 +90,26 @@ class Jogador{
     }
 
     //metodo de leitura
-    void ler(){
+    Jogador[] ler(){
         try{
             File file = new File("/tmp/players.csv");
             Scanner arq = new Scanner(file);
-            arq.nextLine();
+
+            Jogador[] conjunto;
+            int cont = 0;
+
+            arq.nextLine(); //pular primeira linha das informações das colunas
+
             while(arq.hasNextLine()){
                 String aux = arq.nextLine();
                 String[] splitted = aux.split(",");
-                setId()
+                for(int i=0; i<8; i++){
+                    if(splitted[i] == ""){
+                        splitted[i] = "nao informado";
+                    }
+                }
+                
+                conjunto[cont] = new Jogador()
             }
         } catch(IOException e){
                 
