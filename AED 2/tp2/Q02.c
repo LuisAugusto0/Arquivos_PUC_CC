@@ -5,7 +5,7 @@
 
 #define TAM 100
 
-struct jogador{
+struct Jogador{
     int id;
     char nome[TAM];
     int peso;
@@ -13,29 +13,45 @@ struct jogador{
     int anoNascimento;
     char cidadeNascimento[TAM];
     char estadoNascimento[TAM];
-} jogadorLido;
-typedef struct jogador jogador;
+};
+typedef struct Jogador Jogador;
 
-void setId(int id){
+void setId(int id, Jogador jogadorLido){
     jogadorLido.id = id;
 }
-void setNome(char nome[]){
-    strcpy(jogadorLido.nome, nome);
+void setNome(char nome[], Jogador jogadorLido){
+    if(strcmp(nome, "")){
+        strcpy(jogadorLido.nome, "nao informado");
+    } else {
+        strcpy(jogadorLido.nome, nome);
+    }
 }
-void setPeso(int peso){
+void setPeso(int peso, Jogador jogadorLido){
     jogadorLido.peso = peso; 
 }
-void setUniversidade(char universidade[]){
-    strcpy(jogadorLido.universidade, universidade);
+void setUniversidade(char universidade[], Jogador jogadorLido){
+    if(strcmp(universidade, "")){
+           strcpy(jogadorLido.universidade, "nao informado");
+    } else {
+           strcpy(jogadorLido.universidade, universidade);
+    }
 }
-void setAnoNasciemnto(int anoNascimento){
+void setAnoNasciemnto(int anoNascimento, Jogador jogadorLido){
     jogadorLido.anoNascimento = anoNascimento;
 }
-void setCidadeNascimento(char cidadeNascimento[]){
-    strcpy(jogadorLido.cidadeNascimento, cidadeNascimento);
+void setCidadeNascimento(char cidadeNascimento[], Jogador jogadorLido){
+    if(strcmp(cidadeNascimento, "")){
+        strcpy(jogadorLido.cidadeNascimento, "nao informado");
+    } else {
+        strcpy(jogadorLido.cidadeNascimento, cidadeNascimento);
+    }
 }
-void setEstadoNascimento(char estadoNascimento[]){
-    strcpy(jogadorLido.estadoNascimento, estadoNascimento);    
+void setEstadoNascimento(char estadoNascimento[], Jogador jogadorLido){
+    if(strcmp(estadoNascimento, "")){
+        strcpy(jogadorLido.estadoNascimento, "nao informado");
+    } else {
+        strcpy(jogadorLido.nome, nome);
+    }
 }
 
 void corrigirArray(char array[]){
@@ -52,17 +68,21 @@ int toInt(char valor[]){
     tam = strlen(valor);
     
     while(tam >=0){
-        valorFinal += valor[tam--] * pow(10, expoente++);
-    }
-    
-
-    return tam;
+        valorFinal += (valor[tam--] - (int)'0') * pow(10, expoente++);
+    }    
+    return valorFinal;
 }
+
+void 
+void lerJogador(){
+
+}
+
 int main() {
     char id[5];
     scanf("%s", id);
-    while(!strcmp(id, "FIM")){
-        
+    while(!strcmp(id, "FIM")){ 
         scanf("%s", id);
+
     }
 }
