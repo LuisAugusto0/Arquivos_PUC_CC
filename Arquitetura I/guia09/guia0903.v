@@ -1,6 +1,9 @@
- // ---------------------------
- // -- test clock generator (3)
- // ---------------------------
+// -------------------------
+// Guia_0903
+// Nome: Luís Augusto Lima de Oliveira
+// Matricula: 805413
+// -------------------------
+
  `include "clock.v"
  
  module pulse1 ( signal, clock );

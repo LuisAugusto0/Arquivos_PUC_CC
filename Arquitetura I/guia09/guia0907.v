@@ -1,5 +1,5 @@
 // -------------------------
-// Guia_0904
+// Guia_0907
 // Nome: Luís Augusto Lima de Oliveira
 // Matricula: 805413
 // -------------------------
@@ -15,20 +15,19 @@ module pulse1 ( signal, clock );
     initial signal = 1'b0;
     always @(clock) begin
         signal = ~signal;
-        repeat (3) #3 signal = ~signal;
+        #5 signal = ~signal;
     end
 endmodule // pulse1
  
-module Guia_0904;
+module Guia_0907;
     wire clock;
     clock clk ( clock );
     wire p1;
     pulse1 pls1 ( p1, clock );
-    
+
     initial begin
-        $dumpfile ( "Guia_0904.vcd" );
+        $dumpfile ( "Guia_0907.vcd" );
         $dumpvars ( 1, clock, p1);
         #480 $finish;
     end
-endmodule // Guia_0904
-
+endmodule // Guia_0907

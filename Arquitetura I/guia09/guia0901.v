@@ -1,6 +1,9 @@
-// ---------------------------
-// -- test clock generator (2)
-// ---------------------------
+// -------------------------
+// Guia_0901
+// Nome: Luís Augusto Lima de Oliveira
+// Matricula: 805413
+// -------------------------
+
 module clock(output clk);
     reg clk;
 
