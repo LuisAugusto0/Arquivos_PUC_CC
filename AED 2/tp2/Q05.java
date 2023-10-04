@@ -127,7 +127,7 @@ class Jogador{
         return splitted;
     }
     //metodo de leitura
-    public void ler(int id){
+    public void ler(int id) throws NumberFormatException{
         try{
             File file = new File("/tmp/players.csv");
             BufferedReader arq = new BufferedReader( new FileReader(file) );
@@ -148,8 +148,6 @@ class Jogador{
         } catch(IOException e){
             MyIO.println("Um erro ocorreu.");
             e.printStackTrace();
-        } catch(NumberFormatException e){
-            MyIO.println("Id invalido");
         }
     }
     
@@ -167,11 +165,79 @@ class Jogador{
 
 
 
-class Q03{
+class Q05{
+    private static int qtdeComp = 0, qtdeTroca = 0;
     private static Jogador[] aumentarArray(Jogador[] escolha, int tam){
         Jogador[] temp = new Jogador[tam+1];
         for(int i=0; i < (tam); i++){
             temp[i] = escolha[i];
         }
         temp[tam] = new Jogador();
-        r
+        return temp;
+    }
+
+    private static Jogador[] selecao(Jogador[] aJogador, int qtdeJogador){
+        for(int i=0; i<qtdeJogador; i++){
+            int posMenor = i;
+            for(int j=i+1; j<qtdeJogador; j++){
+                int pos=0;
+                String menor = aJogador[posMenor].getNome();
+                String comp = aJogador[j].getNome();
+
+                while( menor.length()-1 > pos && comp.length()-1 > pos && menor.charAt(pos) == comp.charAt(pos) ){
+                    qtdeComp+=3;
+                    pos++;
+                }
+                
+                if ( (int)menor.charAt(pos) > (int)comp.charAt(pos) ){
+                    posMenor=j;
+                }
+                qtdeComp+=4;
+            }
+            //swap
+            Jogador aux;
+            aux = aJogador[posMenor];
+            aJogador[posMenor] = aJogador[i];
+            aJogador[i] = aux;
+            
+            qtdeTroca += 3;
+        }
+        return aJogador;
+    }
+
+    public static void main(String[] args){
+        try{
+            int tam = 0;
+            Jogador[] aJogador = new Jogador[0];
+            String id;
+            String nomeLido;
+    
+            //ler id's e armazenar quantidade lida (tam) e Jogadores correspondentes
+            id = MyIO.readLine();
+            while(!id.equals("FIM")){
+                aJogador = aumentarArray(aJogador, tam);
+                aJogador[tam++].ler(Integer.valueOf(id));
+                id = MyIO.readLine();
+            }
+            
+            //Q05 - Organizar com seleção
+            long inicio = new Date().getTime();
+            aJogador = selecao(aJogador, tam);
+            long fim = new Date().getTime();
+            for(int i=0; i<tam; i++){
+                aJogador[i].imprimir();
+            }
+            File arq = new File("matrícula_selecao.txt");
+
+
+            FileWriter fw = new FileWriter(arq);
+            fw.write("805413\t" + "\t" + qtdeComp+ "\t" + qtdeTroca + "\t" + (fim-inicio)/1000.0);
+            fw.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }catch(NumberFormatException e){
+            MyIO.println("Id invalido");
+        }
+
+    }
+}

@@ -166,7 +166,6 @@ class Jogador{
 }
 
 
-
 class Q03{
     private static Jogador[] aumentarArray(Jogador[] escolha, int tam){
         Jogador[] temp = new Jogador[tam+1];
@@ -174,4 +173,52 @@ class Q03{
             temp[i] = escolha[i];
         }
         temp[tam] = new Jogador();
-        r
+        return temp;
+    }
+    
+    public static void main(String[] args){
+        try{
+            long inicio = new Date().getTime();
+
+            File arq = new File("matrícula_sequencial.txt");
+            long qtdeComp = 0;
+            int tam = 0;
+            Jogador[] aJogador = new Jogador[0];
+            String id;
+            String nomeLido;
+    
+            //ler id's e armazenar quantidade lida (tam) e Jogadores correspondentes
+            id = MyIO.readLine();
+            while(!id.equals("FIM")){
+                aJogador = aumentarArray(aJogador, tam);
+                aJogador[tam++].ler(Integer.valueOf(id));
+                id = MyIO.readLine();
+            }
+        
+            //ler nome e comparar com os armazenados. Print SIM se possui e NAO se nao possui.
+            nomeLido = MyIO.readLine();
+            while(!nomeLido.equals("FIM")){
+                boolean possui = false;
+                for(int i=0; i<tam; i++){
+                    if( (aJogador[i].getNome()).equals(nomeLido) ){
+                        possui = true;
+                           i = tam;
+                    }
+                    qtdeComp++;
+                }
+                if(possui)
+                    MyIO.println("SIM");
+                else
+                    MyIO.println("NAO");
+                nomeLido = MyIO.readLine();
+            }
+            
+            long fim = new Date().getTime();
+            FileWriter fw = new FileWriter(arq);
+            fw.write("805413\t" + (fim-inicio)/1000.0 + "\t" + qtdeComp);
+            fw.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+}

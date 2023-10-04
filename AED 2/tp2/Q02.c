@@ -59,26 +59,7 @@ void setEstadoNascimento(char estadoNascimento[], Jogador* jogadorLido){
     }
 }
 
-//função para tratar o \n se existente
-/*
-void corrigirArray(char array[]){
-    int i = 0; 
-    while(array[i] != '\0'){
-         if(array[i] == '\n')
-             array[i] = '\0';
-         i++;
-     }
-}
 
-
-int potencia(int base, int expoente){
-    int resultado = 1;
-    for (int i=0; i<expoente; i++){
-        resultado*=base;
-    }
-    return resultado;i
-}
-*/
 //função para transformar de string para int
 int toInt(char valor[]){
     int pos = 0, expoente = 0, valorFinal = 0;
