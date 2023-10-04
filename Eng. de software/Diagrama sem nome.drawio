@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-10-04T14:19:58.155Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.47" etag="DJe-CfBXTOEqj-YoMwET" version="21.8.0" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-04T14:27:16.558Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.47" etag="TNa2dWag-PtSS2a5P7PW" version="21.8.0" type="github">
   <diagram name="Página-1" id="hFGsxHaSRPx3BqDtj-ch">
     <mxGraphModel dx="1181" dy="685" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -11,13 +11,13 @@
           <mxGeometry x="100" y="350" width="30" height="60" as="geometry" />
         </mxCell>
         <mxCell id="rQBHs9v089_UBDKq0QUh-2" value="Registrar horas de trabalho" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="260" y="345" width="140" height="70" as="geometry" />
+          <mxGeometry x="240" y="345" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="rQBHs9v089_UBDKq0QUh-6" value="Gerente" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
           <mxGeometry x="590" y="570" width="30" height="60" as="geometry" />
         </mxCell>
         <mxCell id="rQBHs9v089_UBDKq0QUh-11" value="Gerar relatório" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="330" y="565" width="140" height="70" as="geometry" />
+          <mxGeometry x="240" y="565" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="rQBHs9v089_UBDKq0QUh-12" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;" edge="1" parent="1" source="rQBHs9v089_UBDKq0QUh-11" target="rQBHs9v089_UBDKq0QUh-6">
           <mxGeometry relative="1" as="geometry" />
@@ -26,6 +26,18 @@
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="140" y="638.24" as="sourcePoint" />
             <mxPoint x="247.77999999999997" y="531" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rQBHs9v089_UBDKq0QUh-16" value="Verificar relatório" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="500" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rQBHs9v089_UBDKq0QUh-17" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;" edge="1" parent="1" source="rQBHs9v089_UBDKq0QUh-16" target="rQBHs9v089_UBDKq0QUh-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rQBHs9v089_UBDKq0QUh-18" value="&amp;lt;&amp;lt;incllude&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" edge="1" parent="1" source="rQBHs9v089_UBDKq0QUh-16" target="rQBHs9v089_UBDKq0QUh-11">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="495" y="535" as="sourcePoint" />
+            <mxPoint x="470" y="350" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
