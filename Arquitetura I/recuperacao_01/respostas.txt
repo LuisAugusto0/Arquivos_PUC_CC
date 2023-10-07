@@ -1,0 +1,20 @@
+1.) Dado o mapa de Veitch-Karnaugh:
+    a) Expressão canônica para SoP(a,b,c,d)
+        (a'.b'.c.d)+(a'.b'.c.d')+(a'.b.c'.d')+(a'.b.c'.d)+(a.b.c'.d)+(a.b.c.d)+(a.b'.c.d)+(a.b'.c.d')
+
+    b) Expressão canônica para PoS(A,B,C,D)
+        (A+B+C+D).(A+B+C+D').(A+B'+C'+D').(A+B'+C'+D).(A'+B'+C+D).(A'+B'+C'+D).(A'+B+C+D).(A'+B+C+D')
+
+    c) Simplificação de mintermos por mapa de Veitch-Karnaugh
+        (a'.b.c')+(a.b.d)+(b'.c)
+
+    d) Simplificação de MAXTERMOS por mapa de Veitch-Karnaugh
+        (B+C).(A+B'+C').(A'+B'+D)
+
+    e) Expressão SoP equivalente com portas NAND (usar dupla negação)
+        ((a'.b.c)'.(a.b.d)'.(b'.c)')'
+
+    f) Expressão PoS equivalente com portas NOR (usar dupla negação)
+        ((B+C)'+(A+B'+C')'+(A'+B'+D)')'
+
+
