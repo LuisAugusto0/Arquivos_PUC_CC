@@ -17,4 +17,71 @@
     f) Expressão PoS equivalente com portas NOR (usar dupla negação)
         ((B+C)'+(A+B'+C')'+(A'+B'+D)')'
 
+2.) 
+  a  b  c =  s
+  0  0  0 =  0
+  0  0  1 =  0
+  0  1  0 =  0
+  0  1  1 =  0
+  1  0  0 =  1
+  1  0  1 =  1
+  1  1  0 =  1
+  1  1  1 =  0
 
+3.)
+ a.)
+  a  b =  s
+  0  0 =  0
+  0  1 =  1
+  1  0 =  0
+  1  1 =  0
+
+ b.) 
+  a  b  c =  s
+  0  0  0 =  0
+  0  0  1 =  1
+  0  1  0 =  1
+  0  1  1 =  0
+  1  0  0 =  0
+  1  0  1 =  1
+  1  1  0 =  1
+  1  1  1 =  0
+
+4.) Dado o valor negativo, em complemento de 2, 357(8) , com um byte de representação
+	a.) encontrar o positivo na base 2
+	 1 011101111  - valor negativo
+	 0 100001111  - valor positivo
+ 
+ 	b.) representar em um byte 4 vezes o valor do binário equivalente
+	 	 
+ 	 100001111
+ 	  x    100
+ 	 ----------
+        010000111100
+       
+         0 00111100 - valor final positivo
+         1 11000100 - valor final negativo
+
+ 	c.) representar em um byte o valor do binário equivalente dividido por 8
+ 	
+	 100001111 | 1000                      0 00100001 - valor positivo final
+	 1000      -------                     1 11011111 - valor negativo final
+	 ----      100001,111
+	 00000111 1
+	      1000
+	      ----
+              0111
+	  
+	
+  05.) Calcular a diferença, em binário, entre o hexadecimal C4 e o quaternário 1232 em um byte.
+  
+   0 1100 0100
+ + 1 1001 1111
+   -----------
+ 1 0 0110 0011
+ ^
+ |
+ overflow
+ 
+  0 01100011 - valor final
+ 
