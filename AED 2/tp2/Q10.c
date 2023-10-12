@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <time.h> 
 
-#define TAM 60
+#define TAM 100
 
 int comp;
 int mov;
@@ -64,6 +64,18 @@ void setEstadoNascimento(char estadoNascimento[], Jogador* jogadorLido){
     }
 }
 
+
+//função para transformar de string para int
+int toInt(char valor[]){
+    int pos = 0, expoente = 0, valorFinal = 0;
+    pos = strlen(valor)-1;
+    
+    while(pos >=0){
+        valorFinal += (valor[pos--] - (int)'0') * pow(10, expoente++);
+    }    
+    return valorFinal;
+}
+
 void split (char valLido[], char valFinal[], int virgulasPuladas){
     char aux;
     int posL = 0, posF = 0;
@@ -91,9 +103,6 @@ void lerJogador(Jogador* jogador, int id, FILE* arq){
     char estado[TAM];
     char line[8*TAM];
 
-    if(id==223) 
-        id--;
-
     fseek(arq, 0, SEEK_SET);
 
     do{
@@ -105,24 +114,24 @@ void lerJogador(Jogador* jogador, int id, FILE* arq){
             line[tam++] = c; 
         }while ( c != '\n');
         split(line, idChar, 0);
-    } while (atoi(idChar) != id);
+    } while (toInt(idChar) != id);
     
-    setId(atoi(idChar), jogador);
+    setId(toInt(idChar), jogador);
 
     split(line, nome, 1);
     setNome(nome, jogador);
 
     split(line, altura, 2);
-    setAltura(atoi(altura), jogador);
+    setAltura(toInt(altura), jogador);
 
     split(line, peso, 3);
-    setPeso(atoi(peso), jogador);
+    setPeso(toInt(peso), jogador);
 
     split(line, universidade, 4);
     setUniversidade(universidade, jogador);
 
     split(line, nascimento, 5);
-    setAnoNascimento(atoi(nascimento), jogador);
+    setAnoNascimento(toInt(nascimento), jogador);
     
     split(line, cidade, 6);
     setCidadeNascimento(cidade, jogador);
@@ -134,93 +143,68 @@ void imprimirJogador(Jogador* jogador){
     printf("[%d ## %s ## %d ## %d ## %d ## %s ## %s ## %s]\n", jogador->id, jogador->nome, jogador->altura, jogador->peso, jogador->anoNascimento, jogador->universidade, jogador->cidadeNascimento, jogador->estadoNascimento);
 }
 
+int compValores(Jogador* A, Jogador* B){
+    int cmp = strcmp(A->estadoNascimento, B->estadoNascimento);
+    if(cmp == 0){
+        cmp = strcmp(A->nome, B->nome);
+    }
+    return cmp;
+}
 
-void shellSort(Jogador* jogador[], int tam){ 
-    int separacao = 1;
-    do{ separacao =  (separacao * 3) + 1; } while ( separacao < tam); //setar o tamanho do espaço do shell
 
-    do{
-        separacao /= 3;
-        for(int grupo=0; grupo<separacao; grupo++){ //determinar grupo que a inserção será feita
-            for(int i=separacao+grupo; i<tam; i+=separacao){ //Realizar a insercao no grupo
-                Jogador* tmp = jogador[i];
-                int j = i-separacao;
-            
-
-                while(j>=0 && tmp->peso < jogador[j]->peso){
-                    jogador[j+separacao] = jogador[j];
-                    j-=separacao;
-                    comp+=2;
-                    mov++;
-                }
-
-                while(j>=0 && tmp->peso == jogador[j]->peso && strcmp(tmp->nome, jogador[j]->nome)<0){
-                    jogador[j+separacao] = jogador[j];
-                    j-=separacao;
-                    comp+=2;
-                    mov++;
-                }
-                jogador[j+separacao] = tmp;
-                mov++;
-            }
+void quickSort(Jogador* jogador[], int esq, int dir){
+    int i = esq, j = dir;
+    Jogador centro = *jogador[(esq+dir)/2];
+    while(i<=j){
+        while ( compValores(jogador[i], &centro) < 0){
+            i++;
+            comp++;
         }
-    }while(separacao!=1);        
+   
+        while ( compValores(jogador[j], &centro) > 0){
+            j--;
+        }
+    
+        if(i<=j){
+            //inicio swap
+            Jogador* tmp = jogador[i];
+            jogador[i] = jogador[j];
+            jogador[j] = tmp;
+            //fim swap
+            i++;
+            j--;
+            comp++;
+            mov+=3;
+        }
+    }
+    if(esq<j) quickSort(jogador, esq, j);
+    if(i<dir) quickSort(jogador, i, dir);
+    
 }
-
-/*
-void insertionSortByColor(int color, int h, int N, Jogador* array[]) {
-	int j;
-	Jogador* temp;
-	for (int i = h + color; i < N; i += h) {
-		temp = array[i];
-		j = i - h;
-		while (j >= 0 && array[j]->peso>temp->peso ) {
-			array[j + h] = array[j];
-			j -= h;
-			mov++;
-		}
-		array[j + h] = temp;
-		mov += 2;
-	}
-}
-
-void ShellSort(Jogador* jogador[], int n) {
-	int h = 0;
-	do{ 
-        h =  (h * 3) + 1; 
-    } while (h < n);
-
-	while (h >= 1) {
-		h /= 3;
-		for (int color = 0; color < h; color++) {
-			insertionSortByColor(color, h, n, jogador);
-		}
-	}
-}
-*/
 
 int main() {
     FILE* arq = fopen("/tmp/players.csv", "r");
     int qtdeJogadores = 0;
-    Jogador* jogador[5000];
+    Jogador* jogador[8000];
+
     char id[10];
     scanf("%s", id);
     while(strcmp(id, "FIM")){
         jogador[qtdeJogadores] = (Jogador*) malloc(sizeof(Jogador));
-        lerJogador(jogador[qtdeJogadores++], atoi(id), arq);  
+        lerJogador(jogador[qtdeJogadores++], toInt(id), arq);  
         scanf("%s", id);
     }
     fclose(arq);
 
     clock_t begin = clock();
-    shellSort(jogador, qtdeJogadores);
+    quickSort(jogador, 0, qtdeJogadores-1);
     clock_t end = clock();
     
     for(int i=0; i<qtdeJogadores; i++){
         imprimirJogador(jogador[i]);
     }
     
-    arq = fopen("matrícula_shellsort.txt", "w");
+    arq = fopen("matrícula_quicksort.txt", "w");
     fprintf(arq, "805413\t%d\t%d\t%lf", comp, mov, (double)(end - begin) / CLOCKS_PER_SEC);
 
     return 0;
