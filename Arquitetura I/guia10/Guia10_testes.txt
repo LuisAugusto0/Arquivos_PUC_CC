@@ -30,3 +30,11 @@ Resultado de testes retirados da ferramenta "Multiple run" do JFLAP
 4-b)
     input -> 000110011101
     qtde sequencias -> 3 (observadas durante a execução)
+
+------------------------------
+5-a)
+    input -> 10111	
+   result -> Reject
+5-b)
+    input -> 1010
+   result -> Accept
