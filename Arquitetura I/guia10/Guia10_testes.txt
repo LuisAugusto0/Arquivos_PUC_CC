@@ -1,0 +1,32 @@
+Resultado de testes retirados da ferramenta "Multiple run" do JFLAP
+------------------------------
+1-a)
+    input -> 001101110
+   result -> 000000110
+
+1-b)
+    input -> 0000101101
+   result -> 0000000001
+------------------------------
+2-a)
+    input ->  0011100110
+   result -> 00000111000
+
+2-b)
+    input ->  000110011101
+   result -> 0000000000110
+
+------------------------------
+3-a)
+   input -> 1101
+   trace -> 0011
+3-b)
+   input -> 0100
+   trace -> 1010
+------------------------------
+4-a)
+    input -> 0011100110
+    qtde sequencias -> 3 (observadas durante a execução)
+4-b)
+    input -> 000110011101
+    qtde sequencias -> 3 (observadas durante a execução)
