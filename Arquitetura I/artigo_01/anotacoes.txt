@@ -29,11 +29,9 @@ Definir e caracterizar
     . Uma das vantagens de desenvolvimento com esse tipo de tecnologia é o fato
 de não existir a necessidade de conhecer a fundo a arquitetura interna do dispositivo,
 pois o compilador faz todo o trabalho de configuração e conexões internas
+    . O fato dos CPLDs serem totalmente digitais, gera uma desvantagem, pois demanda maiores implementações de hardware e maiores conhecimentos técnicos para inserção de sinais analógicos, além da integração com outros sistemas e interfaces IHMs serem mais complexas sem o auxílio de microcontroladores.
 
-**O encapsulamento determina a característica física do dispositivo que para
-automação industrial é uma informação importante, pois o número de pinos do
-dispositivo será o numero de entradas e saídas que o processo a ser automatizado
-poderá ter
+**O encapsulamento determina a característica física do dispositivo que para automação industrial é uma informação importante, pois o número de pinos do dispositivo será o numero de entradas e saídas que o processo a ser automatizado poderá ter
                                                                 ------------------------------\\-----------------------------
 
 - SOC
@@ -45,6 +43,8 @@ poderá ter
     . Cada célula possui capacidade de impleentar funções lógicas e/ou realizar roteamento para permitir a comunicação entre as células. Além disso as operações podem ser simultaneas.
     . Possui três tipos principais de recursos: blocos lógicos, blocos de entrada e saída (I/O), e chaves de interconexão, sendo tudo configurável.
     . Encontra-se FPGAs comerciais disponíveis em varias arquiteturas, influenciando diretamente o desempenho e a densidade. Sendo assim uma questão de escolha qual arquitetura ideal. (pag 10)
+    . O otimismo em relação a essa tecnologia é quase uma unanimidade e fica estampada em citações de alguns especialistas, como essa:
+“Um ASIC é como ter que utilizar um velho suéter azul da década de 70 para sempre. Com um FPGA, você tem um hardware, mas pode modificá-lo sempre que os estilos mudarem.” Shackelford (HP Labs), 2000.
 
 ==============================================================================================\\=================================================================================================================
 
