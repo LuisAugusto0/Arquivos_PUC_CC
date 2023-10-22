@@ -167,7 +167,7 @@ void bubbleSort(Jogador* jogador[], int tam){
 }
 
 int main() {
-    FILE* arq = fopen("/tmp/players.csv", "r");
+    FILE* arq = fopen("tmp/players.csv", "r");
     int qtdeJogadores = 0;
     Jogador* jogador[8000];
 
@@ -187,7 +187,8 @@ int main() {
     for(int i=0; i<qtdeJogadores; i++){
         imprimirJogador(jogador[i]);
     }
-    
+    while(1);
+
     arq = fopen("matrícula_bolha.txt", "w");
     fprintf(arq, "805413\t%d\t%d\t%lf", comp, mov, (double)(end - begin) / CLOCKS_PER_SEC);
 

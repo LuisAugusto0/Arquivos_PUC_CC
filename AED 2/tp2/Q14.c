@@ -5,11 +5,10 @@
 #include <stdlib.h>
 #include <time.h> 
 
-#define TAM 60
-#define k 10
+#define TAM 100
 
-int comp;
-int mov;
+int comp = 0;
+int mov = 0;
 
 struct Jogador{
     int id;
@@ -93,8 +92,7 @@ void split (char valLido[], char valFinal[], int virgulasPuladas){
     valFinal[posF] = '\0';
 }
 
-void lerJogador(Jogador* jogador, int id){
-    FILE* arq = fopen("tmp/players.csv", "r");
+void lerJogador(Jogador* jogador, int id, FILE* arq){
     char idChar[TAM];
     char nome[TAM];
     char altura[TAM];
@@ -140,27 +138,69 @@ void lerJogador(Jogador* jogador, int id){
 
     split(line, estado, 7);
     setEstadoNascimento(estado, jogador);
-    fclose(arq);
 }
 void imprimirJogador(Jogador* jogador){
     printf("[%d ## %s ## %d ## %d ## %d ## %s ## %s ## %s]\n", jogador->id, jogador->nome, jogador->altura, jogador->peso, jogador->anoNascimento, jogador->universidade, jogador->cidadeNascimento, jogador->estadoNascimento);
 }
-void insercao(Jogador* jogador[], int tam) {
-    for (int i = 1; i < tam; i++) {
-        int j = i - 1;
-        Jogador* tmp = jogador[i];
-        while (j >= 0 && tmp->anoNascimento < jogador[j]->anoNascimento) {
-            jogador[j + 1] = jogador[j];
-            j--;
-        }
-        while (j >= 0 && tmp->anoNascimento == jogador[j]->anoNascimento && strcmp(tmp->nome, jogador[j]->nome) < 0) {
-            jogador[j + 1] = jogador[j];
-            j--;
-        }
-        jogador[j + 1] = tmp;
+
+void radcountingSort(Jogador* jogador[], int tam, int exp){
+    int count[10];
+    Jogador* output[tam];
+    
+    //inicializar
+    for (int i = 0; i < 10; i++) {
+        comp++;
+        count[i] = 0;
     }
+    
+    //contagem dos numeros de elementos 
+    for (int i = 0; i < tam; i++) {
+        comp++;   
+        count[(jogador[i]->id/exp)%10]++;
+    }
+    
+    //soma das posições anteriores para operação correta
+    for (int i = 1; i < 10; i++) {
+        comp++;
+        count[i] += count[i-1];
+    }
+    
+    //
+    for (int i = tam-1; i >= 0; i--) {
+        comp++;
+        mov++;
+        output[--count[(jogador[i]->id/exp) % 10]] = jogador[i];
+        
+    }
+
+    for (int i = 0; i<tam; i++){
+        comp++;
+        mov++;
+        jogador[i] = output[i];
+    }
+
 }
+
+int getMaxId(Jogador* jogador[], int tam){
+    int maior = jogador[0]->id;
+    for (int i = 1; i < tam; i++) {
+        if(jogador[i]->id > maior){
+            maior = jogador[i]->id;
+        }
+        comp++;
+    }
+    return maior;
+}
+void radixSort(Jogador* jogador[], int tam){
+    int max = getMaxId(jogador, tam);
+    for (int exp = 1; max/exp > 0; exp*=10) {
+        radcountingSort(jogador, tam, exp);
+    }
+    
+}
+
 int main() {
+    FILE* arq = fopen("/tmp/players.csv", "r");
     int qtdeJogadores = 0;
     Jogador* jogador[8000];
 
@@ -168,14 +208,21 @@ int main() {
     scanf("%s", id);
     while(strcmp(id, "FIM")){
         jogador[qtdeJogadores] = (Jogador*) malloc(sizeof(Jogador));
-        lerJogador(jogador[qtdeJogadores++], toInt(id));  
+        lerJogador(jogador[qtdeJogadores++], toInt(id), arq);  
         scanf("%s", id);
     }
+    fclose(arq);
 
-    insercao(jogador, qtdeJogadores);
+    clock_t begin = clock();
+    radixSort(jogador, qtdeJogadores);
+    clock_t end = clock();
     
-    for(int i=0; i<k; i++){
+    for(int i=0; i<qtdeJogadores; i++){
         imprimirJogador(jogador[i]);
     }
+    
+    arq = fopen("matrícula_quicksort.txt", "w");
+    fprintf(arq, "805413\t%d\t%d\t%lf", comp, mov, (double)(end - begin) / CLOCKS_PER_SEC);
+
     return 0;
 }
