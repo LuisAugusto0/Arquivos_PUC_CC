@@ -58,7 +58,7 @@ class ListaJogador{
     }
     
     //metodos de insersao
-    public void inserirprimeiro(Jogador jogador){
+    public void inserirInicio(Jogador jogador){
         if(ultimo == primeiro)
              primeiro.prox = jogador;
         jogador.prox = primeiro.prox;
@@ -67,7 +67,7 @@ class ListaJogador{
 
         tam++;
     }
-    public void inserirultimo(Jogador jogador){
+    public void inserirFim(Jogador jogador){
         jogador.prox = null;
         ultimo.prox = jogador;
         ultimo = jogador;
@@ -122,13 +122,28 @@ class ListaJogador{
         rem.prox = null;
         return rem;
     }
+
+    //metodo para mostrar na tela
+    public void print(){
+        int pos = 0;
+        for(Jogador i = primeiro.prox; i != null; i = i.prox, pos++){
+            MyIO.println("[" + pos + "]"
+                    + " ## " + i.nome
+                    + " ## " + i.altura
+                    + " ## " + i.peso
+                    + " ## " + i.universidade
+                    + " ## " + i.anoNascimento
+                    + " ## " + i.cidadeNascimento
+                    + " ## " + i.estadoNascimento );
+        }
+    }
 }
 
 class Q01{
     public static Jogador ler(int id) throws Exception{
         Jogador leitura = null;
         try{
-            BufferedReader bf = new BufferedReader( new FileReader( new File("/tmp/players.csv") ) );
+            BufferedReader bf = new BufferedReader( new FileReader( new File("tmp/players.csv") ) );
             String l = null;
             String[] s = null;
             //Leitura inicial para pular primeira linha
@@ -154,6 +169,20 @@ class Q01{
     }
 
     public static void main(String[] args){
+        ListaJogador ls = new ListaJogador();
+        String leitura = MyIO.readLine();
+        try{
+            while(!leitura.equals("FIM")){
+                Jogador tmp = ler(Integer.valueOf(leitura));
+                ls.inserirFim(tmp);
+                tmp = null;
+                leitura = MyIO.readLine();
+            }
+            ls.print();
+        } catch (Exception e){
+            MyIO.println("Um erro ocorreu: " + e.getMessage());
+        }
+        
         
     }
 
