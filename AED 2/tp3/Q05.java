@@ -12,6 +12,7 @@ class Jogador{
     public int anoNascimento;
     public String cidadeNascimento;
     public String estadoNascimento;
+    Jogador prox;
 
     //construtores
     Jogador(){
@@ -19,6 +20,10 @@ class Jogador{
     }
 
     Jogador(int id, String nome, int altura, int peso, String universidade, int anoNascimento, String cidadeNascimento, String estadoNascimento){
+        this(id, nome, altura, peso, universidade, anoNascimento, cidadeNascimento, estadoNascimento, null);
+    }
+
+    Jogador(int id, String nome, int altura, int peso, String universidade, int anoNascimento, String cidadeNascimento, String estadoNascimento, Jogador prox){
         this.id = id;
         this.nome = tratarString(nome);
         this.altura = altura;
@@ -27,6 +32,7 @@ class Jogador{
         this.anoNascimento = anoNascimento;
         this.cidadeNascimento = tratarString(cidadeNascimento);
         this.estadoNascimento = tratarString(estadoNascimento);
+        this.prox = prox;
     } 
 
     //metodo que retorna uma copia do Jogador
@@ -43,76 +49,87 @@ class Jogador{
 }
 
 class ListaJogador{
-    Jogador[] lista;
+    Jogador primeiro;
+    Jogador ultimo;
     int tam;
 
     //construtor
     ListaJogador(){
         tam = 0;
-        lista = new Jogador[5000];
+        primeiro = ultimo = new Jogador();
     }
     
     //metodos de insersao
     public void inserirInicio(Jogador jogador){
-        for(int i=tam-1; i>=0; i--){
-            lista[i+1] = lista[i].clone();
-        } 
-        lista[0] = jogador;
+        if(ultimo == primeiro)
+             primeiro.prox = jogador;
+        jogador.prox = primeiro.prox;
+        primeiro.prox = jogador;
+        jogador = null;
 
         tam++;
     }
     public void inserirFim(Jogador jogador){
-        lista[tam] = jogador;
+        jogador.prox = null;
+        ultimo.prox = jogador;
+        ultimo = jogador;
 
         tam++;
     }
     public void inserir(Jogador jogador, int pos) throws Exception{
         if(pos > tam)
             throw new Exception("Posicao invalida");
-        for(int i=tam; i>pos; i--)
-            lista[i] = lista[i-1];
-        lista[pos] = jogador;
-        
+        Jogador posIns = primeiro;
+        for(int i=0; i<pos; i++)
+            posIns = posIns.prox;
+        jogador.prox = posIns.prox;
+        posIns.prox = jogador;
+        jogador = null;
+
         tam++;
     }
 
     //metodos de remocao
     public Jogador removerInicio() throws Exception{
-        if(tam == 0)
+        if(primeiro == ultimo)
             throw new Exception("Lista Vazia");
-        Jogador rem = lista[0].clone();
-        for(int i = 0; i<tam-1; i++){
-            lista[i] = lista[i+1];
-        }
+        Jogador tmp = primeiro;
+        primeiro = primeiro.prox;
+        tmp.prox = null;
+        tmp = null;
         tam--;
-        return rem;
+        return primeiro;
     }
     public Jogador removerFim() throws Exception{
-        if(tam == 0)
+        if(primeiro == ultimo)
             throw new Exception("Lista Vazia");
-        Jogador rem = lista[tam-1].clone();
+        Jogador i;
+        for(i = primeiro; i.prox != ultimo; i = i.prox);
+        ultimo = i;
+        i = ultimo.prox;
+        ultimo.prox = null;
         tam--;
-        return rem;
+        return i;
     }
     public Jogador remover(int pos) throws Exception{
-        if(tam == 0)
+        if(primeiro == ultimo)
             throw new Exception("Lista Vazia");
         else if(pos >= tam)
             throw new Exception("Posicao invalida");
-        
-        Jogador rem = lista[pos].clone();
-        for(int i = pos; i < tam-1; i++){
-            lista[i] = lista[i+1];
-        }
-
+        Jogador posRem = primeiro;
+        for(int i=0; i<pos; i++)
+            posRem = posRem.prox;
+        Jogador rem = posRem.prox;
+        posRem.prox = posRem.prox.prox;
+        rem.prox = null;
         tam--;
         return rem;
     }
 
     //metodo para mostrar na tela
     public void print(){
-        for(int pos = 0; pos < tam; pos++){
-            Jogador i = lista[pos];
+        int pos = 0;
+        for(Jogador i = primeiro.prox; i != null; i = i.prox, pos++){
             MyIO.println("[" + pos + "]"
                     + " ## " + i.nome
                     + " ## " + i.altura
@@ -125,7 +142,7 @@ class ListaJogador{
     }
 }
 
-class Q01{
+class Q05{
     public static ListaJogador ls = new ListaJogador();
 
     public static Jogador ler(int id) throws Exception{
