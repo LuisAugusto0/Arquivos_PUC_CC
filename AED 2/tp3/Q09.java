@@ -43,14 +43,15 @@ class Matriz{
         inicio = new Celula();
         Celula i = inicio;
         
-        //criacao primeira linha
+        //criacao primeira coluna
         for(int l=1; l<lin; l++){
             i.inf = new Celula(null, null, i, null);
             i = i.inf;
         }
 
         i = inicio;
-        //criacao proximas linhas
+
+        //criacao proximas coluna
         for (int c=1; c<col; c++){
             Celula iTmp = i;
             i.dir = new Celula(i, null, null, null);
@@ -60,7 +61,7 @@ class Matriz{
                 jTmp.inf = new Celula(iTmp, null, jTmp, null);
                 jTmp = jTmp.inf;
                 iTmp.dir = jTmp;
-            } 
+            }
             i = i.dir;
         }
     }
@@ -80,10 +81,10 @@ class Matriz{
     public Matriz multiplicacao(Matriz mat) throws Exception{
         if(mat.lin != this.lin || mat.col != this.col)
             throw new Exception("Matriz incompativel (linha ou coluna diferente)");
-        Matriz resultado = new Matriz(lin, col);
-        for(Celula i1 = inicio, i2 = mat.inicio, iF = resultado.inicio; i1 != null; i1 = i1.dir, i2 = i2.dir, iF = iF.dir){
-            for(Celula j1 = i1, j2 = i2, jF = iF; j1 != null; j1 = j1.inf, j2 = j2.inf, jF = jF.inf){
-                jF.elemento = j1.elemento * j2.elemento;
+        Matriz resultado = new Matriz(1, col);
+        for(Celula i1 = inicio, i2 = mat.inicio; i1 != null; i1 = i1.dir, i2 = i2.dir){
+            for(Celula j1 = i1, j2 = i2, jF = resultado.inicio; j1 != null; j1 = j1.inf, j2 = j2.inf, jF = jF.inf){
+                jF.elemento += j1.elemento * j2.elemento;
             }
         }
         return resultado;
@@ -120,5 +121,55 @@ class Matriz{
             }
         }
 
+    }
+
+    //Guardar valores na matriz
+    public int modificar(int x, int lin, int col) throws Exception{
+        if(lin<this.lin || col<this.col)
+            throw new Exception("Posicao invalida");
+        int rem;
+        Celula i = inicio;
+
+        while(lin > 0){
+            i = i.inf;
+            lin--;
+        }
+        while(col > 0){
+            i = i.dir;
+            col--;
+        }
+        rem = i.elemento;
+        i.elemento = x;
+        return rem;
+    }
+    public void read(){
+        for(Celula l = inicio; l != null; l = l.inf){
+            for(Celula c = l; c != null; c = c.dir){
+                c.elemento = MyIO.readInt();
+            }
+        }
+    }
+}
+
+class Q09{
+    public static void main(String[] args){
+        int qtdeTestes = MyIO.readInt();
+        try{
+            while(qtdeTestes-- > 0){
+                //leitura das matrizes
+                Matriz matA = new Matriz(MyIO.readInt(), MyIO.readInt());
+                matA.read();
+                Matriz matB = new Matriz(MyIO.readInt(), MyIO.readInt());            
+                matB.read();
+
+                //print testes
+                matA.printDiagonalPrincipal();
+                matA.printDiagonalSecundaria();
+                (matA.soma(matB)).print();
+                (matA.multiplicacao(matB)).print();
+            }
+        } catch (Exception e){
+            MyIO.println("Um erro ocorreu: "+ e.getMessage());
+        }
     }
 }
