@@ -79,12 +79,18 @@ class Matriz{
         return resultado;
     }
     public Matriz multiplicacao(Matriz mat) throws Exception{
-        if(mat.lin != this.lin || mat.col != this.col)
+        if(mat.lin != this.col || mat.col != this.lin)
             throw new Exception("Matriz incompativel (linha ou coluna diferente)");
-        Matriz resultado = new Matriz(1, col);
-        for(Celula i1 = inicio, i2 = mat.inicio; i1 != null; i1 = i1.dir, i2 = i2.dir){
-            for(Celula j1 = i1, j2 = i2, jF = resultado.inicio; j1 != null; j1 = j1.inf, j2 = j2.inf, jF = jF.inf){
-                jF.elemento += j1.elemento * j2.elemento;
+        Matriz resultado = new Matriz(lin, lin);
+        for(Celula i1 = inicio, iF = resultado.inicio; i1 != null; i1 = i1.inf, iF = iF.inf){
+            Celula i2 = mat.inicio;
+            Celula iFtemp = iF;
+            while(i2 != null){
+                for(Celula j1 = i1, j2 = i2; j1 != null; j1 = j1.dir, j2 = j2.inf){
+                    iFtemp.elemento += j1.elemento * j2.elemento;
+                }
+                i2 = i2.dir;
+                iFtemp = iFtemp.dir;
             }
         }
         return resultado;
@@ -100,26 +106,31 @@ class Matriz{
         }
     }
     public void printDiagonalPrincipal(){
-        for(Celula i = inicio; i != null; i = i.inf){
+        Celula i = inicio;
+        while(i != null){
             MyIO.print(i.elemento + " ");
             if(i.dir != null){
                 i = i.dir;
+                i = i.inf;
             } else {
                 i = null;
             }
         }
+        MyIO.print("\n");
     }
     public void printDiagonalSecundaria(){
         Celula i = inicio;
         for(i = i; i.dir != null; i = i.dir);
-        for(i = i; i != null; i = i.inf){
+        while(i != null){
             MyIO.print(i.elemento + " ");
             if(i.esq != null){
                 i = i.esq;
+                i = i.inf;
             } else {
                 i = null;
             }
         }
+        MyIO.print("\n");
 
     }
 
@@ -170,6 +181,7 @@ class Q09{
             }
         } catch (Exception e){
             MyIO.println("Um erro ocorreu: "+ e.getMessage());
+            e.printStackTrace();
         }
     }
 }
