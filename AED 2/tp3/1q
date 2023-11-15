@@ -103,7 +103,7 @@ void splitJogador (char valLido[], char valFinal[], int virgulasPuladas){
 Jogador* lerJogador(int id){
     Jogador* jogador = NULL;
 
-    FILE* arq = fopen("/tmp/players.csv", "r");
+    FILE* arq = fopen("tmp/players.csv", "r");
     if(arq == NULL)
         printf("Arquivo nao aberto");
     else{
@@ -168,7 +168,7 @@ void inserirInicio(Jogador* add){
         for(int i = qtdeJogadores; i>0; i--){
             jogador[i] = jogador[i-1];
         }
-        jogador[0] = add; 
+        jogador[0] = clone(add); 
         qtdeJogadores++;
     }
 }
@@ -184,7 +184,7 @@ void inserir(Jogador* add, int pos){
         for(int i = qtdeJogadores; i > pos; i--){
             jogador[i] = jogador[i-1];
         }
-        jogador[pos] = add;
+        jogador[pos] = clone(add);
         qtdeJogadores++;
     } else if(pos > qtdeJogadores){
          printf("Posicao invalida\n");
@@ -201,7 +201,7 @@ Jogador* removerInicio(){
        for(int i=0; i<qtdeJogadores-1; i++){
            jogador[i] = jogador[i+1];
        }
-       //free(jogador[qtdeJogadores-1]);
+       free(jogador[qtdeJogadores-1]);
     } else {
         puts("Lista vazia, nao possivel remover\n");
     }
@@ -212,9 +212,8 @@ Jogador* removerInicio(){
 Jogador* removerFim(){
     Jogador* rem = NULL;
     if(qtdeJogadores != 0){
-        rem = clone(jogador[qtdeJogadores-1]);
-        //free(jogador[qtdeJogadores-1]);
-        qtdeJogadores--;
+        rem = clone(jogador[qtdeJogadores--]);
+        free(jogador[qtdeJogadores]);
     } else {
         puts("Lista vazia, nao possivel remover\n");
     }
@@ -228,7 +227,7 @@ Jogador* remover(int pos){
         for(int i = pos; i < qtdeJogadores-1; i++){
             jogador[i] = jogador[i+1];
         }
-        //free(jogador[qtdeJogadores-1]);
+        free(jogador[qtdeJogadores]);
     } else {
         puts("Lista vazia, nao possivel remover\n");
     }
@@ -240,7 +239,7 @@ Jogador* remover(int pos){
 //imprimir na tela
 void printJogador(Jogador* jogador, int pos){
     //printf("[%d ## %s ## %d ## %d ## %d ## %s ## %s ## %s]\n", jogador->id, jogador->nome, jogador->altura, jogador->peso, jogador->anoNascimento, jogador->universidade, jogador->cidadeNascimento, jogador->estadoNascimento);
-    printf("[%d] ## %s ## %d ## %d ## %d ## %s ## %s ## %s ##\n", pos, jogador->nome, jogador->altura, jogador->peso, jogador->anoNascimento, jogador->universidade, jogador->cidadeNascimento, jogador->estadoNascimento);
+    printf("[%d] ## %s ## %d ## %d ## %d ## %s ## %s ## %s ##]\n", pos, jogador->nome, jogador->altura, jogador->peso, jogador->anoNascimento, jogador->universidade, jogador->cidadeNascimento, jogador->estadoNascimento);
 
 }
 
@@ -255,7 +254,9 @@ void menuLista(char in[]){
             scanf("%d", &param1);
             inserirFim(lerJogador(param1));
         } else if(in[1] == '*'){
-            scanf("%d %d", &param1, &param2);
+            scanf("%d", &param1);
+            scanf("%d", &param2);
+            printf("%d - %d\n", param1, param2);
             inserir(lerJogador(param2), param1);
         }
     } else if(in[0] == 'R'){
@@ -300,6 +301,8 @@ int main() {
     for(int i = 0; i<qtdeJogadores; i++){
         printJogador(jogador[i], i);
     }
+
+
 
     return 0;
 }

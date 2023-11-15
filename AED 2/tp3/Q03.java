@@ -53,58 +53,17 @@ class ListaJogador{
     }
     
     //metodos de insersao
-    public void inserirInicio(Jogador jogador){
-        for(int i=tam-1; i>=0; i--){
-            lista[i+1] = lista[i].clone();
-        } 
-        lista[0] = jogador;
-
-        tam++;
-    }
-    public void inserirFim(Jogador jogador){
+    public void inserir(Jogador jogador){
         lista[tam] = jogador;
 
         tam++;
     }
-    public void inserir(Jogador jogador, int pos) throws Exception{
-        if(pos > tam)
-            throw new Exception("Posicao invalida");
-        for(int i=tam; i>pos; i--)
-            lista[i] = lista[i-1];
-        lista[pos] = jogador;
-        
-        tam++;
-    }
 
     //metodos de remocao
-    public Jogador removerInicio() throws Exception{
-        if(tam == 0)
-            throw new Exception("Lista Vazia");
-        Jogador rem = lista[0].clone();
-        for(int i = 0; i<tam-1; i++){
-            lista[i] = lista[i+1];
-        }
-        tam--;
-        return rem;
-    }
-    public Jogador removerFim() throws Exception{
+    public Jogador remover() throws Exception{
         if(tam == 0)
             throw new Exception("Lista Vazia");
         Jogador rem = lista[tam-1].clone();
-        tam--;
-        return rem;
-    }
-    public Jogador remover(int pos) throws Exception{
-        if(tam == 0)
-            throw new Exception("Lista Vazia");
-        else if(pos >= tam)
-            throw new Exception("Posicao invalida");
-        
-        Jogador rem = lista[pos].clone();
-        for(int i = pos; i < tam-1; i++){
-            lista[i] = lista[i+1];
-        }
-
         tam--;
         return rem;
     }
@@ -125,13 +84,13 @@ class ListaJogador{
     }
 }
 
-class Q01{
+class Q03{
     public static ListaJogador ls = new ListaJogador();
 
     public static Jogador ler(int id) throws Exception{
         Jogador leitura = null;
         try{
-            BufferedReader bf = new BufferedReader( new FileReader( new File("tmp/players.csv") ) );
+            BufferedReader bf = new BufferedReader( new FileReader( new File("/tmp/players.csv") ) );
             String l = null;
             String[] s = null;
             //Leitura inicial para pular primeira linha
@@ -158,31 +117,14 @@ class Q01{
     
     public static void selecao(String[] entrada){
         try{
-            if(entrada[0].equals("II")){
-                ls.inserirInicio( ler(Integer.valueOf(entrada[1])) );         
+            if(entrada[0].equals("I")){
+                ls.inserir( ler(Integer.valueOf(entrada[1])) );         
             }
-            else if(entrada[0].equals("IF")){
-                ls.inserirFim( ler(Integer.valueOf(entrada[1])) );    
-            }
-            else if(entrada[0].equals("I*")){
-                ls.inserir( ler(Integer.valueOf(entrada[2])), Integer.valueOf(entrada[1]) );
-            }
-            else if(entrada[0].equals("RI")){
+            else if(entrada[0].equals("R")){
                 Jogador rem;
-                rem = ls.removerInicio();
+                rem = ls.remover();
                 MyIO.println("(R) " + rem.nome);
             }
-            else if(entrada[0].equals("RF")){
-                Jogador rem;
-                rem = ls.removerFim();
-                MyIO.println("(R) " + rem.nome);
- 
-            } 
-            else if(entrada[0].equals("R*")){
-                Jogador rem;
-                rem = ls.remover(Integer.valueOf(entrada[1]));
-                MyIO.println("(R) " + rem.nome);
-            } 
         }catch (Exception e){
             MyIO.println("Um erro ocorreu: " + e.getMessage());
         }
@@ -193,7 +135,7 @@ class Q01{
         try{
             while(!entrada.equals("FIM")){
                 Jogador tmp = ler(Integer.valueOf(entrada));
-                ls.inserirFim(tmp);
+                ls.inserir(tmp);
                 tmp = null;
                 entrada = MyIO.readLine();
             }
@@ -206,7 +148,7 @@ class Q01{
             ls.print();
 
         } catch (Exception e){
-            MyIO.println("Um erro ocorreu: " + e.getMessage()); 
+            MyIO.println("Um erro ocorreu: " + e.getMessage());
         }
         
         
