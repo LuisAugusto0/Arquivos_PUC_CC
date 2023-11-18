@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.BufferedReader;
+import java.util.Scanner;
 class Jogador{
     public int id;
     public String nome;
@@ -12,6 +13,7 @@ class Jogador{
     public int anoNascimento;
     public String cidadeNascimento;
     public String estadoNascimento;
+    Jogador prox;
 
     //construtores
     Jogador(){
@@ -19,6 +21,10 @@ class Jogador{
     }
 
     Jogador(int id, String nome, int altura, int peso, String universidade, int anoNascimento, String cidadeNascimento, String estadoNascimento){
+        this(id, nome, altura, peso, universidade, anoNascimento, cidadeNascimento, estadoNascimento, null);
+    }
+
+    Jogador(int id, String nome, int altura, int peso, String universidade, int anoNascimento, String cidadeNascimento, String estadoNascimento, Jogador prox){
         this.id = id;
         this.nome = tratarString(nome);
         this.altura = altura;
@@ -27,6 +33,7 @@ class Jogador{
         this.anoNascimento = anoNascimento;
         this.cidadeNascimento = tratarString(cidadeNascimento);
         this.estadoNascimento = tratarString(estadoNascimento);
+        this.prox = prox;
     } 
 
     //metodo que retorna uma copia do Jogador
@@ -42,36 +49,41 @@ class Jogador{
     }
 }
 
-class PilhaJogador{
-    Jogador[] Pilha;
-    int tam;
+class PilhaJogador extends Jogador{
+    Jogador primeiro;
 
     //construtor
     PilhaJogador(){
-        tam = 0;
-        Pilha = new Jogador[5000];
+        primeiro = null;
     }
     
     //metodos de insersao
     public void inserir(Jogador jogador){
-        Pilha[tam] = jogador;
-
-        tam++;
+        if(primeiro != null){
+            jogador.prox = primeiro;
+        }
+        primeiro = jogador;
+        jogador = null;
     }
 
     //metodos de remocao
     public Jogador remover() throws Exception{
-        if(tam == 0)
-            throw new Exception("Pilha Vazia");
-        Jogador rem = Pilha[tam-1].clone();
-        tam--;
-        return rem;
+        if(primeiro == null)
+            throw new Exception("Lista Vazia");
+        Jogador tmp = primeiro;
+        primeiro = primeiro.prox;
+        tmp.prox = null;
+        return tmp;
     }
 
     //metodo para mostrar na tela
     public void print(){
-        for(int pos = 0; pos < tam; pos++){
-            Jogador i = Pilha[pos];
+        int pos = 0;
+        PilhaJogador pj = new PilhaJogador();
+        for(Jogador i = primeiro; i != null; i = i.prox){
+            pj.inserir(i.clone());
+        }
+        for(Jogador i = pj.primeiro; i != null; i = i.prox, pos++){
             MyIO.println("[" + pos + "]"
                     + " ## " + i.nome
                     + " ## " + i.altura
@@ -84,8 +96,8 @@ class PilhaJogador{
     }
 }
 
-class Q03{
-    public static PilhaJogador pl = new PilhaJogador();
+class Q06{
+    public static PilhaJogador ps = new PilhaJogador();
 
     public static Jogador ler(int id) throws Exception{
         Jogador leitura = null;
@@ -117,14 +129,14 @@ class Q03{
     
     public static void selecao(String[] entrada){
         try{
-            if(entrada[0].equals("I")){
-                pl.inserir( ler(Integer.valueOf(entrada[1])) );         
+            if(entrada[0].toUpperCase().equals("I")){
+                ps.inserir( ler(Integer.valueOf(entrada[1])) );         
             }
-            else if(entrada[0].equals("R")){
+            else if(entrada[0].toUpperCase().equals("R")){
                 Jogador rem;
-                rem = pl.remover();
+                rem = ps.remover();
                 MyIO.println("(R) " + rem.nome);
-            }
+            } 
         }catch (Exception e){
             MyIO.println("Um erro ocorreu: " + e.getMessage());
         }
@@ -135,20 +147,21 @@ class Q03{
         try{
             while(!entrada.equals("FIM")){
                 Jogador tmp = ler(Integer.valueOf(entrada));
-                pl.inserir(tmp);
+                ps.inserir(tmp);
                 tmp = null;
                 entrada = MyIO.readLine();
             }
             
-            int qtdeMudancas = Integer.valueOf(MyIO.readLine());
-            for(int i=0; i < qtdeMudancas; i++)
+            int qtdeMudancas = MyIO.readInt() -1;
+            while(qtdeMudancas-- > 0)
                 selecao(MyIO.readLine().split(" "));
-            
+            selecao("R".split(" "));
 
-            pl.print();
+            ps.print();
 
         } catch (Exception e){
             MyIO.println("Um erro ocorreu: " + e.getMessage());
+            e.printStackTrace();
         }
         
         
