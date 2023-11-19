@@ -160,33 +160,19 @@ class ListaJogador{
 
     //metodo para mostrar na tela
     public void print(){
-        int pos = 0;
-        for(CellLista i = primeiro.prox; i != null; i = i.prox, pos++){
+        for(CellLista i = primeiro.prox; i != null; i = i.prox){
             Jogador j = i.thisJ;
-            MyIO.println("[" + pos + "]"
+            MyIO.println("[" + j.id 
                     + " ## " + j.nome
                     + " ## " + j.altura
                     + " ## " + j.peso
                     + " ## " + j.anoNascimento
                     + " ## " + j.universidade
                     + " ## " + j.cidadeNascimento
-                    + " ## " + j.estadoNascimento + " ##" );
+                    + " ## " + j.estadoNascimento 
+                    + "]" );
         }
     }
-    public void printI(){
-         int pos = 0;
-         for(CellLista i = ultimo; i.ant != null; i = i.ant, pos++){
-             Jogador j = i.thisJ;
-             MyIO.println("[" + pos + "]"
-                     + " ## " + j.nome
-                     + " ## " + j.altura
-                     + " ## " + j.peso
-                     + " ## " + j.anoNascimento
-                     + " ## " + j.universidade
-                     + " ## " + j.cidadeNascimento
-                     + " ## " + j.estadoNascimento + " ##" );
-         }
-     }
 
     // Metodo para ordenar a fila dupla usando QuickSort
     void swap(CellLista a, CellLista b){
