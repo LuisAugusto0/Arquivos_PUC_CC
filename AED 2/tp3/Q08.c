@@ -5,7 +5,6 @@
 #include <math.h>
 
 #define TAM 60
-#define TamFila 6
 
 struct Jogador{
     int id;
@@ -118,7 +117,7 @@ void splitJogador (char valLido[], char valFinal[], int virgulasPuladas){
 Jogador* lerJogador(int id){
     Jogador* jogador = NULL;
 
-    FILE* arq = fopen("tmp/players.csv", "r");
+    FILE* arq = fopen("/tmp/players.csv", "r");
     if(arq == NULL)
         printf("Arquivo nao aberto");
     else{
@@ -180,7 +179,7 @@ Jogador* lerJogador(int id){
 
 //imprimir na tela
 void printJogador(Jogador* jogador, int pos){
-    printf("[%d] ## %s ## %d ## %d ## %d ## %s ## %s ## %s ##\n", pos, jogador->nome, jogador->altura, jogador->peso, jogador->anoNascimento, jogador->universidade, jogador->cidadeNascimento, jogador->estadoNascimento);
+    printf("[%d ## %s ## %d ## %d ## %d ## %s ## %s ## %s]\n", jogador->id, jogador->nome, jogador->altura, jogador->peso, jogador->anoNascimento, jogador->universidade, jogador->cidadeNascimento, jogador->estadoNascimento);
 
 }
 
@@ -211,7 +210,7 @@ void relink(CellLista *atual, CellLista* prox, CellLista* ant){
 
 //---Criar celula cabeca---//
 Lista* newLista(){
-       Lista* new;
+       Lista* new = (Lista*) malloc(sizeof(Lista));
        new->primeiro = (CellLista*) malloc(sizeof(CellLista));
        new->ultimo = new->primeiro;
        return new;
@@ -284,6 +283,7 @@ void inserirFim(Lista *lista, CellLista *add){
         add->prox = NULL;
         lista->ultimo->prox = add;
         lista->ultimo = add;
+        lista->tam++;
     } else {
         puts("Erro - jogador inexistente\n");
     }
@@ -299,6 +299,7 @@ void inserir(Lista *lista, CellLista *add, int pos){
             posIns = posIns->prox;
         }
         relink(add, posIns->prox, posIns);
+        lista->tam++;
     }
 }
 
@@ -308,6 +309,58 @@ void printLista(Lista* lista){
     for(int i = 0; i < tam; i++, j = j->prox){
         printJogador(j->thisJ, i);
     }
+}
+
+void printListaI(Lista* lista){
+    CellLista *j = lista->ultimo;
+    int tam = lista->tam;
+    for(int i = 0; i < tam; i++, j = j->ant){
+        printJogador(j->thisJ, i);
+    }
+}
+
+
+//---funcoes quickSort---//
+int compValores(Jogador* A, Jogador* B){
+    int cmp = strcmp(A->estadoNascimento, B->estadoNascimento);
+    if(cmp == 0){
+        cmp = strcmp(A->nome, B->nome);
+    }
+    return cmp;
+}
+
+void swap(CellLista* a, CellLista* b){
+    Jogador* tmp = clone(a->thisJ);
+    a->thisJ = clone(b->thisJ);
+    b->thisJ = tmp;
+}
+
+void quickSort(CellLista *esq, CellLista *dir){
+    CellLista *pivo = esq;
+    CellLista *i = esq->prox;
+    CellLista *j = dir;
+
+    while(i->ant != j && i->ant != j->prox){
+        while(i != NULL && compValores(i->thisJ, pivo->thisJ) > 0){
+            i = i-> prox;
+        }        
+        while(compValores(j->thisJ, pivo->thisJ) < 0){
+            j = j->ant;
+        }
+
+        if(i->ant != j){
+            swap(i, j);
+            i = i->prox;
+            j = j->prox;
+        }
+    }
+    swap(pivo, j);
+    if(esq != j) quickSort(esq, j);
+    if(j != dir) quickSort(i, dir);
+}
+
+void ordenar(Lista* lista){
+    quickSort(lista->primeiro->prox, lista->ultimo);
 }
 
 //-------------------------------Fim funcoes Lista-----------------------------//
@@ -345,7 +398,6 @@ void menuLista(char in[], Lista* lista){
 
 int main() {
     char in[20]; 
-    int qtdeOperacoes;
     Lista *lista = newLista();
 
     scanf("%s", in);
@@ -353,23 +405,8 @@ int main() {
         inserirFim(lista, newCell(lerJogador(atoi(in))));
         scanf("%s", in);
     }
-    
-    scanf("%d", &qtdeOperacoes);
-    while(qtdeOperacoes-- > 0){
-        scanf("%s", in);
-        menuLista(in, lista);
-    }
-    
-    Jogador *ant = NULL;
-    for(int i=0; i < lista->tam; i++){
-        Jogador *tmp = NULL;
-        for(Jogador *j = lista->primeiro; j != ant; j = j->prox){
-            tmp = j;
-        }
-        ant = tmp;
-        printJogador(ant, i);
-    }
-
+    ordenar(lista); 
+    printLista(lista);
     return 0;
 }
 
