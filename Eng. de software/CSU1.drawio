@@ -1,9 +1,12 @@
-<mxfile host="app.diagrams.net" modified="2023-11-28T17:33:04.848Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 Edg/119.0.0.0" etag="zVBKoWQWIgOlWH6LHU8i" version="22.1.4" type="github">
+<mxfile host="app.diagrams.net" modified="2023-11-29T00:37:15.702Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 Edg/119.0.0.0" etag="lReFplIsVDNsxXXpNKx9" version="22.1.4" type="github">
   <diagram name="Página-1" id="Q4VcCFqa_5ZPT_2NC297">
-    <mxGraphModel dx="814" dy="1639" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1181" dy="1850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="3Gos6kqD1v6AwGEqO2Vg-1" value="" style="whiteSpace=wrap;html=1;fillColor=none;strokeWidth=2;imageAspect=0;" parent="1" vertex="1">
+          <mxGeometry x="130" y="-80" width="870" height="1070" as="geometry" />
+        </mxCell>
         <mxCell id="oRPDukKgAU3kfEnSLaR5-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;endArrow=none;endFill=0;" parent="1" source="oRPDukKgAU3kfEnSLaR5-2" target="oRPDukKgAU3kfEnSLaR5-4" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
@@ -36,14 +39,6 @@
             <Array as="points">
               <mxPoint x="150" y="480" />
               <mxPoint x="150" y="570" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="oRPDukKgAU3kfEnSLaR5-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="oRPDukKgAU3kfEnSLaR5-3" target="oRPDukKgAU3kfEnSLaR5-37" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="150" y="480" />
-              <mxPoint x="150" y="450" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -163,6 +158,11 @@
             <mxPoint x="810" y="450" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="uW9NiAeNeQI1gvQ_2EqJ-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="oRPDukKgAU3kfEnSLaR5-59">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="980" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="oRPDukKgAU3kfEnSLaR5-59" value="Finalizar Pedido" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="570" y="650" width="130" height="60" as="geometry" />
         </mxCell>
@@ -201,7 +201,7 @@
             <mxPoint x="520" y="910" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="oRPDukKgAU3kfEnSLaR5-69" value="Os funcionários podem colocar o pedido como &quot;Pendente&quot;, &quot;Em preparação&quot;, &quot;Finalizado&quot; e &quot;Entregue&quot;" style="shape=note;size=20;whiteSpace=wrap;html=1;direction=south;" parent="1" vertex="1">
+        <mxCell id="oRPDukKgAU3kfEnSLaR5-69" value="Os funcionários podem colocar o pedido como &quot;Em preparação&quot;, &quot;Finalizado&quot; e &quot;Entregue&quot;" style="shape=note;size=20;whiteSpace=wrap;html=1;direction=south;" parent="1" vertex="1">
           <mxGeometry x="400" y="405" width="170" height="90" as="geometry" />
         </mxCell>
         <mxCell id="oRPDukKgAU3kfEnSLaR5-70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;" parent="1" source="oRPDukKgAU3kfEnSLaR5-37" target="oRPDukKgAU3kfEnSLaR5-69" edge="1">
@@ -213,16 +213,7 @@
             <mxPoint x="370" y="490" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="oRPDukKgAU3kfEnSLaR5-74" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=blockThin;endSize=12;dashed=1;html=1;rounded=0;endFill=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="oRPDukKgAU3kfEnSLaR5-19" target="oRPDukKgAU3kfEnSLaR5-64" edge="1">
-          <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="360" y="660" as="sourcePoint" />
-            <mxPoint x="360" y="580" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="3Gos6kqD1v6AwGEqO2Vg-1" value="" style="whiteSpace=wrap;html=1;fillColor=none;strokeWidth=2;imageAspect=0;" vertex="1" parent="1">
-          <mxGeometry x="130" y="-80" width="870" height="1070" as="geometry" />
-        </mxCell>
-        <mxCell id="3Gos6kqD1v6AwGEqO2Vg-2" value="Sistema da Pizzaria Online" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="3Gos6kqD1v6AwGEqO2Vg-2" value="Sistema da Pizzaria Online" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="480" y="-80" width="170" height="30" as="geometry" />
         </mxCell>
       </root>
