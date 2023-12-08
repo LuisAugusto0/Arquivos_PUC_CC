@@ -129,20 +129,21 @@ class ArvoreBinaria{
         return resultado;
     }
     public boolean searchBool(String nome){
+        return searchBool(raiz, nome);
+    }
+    private boolean searchBool(No i, String nome){
         boolean resultado = false;
-        No i = raiz;
 
-        while(i != null){
-            if(nome.compareTo(i.thisJ.nome) < 0){
-                System.out.print("ESQ "); 
-                i = i.esq;
-            } else if(nome.compareTo(i.thisJ.nome) > 0){
+        if(i != null){
+            resultado = nome.compareTo(i.thisJ.nome) == 0;
+            if(resultado == false){
+                System.out.print("ESQ ");
+                resultado = searchBool(i.esq, nome);    
+            }
+            if(resultado == false){
                 System.out.print("DIR ");
-                i = i.dir;
-            } else { 
-                resultado = true;
-                i = null;
-            } 
+                resultado = searchBool(i.dir, nome);
+            }
         } 
 
         return resultado;
@@ -175,7 +176,7 @@ class ArvoreBinaria2{
     
     ArvoreBinaria2() throws Exception{
         raiz = null;
-        int[] alturas = { 7, 3, 11, 1, 5, 9, 13, 0, 2, 4, 6, 8, 10, 12, 14 };
+        int[] alturas = { 7, 3, 11, 1, 5, 9, 12, 0, 2, 4, 6, 8, 10, 13, 14 };
         insert(alturas);
     }
 
@@ -247,7 +248,7 @@ class Q02{
     public static Jogador ler(int id) throws Exception{
         Jogador leitura = null;
         try{
-            BufferedReader bf = new BufferedReader( new FileReader( new File("tmp/players.csv") ) );
+            BufferedReader bf = new BufferedReader( new FileReader( new File("/tmp/players.csv") ) );
             String l = null;
             String[] s = null;
             //Leitura inicial para pular primeira linha
