@@ -1,0 +1,404 @@
+PUC-Minas - ICEI - Ciência da Computação
+Arquitetura de Computadores I - Aula 2023-2_015
+
+Anotações
+
+___
+
+Modelo de Arquitetura de Computadores
+
+ _____________________
+|                     |   RAM     ROM      Memória 
+| Unidade de Controle |    ^       |
+|_____________________|    |       |   
+|  A  |               |    v       v       
+|  L  | Registradores |<=================> Barramentos
+|  U  |               |    ^       |
+|-----|---------------|    |       |
+|flags| Temporização  |    |       v
+|_____|_______________|  entradas saídas   Interfaces
+                     
+___
+   
+Limites para processamento
+
+Processos submetidos a limitações devido à entrada/saída
+
+P1:             (IO_bounded)
+                    I/O
+    _________                   _________
+___|         \      ...        /         |___
+
+P2:
+                _____                   _
+___    ...    _|     |_   ...            |___
+
+P3:
+                         _____          _
+___    ...             _|     |_   ...   |___
+
+
+OBS.: P2 e P3 podem ser executados enquanto
+      P1      aguardar por entrada/saída.
+
+
+Processos submetidos a limitações devido ao processamento:
+
+P1:                         (CPU_bounded)
+                                 I/O
+    ___________________________         ___   ______________
+___|                           \  ...  /   |_|
+
+P2:
+                                 _____
+___    ...                     _|     |_
+
+
+P3:
+                                           _____
+___    ...                               _|     |_   ...
+
+
+OBS.: P2 poderá executar, 
+      mas  P3 ficará em espera (até mesmo infinita),
+      pois P1 (se de maior prioridade) 
+      poderá tirar-lhe o direito à  execução.
+
+___
+      
+Processos em execução sequencial
+
+P1:
+        ____
+_______|    |____________________________
+
+          ->| |<- intervalo
+P2:
+               ____
+______________|    |_____________________
+
+                 ->| |<- intervalo
+P3:
+                      ____
+_____________________|    |______________
+
+
+OBS.: O intervalo poderá ser utilizado para mudanças de contexto.
+
+___
+
+Tempo x etapas na execução de uma instrução
+
+        __________________________________________________________________
+ ______|                                                                  |______
+
+ início busca -> decodificação ->             execução                  -> fim
+         (1)         (2)                     (3)-(4)-(5)
+ 
+Execução de instrução separada por estágios ("pipeline")
+
+        =================================================================
+       |                                                                 |
+       v                                                                 |
+ buscar ==||==> decodificar ==||==> executar ==||==> memória ==||==> reescrever
+        IF /ID              ID /EX           EX /MEM        MEM /WB
+        (1)        (2)                (3)              (4)            (5)
+
+ Legenda:
+ IF  - Instruction Fetch
+ ID  - Instruction Decode
+ EX  - Execution
+ MEM - Memory
+ WB  - Writeback
+
+___
+
+Modelos de execução
+
+a.) Subescalar   (apenas 1 estágio ativo por vez)
+
+       primeira instrução        segunda instrução
+    _______________________   _______________________
+  _|                       |_|                       |_
+    IF - ID - EX - MEM - WB - IF - ID - EX - MEM - WB
+
+
+b.) Superescalar (mais de um estágio ativo por vez)
+
+      primeira instrução
+
+1   IF - ID - EX - MEM - WB
+2        IF - ID - EX  - MEM - WB
+3             IF - ID  - EX  - MEM - WB
+4                  IF  - ID  - EX  - MEM - WB
+5                        IF  - ID  - EX  - MEM - WB
+
+___
+
+Tempo de execução de instruções com "pipeline"
+                                                subescalar
+        _______________
+    ___|               |___                     primeira instrução
+
+ iní­cio IF-ID-EX-MEM-WB fim
+                            _______________
+                        ___|               |___ segunda  instrução
+
+                     iní­cio IF-ID-EX-MEM-WB fim
+
+                                                superescalar
+        _______________
+    ___|               |___                     primeira instrução
+
+ iní­cio IF-ID-EX-MEM-WB fim
+           _______________
+       ___|               |___                  segunda  instrução
+
+    iní­cio IF-ID-EX-MEM-WB fim
+              _______________
+          ___|               |___               terceira instrução
+
+       iní­cio IF-ID-EX-MEM-WB fim
+                 _______________
+             ___|               |___            quarta   instrução
+
+          iní­cio IF-ID-EX-MEM-WB fim
+                    _______________
+                ___|               |___         quinta   instrução
+
+             iní­cio IF-ID-EX-MEM-WB fim
+
+
+ OBS.: Como se pode notar, a quantidade de instruções executadas
+       com o compartilhamento de seções do pipeline aumenta,  ou
+       seja, mais instruções são executadas no mesmo  tempo  que
+       anteriormente era gasta para se executar duas instruções.
+
+___
+
+Modos de endereçamento
+
+Modo de endereçamento	      Exemplo: R0 = R1 + x	        Uso
+
+Implícito                     ( HALT, __, __, __          ) (operando dispensável)
+Imediato                      (  +  , R0, R1, valor       ) com valor constante
+Registrador                   (  +  , R0, R1, R2          ) com dado em registrador
+Deslocamento	              (  +  , R0, R1, M [base+R2] ) com variável local
+Registrador indireto          (  +  , R0, R1, M [R2]      ) com acesso a dado via apontador
+Indexado                      (  +  , R0, R1, M [R2+R3]   ) com endereçamento de arranjo
+Direto ou absoluto            (  +  , R0, R1, M8080       ) com acesso à  memória estática
+Indireto em relação à memória (  +  , R0, R1, M [M [R2]]  ) com combinações de apontadores
+
+OBS.:
+a.) M[base] refere-se a um endereço relativo (base)
+    a partir do qual outros dados poderão ser encontrados
+b.) M8080 refere-se a um endereço absoluto da memória
+    acessível pelo processador Intel 8080
+c.) Alguns modos de endereçamento podem ser combinados
+    para usar o topo da pilha em lugar de registrador.
+    Esses outros modos combinados de endereçamento
+    podem ser chamados de híbridos.
+
+___
+
+Formatos de instrução 
+
+Exemplos
+
+instrução   modo de endereçamento
+
+code xxxx - implícito     -> p ( )
+code vvvv - imediato      -> f (0000 vvvv)
+code aaaa - direto        -> memória [aaaa]
+code r1r2 - registradores -> memória [r1+r2]
+
+___
+
+Classificação de arquiteturas segundo o conjunto de instruções (ISA's)
+
+   Arquitetura 	       Instrução           Descrição para   C = A+B
+
+1. Acumulador                              (antes de 1960, 68HC11)
+                       load  A             AC <- mem [A]
+   1 endereço          add   B             AC <- AC + mem [B]
+                       store C             mem [C] <- AC
+
+2. Pilha                                   (de 1960 a 1970)
+                       push  A             SP <- SP+1; stack[SP] <- mem [A];
+                       push  B             SP <- SP+1; stack[SP] <- mem [B];
+   0 endereço          add                 SP <- SP-1; stack[SP] <- stack[SP] + stack[SP+1]
+                       pop   C             SP <- SP-1; mem [C]   <- stack[SP];
+
+3. Memória-Memória                         (de 1970 a 1980)
+   2 endereços         add   A, B          mem [A] <- mem [A] + mem[B]
+   3 endereços         add   A, B, C       mem [A] <- mem [B] + mem[C]
+
+4. Registrador-Memória                     (1970 em diante, 80x86)
+                       load  R1, A         R1 <- mem [A]
+   2 endereços         add   R1, B         R1 <- R1 + mem [B]
+                       store C, R1         mem [C] <- R1
+
+5. Registrador-Registrador (load/store)    (1960 em diante, MIPS)
+                       load  R1, A	       R1 <- mem [A]
+                       load  R2, B         R2 <- mem [B]
+   3 endereços         add   R3, R1, R2    R3 <- R1 + R2
+                       store C , R3        mem [C] <- R3
+
+
+Tipo	                  Vantagens                         Desvantagens
+
+Acumulador              - boa densidade de código         - acumulador é gargalo
+                        - compilador simples de escrever  - dificulta paralelismo e pipelining
+                                                          - compilador otimizado é difícil
+                                                          - alto tráfego com a memória
+
+Pilha                   - boa densidade de código         - pilha é gargalo
+                        - poucos requisitos de hardware   - dificulta paralelismo e pipelining
+                        - compilador simples de escrever  - compilador otimizado é difícil
+                                                          - operações complementares
+                                                            para movimentar dados na pilha
+
+Memória-Memória	        - boa densidade de código         - tempo variável por instrução
+                        - compilador simples de escrever  - operações complementares
+                                                            para lidar poucos operandos
+                                                          - alto tráfego com a memória
+
+Registrador-Memória     - boa densidade de código         - tempo variável por instrução
+                        - possível acessar dado	          - baixa ortogonalidade
+                          sem carregar	                  - limitado em registradores
+
+Registrador-Registrador
+load/store              - boa densidade de código         - instruções numerosas
+                        - mesmo tempo por instrução       - nem sempre trazem operandos
+                        - fácil paralelismo e pipelining  - dependente de bom compilador
+___
+
+Registradores
+(1980 em diante)        - mais rápidos do que cache       - limitados em quantidade
+                        - tráfego de memória reduzido	  - salvar e restaurar contexto
+                                                          - dependente de bom compilador
+___
+___
+
+Arquitetura baseada em acumulador
+
+Conjunto de instruções do 8085
+
+                   Classificação de                       
+                      Instruções                              
+                        (8085)				                  
+                           |                                  
+    +----------------------+-----------------------+          
+    |                      |                       |          
+Baseada em            Baseada em               Baseada em     
+Operações          Modos de Endereçamento   Tamanho da Palavra
+|                  |                        |                 
++- mover dados     +- direto                +- 1-byte         
++- aritméticas     +- registrador           +- 2-byte         
++- lógicas         +- registrador indireto  +- 3-byte         
++- desvios         +- imediato                                
++- pilha, I/O e    +- implícito                               
+   controle                                                   
+
+___
+
+Modos de Endereçamento
+
+01.  Endereçamento direto
+     endereço do operando na própria instrução
+    
+     Exemplo:
+    
+     STA C050h // A=MEM[C050]
+     00110010  01010000  11000000 // 3_bytes
+     32  50 C0 // bytes invertidos (LSB primeiro)
+     op  addr  // código da operação (opcode) + endereço (2_bytes)
+
+     JMP 0010h // PC=0010
+     11000011  00000000  00010000  // 3_bytes
+     C3  10 00 // bytes invertidos (LSB primeiro)
+     op  addr  // código da operação (opcode) + endereço (2_bytes)
+
+02.  Endereçamento de registrador
+     operando em um dos registradores de uso geral
+
+     Exemplo:
+     
+     //  dst src
+     MOV  A,  B  // A=B
+     01  111 000 // 1_byte
+     78          // opcode
+     op  r-1 r-2 // código da operação (opcode) + registradores
+
+     MOV  M,  A  // M=A
+     01110   111 // 1_byte
+     77          // opcode
+     01110   r-1 // código da operação (opcode) + registrador
+
+03.  Endereçamento imediato
+     operando na própria instrução
+    
+     Exemplo:
+
+     LXI  H, C050h // HL=C050h
+     00100001 01010000 11000000 // 3_bytes
+     21   50 C0    // bytes invertidos (LSB primeiro)
+     op   addr     // código da operação (opcode) + endereço
+
+     MVI  A, 00h   // A=0
+     00111110 00000000          // 2_bytes
+     3E   00h      
+     op   data     // código da operação (opcode) + dado      
+
+04.  Endereçamento indireto via registrador
+     endereço do operando especificado anteriormente
+     por conteúdo de um par de registradores
+
+     Exemplo:
+
+     LXI  H, C050h // HL=C050h
+     MOV  A, M     // A=M=MEM[HL]
+     01111110      // 1_byte
+     7E
+     op            // código da operação (opcode)
+
+     XCHG          // DE<->HL
+     11101011      // 1_byte
+     EB            // código da operação (opcode)
+	 
+     STAX  D       // MEM[DE]=A
+     00010010      // 1_byte
+     12            // código da operação (opcode)
+
+05.  Endereçamento implícito
+     instrução não requer operando
+
+     Exemplo:
+
+     CMA           // A=~A
+     00101111
+     2F            // código da operação (opcode)
+     
+     DAA           // ajuste decimal
+     00100111
+     27            // código da operação (opcode)
+     
+     STC           // Carry=1
+     00110111
+     37            // código da operação (opcode)
+
+___
+
+Códigos de condição (flags)
+
+Flag  Descrição            
+
+ C    Carry           // "vai-um/vem-um"           
+ P    Parity          // paridade par (0) ou ímpar (1)           
+ AC   Auxiliary Carry // "vai-um" entre os bits 3 e 4 (meio byte)  
+ Z    Zero            // zero           
+ S    Sinal           // positivo (0) ou negativo (1)
+
+// ---
+
+

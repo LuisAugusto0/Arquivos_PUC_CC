@@ -1,0 +1,297 @@
+PUC-Minas - ICEI - Ciência da Computação
+Arquitetura de Computadores I - Aula 2023-2_ARQ1_018
+
+Anotações
+
+___
+
+Resumo da semana
+
+Arquitetura do Conjunto de Instruções (ISA)
+Memórias: Cache, Principal, Secundária e Virtual
+
+01. Tipos de memórias RAM's:
+
+RAM dinâmica                      RAM estática
+
+necessita refrescamento           dispensa refrescamento
+construção simples                construção complexa
+menor área/bit                    maior área/bit
+mais  barata                      mais  cara
+mais  lenta                       mais  rápida
+memória principal                 memória cache
+
+___
+
+02. Mapeamento da memória principal
+    para execução de programa (C/C++)
+ 
+ _____________
+|             |
+|    S. O.    |    // dados sobre o ambiente
+|             |    // parâmetros da linha de comandos
+|    . . .    |
+|_____________| <- área dinâmica
+|    Stack    | <- execução de métodos
+|             |
+|  (métodos)  |
+|             |
+|-------------|
+|      |      |    // progressão do Stack
+|      v      |
+| Área Livre  |    // Extra Segment (ES)
+|      ^      |
+|      |      |    // progressão do Heap
+|-------------|
+|    Heap     |
+|             |
+|   (dados)   |
+|             | 
+|=============| <- alocação de dados
+|             | <- área estática
+|    Dados    |
+|     Não     |
+|Inicializados|    // Data  Segment (DS)
+|             |
+|-------------|
+|             |
+|    Dados    |
+|Inicializados|
+|             |
+|-------------|
+|             |
+| Constantes  |
+|             |
+|-------------|
+|             |
+|   Código    |    // Base  Segment (BS)
+|_____________| <- programa
+|             |
+|    . . .    |
+
+
+___
+
+03. Detalhamento da pilha (Stack) para execução de métodos
+
+ ________________________ <- endereço mais elevado (início)
+| parâmetros da  função  |       |
+|------------------------|       |
+| endereço   de  retorno |       |
+|------------------------|       |  Stack Frame  ( 1 )
+| topo da pilha anterior |       |
+|------------------------|<-+    |
+|       dados locais     |  |    |
+|------------------------|  | <--+
+| parâmetros da  função  |  |    |
+|------------------------|  |    |
+| endereço   de  retorno |  |    |
+|------------------------|  |    |  Stack Frame  ( 2 )
+| topo da pilha anterior ---+    |
+|------------------------|<-+    |
+|       dados locais     |  |    |
+|------------------------|  | <--+
+| parâmetros da  função  |  |    |
+|------------------------|  |    |
+| endereço   de  retorno |  |    |
+|------------------------|  |    |  Stack Frame  ( 3 )
+| topo da pilha anterior ---+ <---- Frame Pointer (FP)
+|------------------------|       |
+|       dados locais     |       |
+|------------------------|<- endereço menos elevado (fim)
+|                        |<- topo = Stack Pointer (SP)
+|           ...          |       |
+|                        |       |
+|________________________|       V  direção de avanço
+
+
+Stack Pointer (SP) = topo da pilha para execução
+Frame Pointer (FP) = referência para o topo anterior
+                     ajuda a localizar os parâmetros,
+                     o endereço de retorno e
+                     a área de dados locais
+                    
+___
+
+04. Princípio da localidade de referência
+
+É tendência da execução sequencial de programas 
+a reutilização de dados e instruções que tenham  
+sido referenciados recentemente, como em repetições 
+ou estruturas de dados: arranjos, listas e tabelas. 
+
+É possível prever, com razoável precisão, 
+quais instruções ou dados serão usados em 
+futuro próximo, e aperfeiçoar o desempenho.
+
+Há dois aspectos comuns a serem considerados:
+
+1. Localização temporal
+representa a (alta) probabilidade de que 
+uma instrução executada recentemente seja 
+realizada novamente em um curto espaço de tempo 
+(repetições, por exemplo).
+
+Objetivo: Melhor manter instruções/dados acessados 
+          recentemente em local mais próximo para a
+          próxima execução.
+          Pode haver cache de instruções e/ou de dados.
+
+2. Localização espacial
+representa a (alta) probabilidade de que 
+instruções próximas àquela executada 
+recentemente sejam executadas também em futuro próximo.
+
+Objetivo: Mover blocos de instruções/dados para 
+          níveis mais altos na hierarquia de memória, 
+          na expectativa serem usados proximamente.
+
+___
+
+05. Tipos de memórias caches
+
+1. mapeamento direto
+   Cada bloco só pode ser colocado em um lugar na cache.
+   A função de mapeamento é geralmente uma função modular (%).
+
+2. mapeamento associativo
+   Cada bloco só pode ser colocado em um lugar na cache.
+   A função de mapeamento é geralmente uma função modular (%)
+   e uma referência relativa ("offset").
+ 
+3. mapeamento associativo por grupo (N-way)
+   Solução de compromisso entre as anteriores, 
+   buscando unir vantagens de ambos.
+   
+Memórias caches e memórias virtuais são recursos
+usados para se atender a esses objetivos.
+
+___
+ 
+06. Memória Virtual 
+    = Cache + Memória Principal + Memória Secundária
+    
+                 Memória
+                 Virtual                     ____________
+                |       |                 / |            |
+                |       |                /  |            |
+                |       |    ___________    |            |
+                |       | / |           |   |            |
+    endereço    |       |/  |           |   |  memória   |
+    virtual      _______    |           |   |            |
+                |       |   |  memória  |   |            |
+   ---------+-->| cache |<=>|           |<=>|            |
+            |   |_______|   | principal |   |            |
+            |            \  |           |   |            |
+            |             \ |           |   | secundária |
+            |               |___________|   |            |
+            |                     ^      \  |            |
+            v                     |       \ |            |
+         tradução -------> endereço físico  |____________|
+            |                     |               ^
+            |                     v               |            
+            +------------------> TLB -------------+            
+
+TLB = Translation Lookaside Buffer (acesso de 5 ns)
+      memória cache para guardar mapeamentos de endereços
+      usados recentemente entre a memória virtual e a
+      memória física (acesso em torno de 100ns)
+
+___
+               
+07. Considerações para projeto de uma hierarquia de memórias
+
+- a unidade mínima de informação presente       (ou ausente) 
+  memória cache        : bloco        (tamanho)
+  para memória virtual : páginas      (tamanho e quantidade)
+
+- as taxas de tentativas de acesso com sucesso ("hit  rate")
+
+  hit_ratio = hit / (hit+miss) = #hits / #total_acessos
+
+- as taxas de tentativas de acesso sem sucesso ("miss rate"), 
+  no nível superior 
+  memória cache        : "miss"             (falta na cache)
+  para memória virtual : "page fault"       (falta a página)
+
+  miss_ratio = miss / (hit+miss) = #miss / #total_acesso = 1-hit_ratio
+
+- penalização no desempenho se a tentativa não tiver sucesso 
+  ("miss penalty")
+
+
+Exemplos:
+
+// matriz com armazenamento por linhas
+int sum_array_rows ( int a[4][4] )
+{
+ int x, t, sum = 0;
+ for (x = 0; x < 4; x++)    // rows
+    for (y = 0; y < 4; y++) // columns
+      sum = sum + a[x][y];
+ return sum;
+}
+
+block_size = 4 (por bloco)
+word_size  = 4 (bytes)
+
+a[x][y] y=0    y=1    y=2    y=3
+x=0     w[0]   w[1]   w[2]   w[3]
+       (miss) (hit ) (hit ) (hit )
+x=1     w[4]   w[5]   w[6]   w[7]
+       (miss) (hit ) (hit ) (hit )
+x=2     w[8]   w[9]   w[10]  w[11]
+       (miss) (hit ) (hit ) (hit )
+x=3     w[12]  w[13]  w[14]  w[15]
+       (miss) (hit ) (hit ) (hit )
+
+hit_ratio = 3/4 * 100 = 75%
+
+// matriz com armazenamento por colunas
+int sum_array_rows ( int a[4][4] )
+{
+ int x, t, sum = 0;
+ for (y = 0; y < 4; y++)
+    for (x = 0; x < 4; x++)
+     sum = sum + a[x][y];
+ return sum;
+}
+
+block_size = 4 (por bloco)
+word_size  = 4 (bytes)
+
+a[x][y] y=0    y=1    y=2    y=3
+x=0     w[0]   w[1]   w[2]   w[3]
+       (miss) (miss) (miss) (miss)
+x=1     w[4]   w[5]   w[6]   w[7]
+       (miss) (miss) (miss) (miss)
+x=2     w[8]   w[9]   w[10]  w[11]
+       (miss) (miss) (miss) (miss)
+x=3     w[12]  w[13]  w[14]  w[15]
+       (miss) (miss) (miss) (miss)
+
+hit_ratio = 0
+
+___
+
+Vantagens de códigos com melhor aproveitamento de caches
+- melhor desempenho com a redução de faltas ("miss")
+- minimização de acessos à memória
+  redução de consumo de potência (eficiência energética)
+- facilidade para otimizar para arquiteturas específicas
+
+Desvantagens de códigos com aproveitamento de caches
+- aumento da complexidade
+  melhorias no layout da memória e nos padrões de acessos
+- pode resultar em códigos executáveis maiores
+  (poderia afetar o uso geral de toda a memória do sistema)
+- dificuldade na depuração
+  em geral pode ser mais difícil de depurar
+  (pode não ficar claro a razão do porquê ocorre uma falta
+   ou como otimizar certa seção de código para melhor 
+   desempenho da memória cache)
+
+___
+
+
+

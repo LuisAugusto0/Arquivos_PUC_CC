@@ -1,0 +1,582 @@
+PUC-Minas - ICEI - Ciência da Computação
+Arquitetura de Computadores I - Aula 2023-2_006
+Anotações
+___
+
+Resumo da semana
+
+Revisão
+
+      tabela-verdade
+        /   |    \
+       / programa \ 
+      /    / \     \ 
+  circuito --- expressão
+
+Universalidade das portas NAND e NOR
+
+Representações alternativas de circuitos
+
+- Pass-Transistor Logic   (PTL)
+- Directed Acyclic Graph  (DAG)
+- Binary Decision Diagram (BDD)
+
+___
+
+Distância de Hamming (dH)
+
+1100
+1101
+   ^
+   |__ 1 bit  diferente  -> dH  = 1
+   
+1100
+1110
+  ^
+  |___ 1 bit  diferente  -> dH  = 1
+   
+1101
+1110
+  ^^
+  ||__ 2 bits diferentes -> dH  = 2
+   
+1100
+1001
+ ^ ^
+ |_|__ 2 bits diferentes -> dH  = 2 
+
+"casa"
+"caso"
+    ^
+    |_ 1 byte diferente  -> dHc = 1
+
+___
+
+Código de Gray
+ 
+ 0000
+     \ dH = 1
+     / 
+ 0001
+     \ dH = 2
+     /
+ 0010
+     \ dH = 1
+     /
+ 0011
+     \ dH = 3
+     /
+ 0100
+ 
+ ___
+ 
+ Para 2 bits:
+  
+ 00  <----------+
+     \ dH = 1   |
+     /          |
+ 01             |
+     \ dH = 1   dH = 1
+     /          |
+ 11             |
+     \ dH = 1   |
+     /          |
+ 10  <----------+
+ 
+ ___
+ 
+ Gerador de código de Gray por espelhamento:
+ 
+ 0    0     00  <- para 2 bits          0000  <- para 4 bits
+ 1    1     01                          0001
+     ---   ----                         0011
+      1     11                          0010
+      0     10                          0110
+                                        0111
+     00    000  <- para 3 bits          0101
+     01    001                          0100
+     11    011                         ------
+     10    010                          1100
+    ----  -----                         1101
+     10    110                          1111
+     11    111                          1110
+     01    101                          1010 
+     00    100                          1011
+                                        1001
+                                        1000
+ 
+___
+ 
+  Mapa Veitch-Karnaugh (dH=1)
+  
+  para 2 variáveis:
+                     O__ 
+  a\b    0      1    |
+  0    (0,0)  (0,1)
+  1    (1,0)  (1,1)
+  
+  Nota: A ordem de leitura será da esquerda para a direita
+        da variável de ordem mais significativa para a de
+        ordem menos significativa (linhas e colunas),
+        semelhante à orientação usada para matrizes.
+        
+        
+  para 3 variáveis:
+  
+  a\bc   00     01     11     10         a\bc  00  01  11  10  
+  0    (0,00) (0,01) (0,11) (0,10)       0      0   1   3   2
+  1    (1,00) (1,01) (1,11) (1,10)       1      4   5   7   6
+  
+  ab\c    0       1                      ab\c   0   1  
+  00   (00,0)  (00,1)                    00     0   1
+  01   (01,0)  (01,1)                    01     2   3
+  11   (11,0)  (11,1)                    11     6   7
+  10   (10,0)  (10,1)                    10     4   5
+      
+  para 4 variáveis:
+  
+  ab\cd   00      01      11      10     ab\cd 00  01  11  10
+  00   (00,00) (00,01) (00,11) (00,10)   00     0   1   3   2
+  01   (01,00) (01,01) (01,11) (01,10)   01     4   5   7   6
+  11   (11,00) (11,01) (11,11) (11,10)   11    12  13  15  14
+  10   (10,00) (10,01) (10,11) (10,10)   10     8   9  11  10
+      
+  para 5 variáveis:
+
+   a=0                                    a=1
+  bc\de 00  01  11  10                   bc\de 00  01  11  10
+  00     0   1   3   2                   00    16  17  19  18
+  01     4   5   7   6                   01    20  21  23  22
+  11    12  13  15  14                   11    28  29  31  30
+  10     8   9  11  10                   10    24  25  27  26
+  
+  para 6 variáveis:
+
+  ab=00                                  ab=01
+  cd\ef 00  01  11  10                   cd\ef 00  01  11  10
+  00     0   1   3   2                   00    16  17  19  18
+  01     4   5   7   6                   01    20  21  23  22
+  11    12  13  15  14                   11    28  29  31  30
+  10     8   9  11  10                   10    24  25  27  26
+  
+  ab=10                                  ab=11
+  cd\ef 00  01  11  10                   cd\ef 00  01  11  10
+  00    32  33  35  34                   00    48  49  51  50
+  01    36  37  39  38                   01    52  53  55  54
+  11    12  13  47  14                   11    60  61  63  62
+  10    40  41  43  42                   10    56  57  59  58
+
+  Objetivo: Identificar a menor quantidade de grupos 
+            capaz de reunir todos os elementos.
+___
+  
+Método de simplificação:  x.y + x.y' = x.(y+y') = x.1 = x
+                            |_____|
+          1 diferença        dH=1
+
+Por mintermos
+
+  a\bc   00     01     11     10      
+  0    a' b'c' a' b'c a'b c a' b c'   
+  1    a  b'c' a  b'c a b c a  b c'   
+                                      
+             b'            b          
+         _________     _________      
+                                      
+  a\bc   00     01     11     10      
+  0       0      1      3      2  | a'
+                                      
+  1       4      5      7      6  | a 
+         __     _________     __      
+         c'         c         c'      
+        
+  Exemplo:
+                    0        1       2        6   
+  SoP (0,1,2,6) = a'b'c' + a'b'c + a'b c' + a b c'
+
+  Por mintermos:
+  
+  a\bc  00     01     11     10
+  0      1      1             1
+  1                           1
+
+  Grupos:
+                 0        1 
+  par (m0,m1): a'b'c' + a'b'c  = (a'b').(c'+c) = (a'b').1 = a'b'
+                 2        6
+  par (m2,m6): a'b c' + a b c' = (b c').(a'+a) = (b c').1 = b c'
+                 0        2
+  par (m0,m2): a'b'c' + a'b c' = (a'c').(b'+b) = (a'c').1 = a'c'
+  
+  grupos (pares) de mintermos: a'b' + b c' + a'c'
+  expressão simplificada por mintermos: a'b' + b c'
+  
+  Nota: É redundante o termo: a'c'
+        e pode ficar fora da expressão simplificada.
+        Pode ser removida por consenso:
+
+        a'b' + b c' + a'c' -> (p.q)+(p'.r)+(q.r) = (p.q)+(p'.r)
+        q.p  + p'.r + q.r  =  a'b' + b c'
+                
+  Tabela-verdade
+                 DNF         CNF       Redundância
+    abc  s     mintermos  MAXTERMOS
+  0 000  1  <- a'b'0                   <- a'.c'
+  1 001  1  <- a'b'1
+  2 010  1  <- 0 b c'                  <- a'.c'
+  3 011                  0 <- A +B'+C'
+  4 100                  0 <- A'+B +C
+  5 101                  0 <- A'+B +C'
+  6 110  1  <- 1 b c'
+  7 111                  0 <- A'+B'+C'
+
+  DNF - Disjunctive Normal Form (SoP) 
+  CNF - Conjunctive Normal Form (PoS)
+
+___  
+  
+Por MAXTERMOS:
+
+  A\BC    00       01      11       10      
+  0    A +B +C A +B +C' A +B'+C' A +B'+C   
+  1    A'+B +C A'+B +C' A +B'+C' A'+B'+C   
+                                         
+               B                B'           
+          ___________      ___________      
+                                         
+  A\BC    00       01      11       10      
+  0        0        1       3        2  | A 
+                                            
+  1        4        5       7        6  | A'
+          __       __________       __      
+          C            C'            C      
+
+  Exemplo:
+         
+  A\BC    00       01      11       10
+  0                         0         
+  1        0        0       0         
+                                       
+                      3          4          5          7   
+  PoS (3,4,5,7) = (A +B'+C').(A'+B +C ).(A'+B +C').(A'+B'+C')
+
+  Grupos:
+                   4          5
+  par (M4,M5): (A'+B +C ).(A'+B +C') = (A'+B )
+                   3          7
+  par (M3,M7): (A +B'+C').(A'+B'+C') = (B'+C')
+                   5          7
+  par (M5,M7): (A'+B +C').(A'+B'+C') = (A'+C')
+  
+  grupos (pares) de MAXTERMOS: (A'+B ).(B'+C').(A'+C')
+  
+  pelas propriedades da álgebra de Boole:
+  
+  A'+B         . <- distributiva 
+  B'+C'
+  ______________
+  A'B'+(B'B)     <- contradição
+  A'C'     +B C'
+  ______________
+ (A'B'+  0)      <- identidade 
+  A'C'     +B C'
+  ______________
+  A'B'+          
+  A'C'     +B C'
+  ______________
+  A'B'+A'C'+B C' <- comutativa
+                 
+  A'B'+B C'+A'C' <- expressão equivalente à dos mintermos
+  
+  A'B'+A'C'+B C'
+  A'+C'          => testar se ha' redundância
+  ____________________ 
+  A'A'B'+A'A'C'+A'B C'
+  A'B'C'+A'C'C'+B C'C'
+  ____________________
+  A'B'  + A'C' +A'B C'
+  A'B'C'+ A'C' +B C'
+  ____________________
+  A'B'  + A'C' +A'B C'
+  A'B'C'       +  B C'
+  ______________________
+  A'B'(1+C')+ A'C'
+            + B C'(A'+1)
+  ______________________
+  A'B'+ A'C'+ B C'
+
+  A'B'+ B C'+A'C' <- expressão equivalente à dos mintermos    
+
+  expressão simplificada por MAXTERMOS: (A'+B ).(B'+C')
+  
+  Nota: É redundante o termo: (A'+C')
+        e pode ficar fora da expressão simplificada.
+        Pode ser removida por consenso.
+        
+  Tabela-verdade
+    ABC  S            Redundância     
+  0 000  
+  1 001  
+  2 010  
+  3 011  0 <- 0+B'+C'
+  4 100  0 <- A'+B+0
+  5 101  0 <- A'+B+1  <- A'+0+C'
+  6 110  
+  7 111  0 <- 1+B'+C' <- A'+1+C'
+
+___
+  
+Representações gráficas
+
+         dH=1
+      0 ______ 1
+
+         dH=1
+     00 ______ 01
+      |         | dH=1
+      |         |
+     10 ______ 11
+ 
+         dH=1
+    100 _______ 101
+     /|         /| dH=1
+  000_|_____ 001 |
+   |  |       |  | 
+   |110 ______|_111
+   | /        | /  dH=1
+  010 ______ 011
+
+
+Exemplo:
+
+           a'b'
+      000 _______ 001    SoP (0,1,2,6)
+ a'c'  |             
+       |110 
+       | / b c'       
+      010 
+
+           A'+B
+      100 _______ 101    PoS (3,4,5,7)
+                   | 
+                   | A'+C'
+                   | 
+                  111
+                  /  B'+C'
+                011
+
+    Separação entre SoP e PoS (complementaridade)
+    
+      100 _______ 101
+                   | 
+    000_______ 001 |
+     |             | 
+     |110         111
+     | /          /  
+    010        011
+                
+___
+  
+Circuitos combinacionais
+
+Exemplo 1:
+
+                               s1    s0
+n   m     M   a   b   a' b'  (a.b) (a^b)
+0 a'.b' A +B  0   0   1  1     0     0
+1 a'.b  A +B' 0   1   1  0     0     1
+2 a .b' A'+B  1   0   0  1     0     1
+3 a .b  A'+B' 1   1   0  0     1     0
+
+              0 + 0         =  0     0
+              0 + 1         =  0     1
+              1 + 0         =  0     1
+              1 + 1         =  1     0 
+
+s1 = SoP ( 3 ) = a .b              
+s0 = SoP (1,2) = a'.b + a.b' = a ^ b (a xor b)
+                
+___
+
+Exemplo 2:
+                                        s1    s0
+n   m        M      a  b  c  a' b' c' 
+0 a'.b'.c' A +B +C  0  0  0  1  1  1     0     0
+1 a'.b'.c  A +B +C' 0  0  1  1  1  0     0     1
+2 a'.b .c' A +B'+C  0  1  0  1  0  1     0     1
+3 a'.b .c  A +B'+C' 0  1  1  1  0  0     1     0
+4 a .b'.c' A'+B +C  1  0  0  0  1  1     0     1
+5 a .b'.c  A'+B +C' 1  0  1  0  1  0     1     0
+6 a .b .c' A'+B'+C  1  1  0  0  0  1     1     0
+7 a .b .c  A'+B'+C' 1  1  1  0  0  0     1     1
+
+                       3         5        6         7
+s1 = SoP(3,5,6,7) = a'.b .c + a. b'.c + a.b .c' + a.b.c
+                       1         2        4         7
+s0 = SoP(1,2,4,7) = a'.b'.c + a'.b .c'+ a.b'.c' + a.b.c
+
+ para a saída (s1):
+                        3         5        6         7
+ s1 = SoP(3,5,6,7) = a'.b .c + a. b'.c + a.b .c' + a.b.c
+
+ s1
+ab\c  0  1
+00        
+01       1
+11    1  1
+10       1
+                               
+ (m3,m7) = 011 + 111 = _11 = _bc
+
+         ___  
+ ab\c  0  1
+ 00        
+ 01|      1 |
+ 11|      1 |
+ 10      
+
+ (m5,m7) = 101 + 111 = 1_1 = a_c
+         ___ 
+ ab\c  0  1
+ 00        
+ 01        
+|11       1 |
+|10       1 |         
+        
+ (m6,m7) = 110 + 111 = 11_ = ab_
+ 
+ ab\c  0  1
+ 00        
+ 01       
+|11|   1  1
+ 10       
+
+ s1 = SoP(3,5,6,7) = b.c + a.c + a.b
+ 
+ para a outra saída (s0):
+                        1         2        4         7
+ s0 = SoP(1,2,4,7) = a'.b'.c + a'.b .c'+ a.b'.c' + a.b.c
+ 
+ s0
+ ab\c  0  1
+ 00       1 
+ 01    1
+ 11       1
+ 10    1
+ 
+ pela álgebra:
+ 
+ s0 = a'b'c + a'b c' + a b'c'+a b c  
+  
+    = a'.(b'.c+b.c') + a.(b'.c'+b.c)
+    
+    = a'.(b   ^  c ) + a.(b    ^  c)'
+    
+ substituindo 
+ 
+ k  = (b^c)
+ 
+ reescrevendo
+ 
+ s0 = a'.k + a.k' = a ^ k = a ^ ( b ^ c )
+ 
+ 
+ // a simplificação pelo mapa VK não se aplicará
+ // se não houver adjacências em linha e/ou colunas
+  
+ Nota: Se houver simplificações possíveis pela álgebra de Boole,
+       o mapa de Veitch-Karnaugh não permitirá aplicá-las,
+       caso a distância de Hamming for maior que 1 (dH>1).
+        
+ Objetivo: Identificar a menor quantidade de grupos que
+           possa reunir todos os termos, com dH = 1.
+
+___
+
+Exemplo 3:
+                  C'
+               ______
+ AB\CD 00  01  11  10
+ 00                  
+|01|    0   0   0   0 | B'
+ 11             0   0 |
+ 10     0             
+
+ S = PoS(4,5,6,7,8,14,15)
+ 
+   = (A+B').(B'+C').(A'+B+C+D)
+
+___
+
+Exemplo 4:
+
+ AB\CD 00  01  11  10
+ 00                  
+ 01     0   0   0   0 
+ 11             0   0 
+ 10     0           X <- "don't care"
+
+ escolhendo, arbitrariamente, X = 0:
+
+ S = (A+B').(B'+C').(A'+B+D)
+
+___
+
+Exemplo 5:
+
+ AB\CD 00  01  11  10
+ 00                  
+ 01     0   0   0   0 
+ 11             0   0 
+ 10     Y           X <- "don't care"
+
+ escolhendo, arbitrariamente, X = 1 e Y = 1:
+
+ S = (A+B').(B'+C')
+ 
+ por outro lado, se X = 0 e Y = 0:
+ 
+ S = (A+B').(B'+C').(A'+B +D)
+ 
+ e, de outra forma, se X = 0 e Y = 1:
+ 
+ S = (A+B').(B'+C').(A'+C'+D)
+
+ finalizando com X = 1 e Y = 0:
+ 
+ S = (A+B').(B'+C').(A'+B+C+D)
+ 
+___
+
+Exemplo 6:
+
+a\bc  00 01 11 10  SoP (1,2,3,4) = a'.c + a'.b + a.b'.c'
+0         1  1  1      (01,03)   = a'.c
+1     1                (02,03)   = a'.b      
+                       (04)      = a .b'.c'
+
+Em Verilog:
+                       
+module SoPe ( output s, input a, input b, input c );
+ assign s = (~a&c) | (~a&b) | (a&~b&~c);
+endmodule
+
+module SoPg ( output s, input a, input b, input c );
+ wire not_a, not_b, not_c;
+ wire a1, a2, a3, a4;
+ wire o1;
+ 
+ not NOT1 ( not_a,  a    ); //  a'
+ not NOT2 ( not_b,  b    ); //  b'
+ not NOT3 ( not_c,  c    ); //  c'
+ and AND1 ( a1, not_a, c ); //  a'.c 
+ and AND2 ( a2, not_a, b ); //  a'.b
+ and AND3 ( a3, a, not_b ); //  a. b'
+ and AND4 ( a4, a3,not_c ); // (a. b').c'
+ or  OR1  ( o1, a1, a2   ); // (a'.c )+(a'.b)
+ or  OR2  (  s, o1, a4   ); // (a'.c )+(a'.b)+(a.b'.c')
+endmodule
+
+___
+
+

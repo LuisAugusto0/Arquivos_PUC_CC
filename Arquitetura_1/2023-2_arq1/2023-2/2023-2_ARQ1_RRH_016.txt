@@ -1,0 +1,245 @@
+PUC-Minas - ICEI - Ciência da Computação
+Arquitetura de Computadores I - Aula 2023-2_016
+
+Anotações
+
+___
+
+Resumo da semana
+
+1.) Arquitetura baseada em acumulador
+
+Conjunto de instruções do 8085
+
+                   Classificação de                       
+                      Instruções                              
+                        (8085)				                  
+                           |                                  
+    +----------------------+-----------------------+          
+    |                      |                       |          
+Baseada em            Baseada em               Baseada em     
+Operações          Modos de Endereçamento   Tamanho da Palavra
+|                  |                        |                 
++- mover dados     +- direto                +- 1-byte         
++- aritméticas     +- registrador           +- 2-byte         
++- lógicas         +- registrador indireto  +- 3-byte         
++- desvios         +- imediato                                
++- pilha, I/O e    +- implícito                               
+   controle                                                   
+
+___
+
+Modos de Endereçamento
+
+01.  Endereçamento direto
+     endereço do operando na própria instrução
+    
+     Exemplo:
+    
+     STA C050h // MEM[C050]=A
+     00110010  01010000  11000000 // 3_bytes
+     32  50 C0 // bytes invertidos   (LSB primeiro)
+     op  addr  // código da operação (opcode) + endereço (2_bytes)
+
+     JMP 0010h // PC=0010
+     11000011  00000000  00010000  // 3_bytes
+     C3  10 00 // bytes invertidos (LSB primeiro)
+     op  addr  // código da operação (opcode) + endereço (2_bytes)
+
+02.  Endereçamento de registrador
+     operando em um dos registradores de uso geral
+
+     Exemplo:
+     
+     //  dst src
+     MOV  A,  B  // A=B
+     01  111 000 // 1_byte
+     78          // opcode
+     op  r-1 r-2 // código da operação (opcode) + registradores
+
+     MOV  M,  A  // M=A
+     01110   111 // 1_byte
+     77          // opcode
+     01110   r-1 // código da operação (opcode) + registrador
+
+03.  Endereçamento imediato
+     operando na própria instrução
+    
+     Exemplo:
+
+     LXI  H, C050h // HL=C050h
+     00100001 01010000 11000000 // 3_bytes
+     21   50 C0    // bytes invertidos (LSB primeiro)
+     op   addr     // código da operação (opcode) + endereço
+
+     MVI  A, 00h   // A=0
+     00111110 00000000          // 2_bytes
+     3E   00h      
+     op   data     // código da operação (opcode) + dado      
+
+04.  Endereçamento indireto via registrador
+     endereço do operando especificado anteriormente
+     por conteúdo de um par de registradores
+
+     Exemplo:
+
+     LXI  H, C050h // HL=C050h
+     MOV  A, M     // A=M=MEM[HL]
+     01111110      // 1_byte
+     7E
+     op            // código da operação (opcode)
+
+     XCHG          // DE<->HL
+     11101011      // 1_byte
+     EB            // código da operação (opcode)
+	 
+     STAX  D       // MEM[DE]=A
+     00010010      // 1_byte
+     12            // código da operação (opcode)
+
+05.  Endereçamento implícito
+     instrução não requer operando
+
+     Exemplo:
+
+     CMA           // A=~A
+     00101111
+     2F            // código da operação (opcode)
+     
+     DAA           // ajuste decimal
+     00100111
+     27            // código da operação (opcode)
+     
+     STC           // Carry=1
+     00110111
+     37            // código da operação (opcode)
+
+___
+
+Códigos de condição (flags)
+                      // 7  6  5  4  3  2  1  0
+Flag  Descrição       // S  Z  - AC  -  P  - CY   -> F(lags)     
+
+ C    Carry           // "vai-um/vem-um"           
+ P    Parity          // paridade par (0) ou ímpar (1)           
+ AC   Auxiliary Carry // "vai-um" entre os bits 3 e 4 (meio byte)  
+ Z    Zero            // zero           
+ S    Sinal           // positivo (0) ou negativo (1)
+
+// ---
+
+Arquiteturas voltadas para pilhas - Stack Machines
+
+Operações aritméticas
+
+         2  +          3  -           4  <- value
+[0001 0000]   [0001 0100]    [0001 1000] <- address
+
+Com acumulador ((2+3)-4)
+
+load A, 00010000    // A <-     MEM [00010000]
+add  A, 00010100    // A <- A + MEM [00010100]
+sub  A, 00011000    // A <- A - MEM [00011000]
+
+Com pilha      (2+(3-4))
+
+push MEM [00010000]
+push MEM [00010100]
+push MEM [00011000]
+sub
+add
+
+___
+
+Prioridades dos operadores
+
+ 2 * 3  + 4
+ 2 + 3  * 4
+ 
+(2 + 3) * 4
+ 2 * (3 + 4)
+
+___
+ 
+Avaliação de expressão 
+
+a.) usando pilha de operandos (1) e pilha de operadores (2)
+ 
+< 2           *         3        +        4        ;                    entrada
+        
+                             3                 4
+           2        2   *    2   *    6   +    6   +   10  
+ ___ ___  ___ ___  ___ ___  ___ ___  ___ ___  ___ ___  ___ ___
+ (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  
+
+2 * 3 + 4  => 2 3 * 4 +   (RPN = Reverse Polish Notation - Jan Lukasiewicz)
+ 
+__
+
+< 2            +        3        *        4        ;                    entrada
+
+                                               4       
+                             3        3   *    3   *   12
+           2        2   +    2   +    2   +    2   +    2   +   14    
+ ___ ___  ___ ___  ___ ___  ___ ___  ___ ___  ___ ___  ___ ___  ___ ___
+ (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  
+
+2 + 3 * 4  => 2 3 4 * +   (RPN = Reverse Polish Notation)
+
+__
+
+< 2            3        +        4        *        ;           entrada
+        
+                    3        3                 4        4
+           2        2        2   +    5        5        5   *   20
+ ___ ___  ___ ___  ___ ___  ___ ___  ___ ___  ___ ___  ___ ___  ___ ___
+ (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  
+
+(2 + 3) * 4  => 2 3 + 4 * (RPN = Reverse Polish Notation)
+ 
+__
+
+< 2            3        4        +        *        ;           entrada
+                             
+                             4
+                    3        3        7        7        
+           2        2        2   +    2        2   *   14       
+ ___ ___  ___ ___  ___ ___  ___ ___  ___ ___  ___ ___  ___ ___  
+ (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)  (1) (2)    
+
+ 2 * (3 + 4)  => 2 3 4 + * (RPN = Reverse Polish Notation)
+ 
+ 
+ b.) usando árvore de expressão (percorrimento em "post-order")
+
+     +           +      = 10      
+   /   \       /   \  
+  *     4    (6)     4    
+ / \ 
+2   3
+
+   +             +      = 14
+ /   \         /   \
+2     *       2    (12)
+     /  \
+    3    4
+    
+     *           *      = 20      
+   /   \       /   \  
+  +     4    (5)    4    
+ / \ 
+2   3
+
+   *             *      = 14
+ /   \         /   \
+2     +       2    (7)
+     /  \
+    3    4
+   
+___
+ 
+___
+
+https://sgapucminasbr.sharepoint.com/sites/team_sga_38_2023_2_327101/Documentos%20Compartilhados/General/Recordings/Exibir%20Apenas/2023-2_ARQ1_0327100-20231117_071414-Meeting%20Recording.mp4?web=1
+
+

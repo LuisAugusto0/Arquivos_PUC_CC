@@ -1,0 +1,603 @@
+PUC-Minas - ICEI - Ciência da Computação
+Arquitetura de Computadores I - Aula 2023-2_003
+Anotações
+___
+
+Resumo da semana
+
+
+Revisão dos métodos de agrupamento e desagrupamento
+
+13.75 (10) = 1101.11 (2)
+             <--- --->
+           = [11][01].[11]    <- grupos de 2 -> para base 4
+           
+           = [ 3][ 1].[ 3]  
+           
+           = 31.3 (4)
+           
+           = [_ _ 1][101].[11 _ ] 
+           
+           = [001][101].[110] <- grupos de 3 -> para base 8 
+           
+           = [  1][  5].[  6]
+           
+           = 15.6 (8)
+           
+           = [1101].[11 _ _]  <- grupos de 4 -> para base 16
+           
+           = [1101].[1100]
+           
+           = [   D].[   C]
+           
+           = D.C (16)           
+___
+           
+1302.21 (4) = X (2)
+
+            = [ 1][ 3][ 0][ 2].[ 2][ 1] (4)
+            
+            = [01][11][00][10].[10][01] (2) 
+            
+            = 01110010.1001 (2)
+
+            = [[01][11]] [[00][10]].[[10][01]] (16) 
+            
+            = [  1   3 ] [  0   2 ].[  2   1]   (4)
+
+            = [  0111  ] [  0010  ].[  1001 ]  (16)
+
+            = [     7  ] [     2  ].[     9 ]
+
+            = 72.9 (16)            
+___
+                 
+1302.21 (8) = X (2)
+
+            = [  1][  3][  0][  2].[  2][  1]
+            
+            = [001][011][000][010].[010][001] (2)
+
+            = 001011000010.010001 (2)
+___
+                       
+Operações aritméticas
+
+Divisão em binário
+
+101101.101      |_ 11.01
+                |
+                
+101101.101      |_ 11.010    <-  colocar do mesmo tamanho
+                |                
+
+101101 101      |_ 11 010        OBS.: Separador não mais necessário.
+11 010          |
+
+101101101       |_ 11010     <-  verificar se é possível subtrair
+11010           |  0         
+            
+101101101       |_ 11010     <-  deslocar e tentar subtrair
+ 11010-         |  01        <-  se for possível, então 1; senão, 0
+______          |
+ 10011          |      
+            
+101101101       |_ 11010
+ 11010-         |  011
+_______         |
+ 100111-        |      
+  11010         |
+ ______         |
+ 001101         | 
+ 
+101101101       |_ 11010
+ 11010          |  0111
+_______         |
+ 100111-        |      
+  11010         |
+ _______        |
+ 0011010-       | 
+   11010        |
+   _____        |
+   00000        |
+
+101101101       |_ 11010
+ 11010          |  01110     <- quociente inteiro
+_______         |
+ 100111-        |      
+  11010         |
+ _______        |
+ 0011010-       | 
+   11010        |
+   ______       |
+   000001       |            <- resto inteiro
+   
+
+101101101       |_ 11010
+ 11010          |  01110.0   <- quociente fracionário
+_______         |
+ 100111-        |      
+  11010         |
+ _______        |
+ 0011010-       | 
+   11010        |
+   _______      |
+   0000010      |             <- acrescentar 0
+   
+101101101       |_ 11010
+ 11010          |  01110.00   <- quociente fracionário
+_______         |
+ 100111-        |      
+  11010         |
+ _______        |
+ 0011010-       | 
+   11010        |
+   ________     |
+   00000100     |
+
+101101101       |_ 11010
+ 11010          |  01110.000   <- quociente fracionário
+_______         |
+ 100111-        |      
+  11010         |
+ _______        |
+ 0011010-       | 
+   11010        |
+   _________    |
+   000001000    |
+
+101101101       |_ 11010
+ 11010          |  01110.0000  <- quociente fracionário
+_______         |
+ 100111-        |      
+  11010         |
+ _______        |
+ 0011010-       | 
+   11010        |
+   __________   |
+   0000010000   |
+
+101101101       |_ 11010
+ 11010          |  01110.00001 <- quociente fracionário 
+_______         |
+ 100111-        |      
+  11010         |
+ _______        |
+ 0011010-       | 
+   11010        |
+   ___________  |
+   00000100000- |               
+         11010  |
+        ______  |
+        000110  |              
+
+___
+        
+Multiplicação em binário
+
+      1011.101 *      11.625 *
+        11.010         3.25
+______________     _________
+  ¹¹°¹¹¹¹       
+      0000 000 +
+     10111 01-
+    000000 0--
+   1011101 ---
+  1011101- ---
+______________     __________
+ 100101110 010
+    
+ 100101.110010       37.78125
+
+___
+
+Revisão de representações de números
+
+                         k=n
+                          __          k
+valor inteiro     =      \   a  * base  (notação posicial)
+  sem sinal              /__  k
+    
+                         k=0
+
+                         n = maior potência, antes  do separador
+
+                         a = conjunto de algarismos ordenados
+                          k  segundo as potências crescentes
+			                 no conjunto {0:(base-1)}
+                          
+                          
+                         k=n              k=m
+                          __          k    __          (-k)
+valor fracionário =      \   a  * base  + \   a  * base
+  sem sinal              /__  k           /__  k
+                                          
+                         k=0              k=1
+                         
+                        (parte inteira)  (parte fracionária)
+                        
+                         n = maior potência, antes  do separador
+                         m = menor potência, depois do separador
+                         
+                         k=n
+                          __          k 
+                  =      \   a  * base , base > 1
+                         /__  k 
+                         
+                         k=-m                         
+___
+
+Para o sistema binário
+                         
+                             k=n
+                              __       k
+valor binário     =          \   a  * 2      e a  E {0,1}
+  sem sinal                  /__  k             k        (2)
+    
+                             k=0
+
+                       a     k=n
+                        n+1   __       k
+valor binário     = (-1)   * \   a  * 2
+  com sinal                  /__  k
+(Sinal&Amplitude)
+                             k=0
+
+___
+                         
+                            k=n
+                  n+1        __       k
+valor binário = (2   - 1) - \   a  * 2   , (n>0)
+  com sinal                 /__  k
+     C1
+                            k=0
+                            
+___
+
+13 (10) = 1101 (2) =     1*2**3+1*2**2+0*2**1+1*2**0
+                   =   ((1*2**2+1*2**1+0)*2**1)+1*2**0
+                   =  (((1*2**1+1)*2**1+0)*2**1)+1*2**0
+                   = ((((1)*2**1+1)*2**1+0)*2**1)+1*2**0
+                        a3      a2      a1       a0      
++
+0 1101
+1 0010
+1 0011 -> 19 -> C2(+13) = -13
+
+                 5 <- número de bits na representação
+13+19 = 32   -> 2                           
+___
+
+n=1 -> bits = 2
+00  +0
+01  +1 
+------  
+10  -1  [2**(1+1)-1] - [1*2**1+0*2**0]        = 3-2 = 1
+11  -0
+
+n=2 -> bits = 3
+000 +0
+001 +1
+010 +2
+011 +3
+------
+100 -3  [2**(2+1)-1] - [1*2**2+0*2**1+0*2**0] = 7-4 = 3
+101 -2  [2**(2+1)-1] - [1*2**2+0*2**1+1*2**0] = 7-5 = 2
+110 -1  [2**(2+1)-1] - [1*2**2+1*2**1+0*2**0] = 7-6 = 1
+111 -0  [2**(2+1)-1] - [1*2**2+1*2**1+1*2**0] = 7-7 = 0
+
+___                            
+                            k=n
+                  n+1        __       k
+valor binário =  2        - \   a  * 2   , (n>0)
+  com sinal                 /__  k
+     C2
+                            k=0
+
+n=1 -> bits = 2
+00  +0
+01  +1 
+------  
+10  -2  [2**(1+1)] - [1*2**1+1*2**0] = 4-2 = 2   (OBS: valor extra)
+11  -1  [2**(1+1)] - [1*2**1+1*2**0] = 4-3 = 1
+
+n=2 -> bits = 3
+000 +0
+001 +1
+010 +2
+011 +3
+------
+100 -4  [2**(2+1)] - [1*2**2+0*2**1+0*2**0] = 8-4 = 4 (valor extra)
+101 -3  [2**(2+1)] - [1*2**2+0*2**1+1*2**0] = 8-5 = 3
+110 -2  [2**(2+1)] - [1*2**2+1*2**1+0*2**0] = 8-6 = 2
+111 -1  [2**(2+1)] - [1*2**2+1*2**1+1*2**0] = 8-7 = 1
+
+___
+
+Tabelas 
+
+ (2) (4) (8) (10) (16) S&A  C1  C2   X8(=Excesso-8)
+0000  00  00   0    0   +0  +0   0   -8
+0001  01  01   1    1   +1  +1  +1   -7
+0010  02  02   2    2   +2  +2  +2   -6
+0011  03  03   3    3   +3  +3  +3   -5
+0100  10  04   4    4   +4  +4  +4   -4
+0101  11  05   5    5   +5  +5  +5   -3
+0110  12  06   6    6   +6  +6  +6   -2
+0111  13  07   7    7   +7  +7  +7   -1
+---------------------------------------                                   
+1000  20  10   8    8   -0  -7  -8    0
+1001  21  11   9    9   -1  -6  -7   +1
+1010  22  12  10    A   -2  -5  -6   +2
+1011  23  13  11    B   -3  -4  -5   +3
+1100  30  14  12    C   -4  -3  -4   +4
+1101  31  15  13    D   -5  -2  -3   +5
+1110  32  16  14    E   -6  -1  -2   +6
+1111  33  17  15    F   -7  -0  -1   +7
+
+___
+
+Complemento de 2
+
+C2 (16) = 1100 0010 
+
+          0011 1101 <- complemento de 1
+                  1 +
+          _________        
+          0011 1110 = 62 -> C2 (16) = -62 (10)
+
+C2 (16) = 1100 0010 
+                  1 -
+          _________    
+          1100 0001 <- complemento de 1
+     
+          0011 1110 = 62 -> C2 (16) = -62 (10)
+ 
+___
+                   
+Notações para números com parte fracionária
+
+1. Notação em ponto fixo
+
+   13.75 (10) = 1101.11 (2)
+   
+              = 0000 1101  .  1100 0000
+                1º byte       2º byte   = 16 bits
+                 inteiro     fracionário
+
+                 
+2. Notação em ponto flutuante
+
+   Notação científica em base 10 e em base 2 
+   
+   13.75 (10)  = 13.75   * 10**0
+   
+               = 1.375   * 10**1
+              
+   1101.11 (2) = 1101.11 *  2**0
+
+               = 110.111 *  2**1
+
+               = 11.0111 *  2**2
+
+               = 1.10111 *  2**3
+
+___
+           
+   Representação mínima
+   
+   1.10111  * 2**3 
+   
+   0.110111 * 2**4 <- potência
+   
+     6 bits +  x bits
+   (mantissa) (expoente)
+   
+   potência = +4 (10) = 0 100 (2) 
+                        1+ 3 bits
+
+          C2    Excesso-8 (X8)
+    +    
+    0000  0        -8
+    0001 +1        -7
+    0010 +2        -6
+    0011 +3        -5
+    0100 +4        -4
+    0101 +5        -3
+    0110 +6        -2
+    0111 +7        -1 -> 1ª opção: sinal igual a 0 + todos iguais a 1
+    -------> corte
+    1000 -8         0 -> 2ª opção: sinal igual a 1 + todos iguais a 0
+    1001 -7        +1
+    1010 -6        +2
+    1011 -5        +3
+    1100 -4        +4
+    1101 -3        +5
+    1110 -2        +6
+    1111 -1        +7
+
+    Exemplo:
+                                                          bits-1  
+    Com a segunda opção para escolha do corte (1000->8 = 2      ): 
+    
+    1000 -> 8 + 4 = 1100 (expoente)
+
+                    +
+   +13.75 (10)  =   0     1100    .110111
+                  sinal expoente   mantissa
+
+                  potência   = expoente - corte 
+                  
+                             =   1100   -  1000 = 12 - 8 = 4
+
+___
+           
+Representação pela Norma IEEE-754 (1985-2005)
+
+    Com a primeira opção para escolhas de cortes:
+
+    01111111    ( 127 - para  8 bits de expoente em 32 bits de representação)
+    01111111111 (1023 - para 11 bits de expoente em 64 bits de representação)
+
+    sinal  expoente  mantissa
+      1       8         23   = 32 bits 
+      
+    -> corte para 8 bits de expoente = 127
+
+       destacar o primeiro algarismo igual a 1:
+
+       mantissa =  .110111 * 2**4 -> 1.10111 * 2**3
+
+                         +--- mais um bit disponível
+                         |     (para maior precisão)
+                         v
+                = _.10111_
+                  ^
+                  |_ o primeiro não será representado
+                     (exceto o zero, sempre haverá 1)
+
+       ajustar a potência para destacar o primeiro
+
+                  potência =  3
+                               
+                  determinar o expoente
+                               
+                  expoente = corte + potência = 127 + 3 = 130 
+                                        
+                           = 1000 0010 (2)
+
+    sinal   expoente  mantissa
+      1        8         23
+      0    1000 0010 .10111 0000 0000 0000 0000 00
+                                                 ^
+                          bit extra de precisão _|
+                 1
+    precisão = _____ = 0.00000011920928955078125 ~ 1.0 * 10**(-7)
+
+               2**23
+
+___
+
+    Fórmulas compactas para a Norma IEEE-754
+
+                          k=23
+        s    e-127         __           k
+    (-1)  * 2      * (1 + \    a     * 2  ), para 32 bits
+                          /__   (23-k)
+
+                          k=0
+
+               
+                          k=52
+        s    e-1023        __           k
+    (-1)  * 2      * (1 + \    a     * 2  ), para 64 bits
+                          /__   (52-k)
+
+                          k=0
+___
+
+Erro absoluto e erro relativo
+
+                 (valor absoluto da diferença)
+
+erro         =  | valor    - valor             | 
+    absoluto    |      real       representado |
+       
+
+                 (percentual do erro/valor real)
+                 
+                 erro
+                     absoluto
+erro         = ________________  [%]
+    relativo
+                | valor     |
+                |      real |
+___
+
+Propagações de erros em operações aritméticas
+
+Considerar
+
+vr -> valor real
+va -> valor aproximado
+
+erro absoluto para x:
+
+eax = | vrx - vax |
+
+erro absoluto para y:
+
+eay = | vry - vay |
+
+___
+
+Propagações de erros absolutos
+
+erro absoluto para x e y:
+
+erro                = | eax     +   eay   | -> para adição e subtração
+     absoluto (x,y)
+
+
+erro                = | vax*eay + vay*eax | -> para multiplicação
+     absoluto (x,y)
+
+                      |  eax     vax*eay  |
+erro                = | _____ - _________ | -> para divisão
+     absoluto (x,y)   |               2   |
+                      |  vay       vay    |
+
+___
+
+Propagação de erros relativos
+
+                          eax  +/- eay
+erro                =   ________________    -> para adição e subtração
+     relativo (x,y)
+                          vax  +/- vay
+
+                          eax       eay
+erro                =   _______ + _______   -> para multiplicação
+     relativo (x,y)
+                          vax       vay
+
+                          eax       eay
+erro                =   _______ - _______   -> para divisão
+     relativo (x,y)
+                          vax       vay
+
+___
+
+Truncamento e arredondamento
+
+Exemplo
+                                    IEEE-754 (32 bits)
+     13.68 = 13.680000305175781   = 0 10000010 10110101110000101001000
+
+     Com truncamento no 14º bit:
+
+     0 10000010 10110101110000_ _ = 13.679685
+     0 130      6037504
+
+     Com truncamento no 15º bit:
+
+     0 10000010 101101011100001_  = 13.679932
+     0 130      5955840
+     
+     Com arredondamento do 16º bit:
+
+     0 10000010 1011010111000011  = 13.680054
+
+     erro absoluto     
+     no 15º bit = | 13.68-13.679932 | = 0.000068
+
+     no 16º bit = | 13.68-13.680054 | = 0.000054
+
+     erro relativo 
+     no 15º bit = 4.97 * 10 ** (-6)
+
+     no 16º bit = 3.94 * 10 ** (-6) <- menor, nesse caso
+
+
+___
+

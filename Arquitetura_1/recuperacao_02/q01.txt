@@ -1,0 +1,135 @@
+01.) Montar as expressões por mintermos dos flip-flops
+ a.)
+    Expressão Canônica:
+     SoP (Da) = a'.b'.c' + a'.b.c'
+
+     Sop (Sb) = a'.b'.c + a.b'.c
+     Sop (Rb) = a'.b'.c + a'.b.c + a.b.c'
+
+ b.)
+    Expressão Canônica:
+     SoP (Ja) = a'.b'.c' + a'.b.c'
+     SoP (Ka) = a.b.c' + a.b.c + a.b'.c' + a.b'.c
+
+     SoP (Jb) = a'.b'.c + a.b'.c
+     SoP (Kb) = a'.b.c + a.b.c'
+
+ c.)
+    Expressão Canônica:
+     SoP (Ta) = (a'.b'.c') + (a'.b.c') + (a.b.c') + (a.b.c) + (a.b'.c') + (a.b'.c)
+
+     SoP (Tb) = (a'.b'.c) + (a'.b.c) + (a.b.c') + (a.b'.c)
+
+---------------------------//------------------------------------
+
+02.) Montar as expressões compactas por MAXTERMOS dos flip-flops
+ a.)
+    Expressão Simplificada:
+     PoS (Da) = A'. C'
+
+     PoS (Sb) = C . (B'+C') - (Considerando don't care na posições 2 e 7 como 0)
+     PoS (Rb) = A+C . A'+C' - (Considerando don't care na posição 0 como 0)
+
+ b.)
+    Expressão Simplificada:
+     PoS (Ja) = B - (Considerando don't care nas posições 5 e 7 como 0)
+     PoS (Ka) = 0 - (Considerando don't care como 1)
+
+     PoS (Jb) = C . (B'+C') - (Considerando don't care como 0)
+     PoS (Kb) = (A+C) . (A'+C') - (Considerando don't care nas posições 0 e 5 como 0)
+
+ c.)
+    Expressão Simplificada:
+     PoS (Ta) = A+C'
+
+     PoS (Tb) = (A+C) . (B+C) . (A'+B'+C')
+
+-----------------------------//-----------------------------------
+
+03.) Montar os mapas de Veitch-Karnaugh correspondentes e simplificar suas expressões SoP:
+    ╔══════╦═══╦═══╗
+    ║ (Da) ║ 0 ║ 1 ║
+    ║ ab/c ║   ║   ║
+    ╠══════╬═══╬═══╣
+    ║ 00   ║ 1 ║ 0 ║
+    ╠══════╬═══╬═══╣
+    ║ 01   ║ 1 ║ 0 ║
+    ╠══════╬═══╬═══╣
+    ║ 11   ║ 0 ║ 0 ║
+    ╠══════╬═══╬═══╣
+    ║ 10   ║ 0 ║ 0 ║
+    ╚══════╩═══╩═══╝
+    SoP (Da) = a'.c'
+
+    ╔══════╦═══╦═══╗    ╔══════╦═══╦═══╗
+    ║ (Sb) ║ 0 ║ 1 ║    ║ (Rb) ║ 0 ║ 1 ║
+    ║ ab/c ║   ║   ║    ║ ab/c ║   ║   ║
+    ╠══════╬═══╬═══╣    ╠══════╬═══╬═══╣
+    ║ 00   ║ 0 ║ 1 ║    ║ 00   ║ x ║ 1 ║
+    ╠══════╬═══╬═══╣    ╠══════╬═══╬═══╣
+    ║ 01   ║ x ║ 0 ║    ║ 01   ║ 0 ║ 1 ║
+    ╠══════╬═══╬═══╣    ╠══════╬═══╬═══╣
+    ║ 11   ║ 0 ║ x ║    ║ 11   ║ 1 ║ 0 ║
+    ╠══════╬═══╬═══╣    ╠══════╬═══╬═══╣
+    ║ 10   ║ 0 ║ 1 ║    ║ 10   ║ x ║ 0 ║
+    ╚══════╩═══╩═══╝    ╚══════╩═══╩═══╝
+    Sop (Sb) = b'.c
+    Sop (Rb) = a'.c + a.c' (considerando o don't care na posição 4 como 1)
+
+    ╔══════╦═══╦═══╗    ╔══════╦═══╦═══╗
+    ║ (Ja) ║ 0 ║ 1 ║    ║ (Ka) ║ 0 ║ 1 ║
+    ║ ab/c ║   ║   ║    ║ ab/c ║   ║   ║
+    ╠══════╬═══╬═══╣    ╠══════╬═══╬═══╣
+    ║ 00   ║ 1 ║ 0 ║    ║ 00   ║ x ║ x ║
+    ╠══════╬═══╬═══╣    ╠══════╬═══╬═══╣
+    ║ 01   ║ 1 ║ 0 ║    ║ 01   ║ x ║ x ║
+    ╠══════╬═══╬═══╣    ╠══════╬═══╬═══╣
+    ║ 11   ║ x ║ x ║    ║ 11   ║ 1 ║ 1 ║
+    ╠══════╬═══╬═══╣    ╠══════╬═══╬═══╣
+    ║ 10   ║ x ║ x ║    ║ 10   ║ 1 ║ 1 ║
+    ╚══════╩═══╩═══╝    ╚══════╩═══╩═══╝
+    SoP (Ja) = c' (considerando o don't care nas posições 4 e 6 como 1)
+    SoP (Ka) = 1 (considerando todos don't care como 1)
+
+    ╔══════╦═══╦═══╗    ╔══════╦═══╦═══╗
+    ║ (Jb) ║ 0 ║ 1 ║    ║ (Kb) ║ 0 ║ 1 ║
+    ║ ab/c ║   ║   ║    ║ ab/c ║   ║   ║
+    ╠══════╬═══╬═══╣    ╠══════╬═══╬═══╣
+    ║ 00   ║ 0 ║ 1 ║    ║ 00   ║ x ║ x ║
+    ╠══════╬═══╬═══╣    ╠══════╬═══╬═══╣
+    ║ 01   ║ x ║ 0 ║    ║ 01   ║ 0 ║ 1 ║
+    ╠══════╬═══╬═══╣    ╠══════╬═══╬═══╣
+    ║ 11   ║ x ║ x ║    ║ 11   ║ 1 ║ 0 ║
+    ╠══════╬═══╬═══╣    ╠══════╬═══╬═══╣
+    ║ 10   ║ 0 ║ 1 ║    ║ 10   ║ x ║ x ║
+    ╚══════╩═══╩═══╝    ╚══════╩═══╩═══╝
+    SoP (Jb) = b'.c
+    SoP (Kb) = a'.c + a.c' (considerando don't care nas posições 1 e 4 como 1)
+
+    ╔══════╦═══╦═══╗
+    ║ (Ta) ║ 0 ║ 1 ║
+    ║ ab/c ║   ║   ║
+    ╠══════╬═══╬═══╣
+    ║ 00   ║ 1 ║ 0 ║
+    ╠══════╬═══╬═══╣
+    ║ 01   ║ 1 ║ 0 ║
+    ╠══════╬═══╬═══╣
+    ║ 11   ║ 1 ║ 1 ║
+    ╠══════╬═══╬═══╣
+    ║ 10   ║ 1 ║ 1 ║
+    ╚══════╩═══╩═══╝
+    SoP (Ta) = a'.c' + a
+
+    ╔══════╦═══╦═══╗
+    ║ (Tb) ║ 0 ║ 1 ║
+    ║ ab/c ║   ║   ║
+    ╠══════╬═══╬═══╣
+    ║ 00   ║ 0 ║ 1 ║
+    ╠══════╬═══╬═══╣
+    ║ 01   ║ 0 ║ 1 ║
+    ╠══════╬═══╬═══╣
+    ║ 11   ║ 1 ║ 0 ║
+    ╠══════╬═══╬═══╣
+    ║ 10   ║ 0 ║ 1 ║
+    ╚══════╩═══╩═══╝
+    SoP (Tb) = a.c + a.b.c' + b'.c
