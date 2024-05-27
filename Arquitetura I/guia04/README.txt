@@ -1,1 +1,0 @@
-Ocorreu uma inconsistência no meu código que ele escreve uma vez a mais que o necessário. Fiz o máximo que consegui pra tentar arrumar mas não consegui totalmente. Se puder me explicar o porquê estava acontecendo isso eu agradeceria, pois não consegui identificar onde eu errei (provavelmente foi algum erro de lógica).
