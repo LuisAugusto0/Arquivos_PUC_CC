@@ -8,6 +8,9 @@
 	path = Aeds_3/TP_3_AEDs_III
 	url = https://github.com/vfmoraes/TP_3_AEDs_III
 
-[submodule "Ti-1"]
-	path = Ti-1
+[submodule "TI-01"]
+	path = TI-01
 	url = https://github.com/ICEI-PUC-Minas-PMGCC-TI/ti-1-pmg-cc-m-20231-tiaw-questoes-sobre-tecnologia-1-5
+[submodule "TI-02"]
+	path = TI-02
+	url = https://github.com/Mateus-Fernandes-Barbosa/TI-02
