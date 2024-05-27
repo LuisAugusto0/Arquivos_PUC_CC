@@ -1,0 +1,9 @@
+[submodule "Aeds_3/TP_2_AEDs_III"]
+	path = Aeds_3/TP_2_AEDs_III
+	url = https://github.com/vfmoraes/TP_2_AEDs_III
+[submodule "Aeds_3/TP_1_AEDs_III"]
+	path = Aeds_3/TP_1_AEDs_III
+	url = https://github.com/LuisAugusto0/TP_1_AEDs_III
+[submodule "Aeds_3/TP_3_AEDs_III"]
+	path = Aeds_3/TP_3_AEDs_III
+	url = https://github.com/vfmoraes/TP_3_AEDs_III
