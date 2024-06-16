@@ -14,3 +14,7 @@
 [submodule "TI-02"]
 	path = TI-02
 	url = https://github.com/Mateus-Fernandes-Barbosa/TI-02
+[submodule "Aeds_3/TP_4_AEDs_III"]
+	path = Aeds_3/TP_4_AEDs_III
+	url = https://github.com/vfmoraes/TP_4_AEDs_III
+	branch = main
