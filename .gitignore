@@ -1,8 +1,4 @@
-#ignore folders with slides and PDFs from theachers
-Aeds_2/aeds2_2023-2
-Arquitetura_1/2023-2_arq1
-
 #ignore compiled files and logs
-.o
-.class
-teste
+*.o
+*.class
+*.exe

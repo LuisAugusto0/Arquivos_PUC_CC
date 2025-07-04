@@ -18,3 +18,27 @@
 	path = Aeds_3/TP_4_AEDs_III
 	url = https://github.com/vfmoraes/TP_4_AEDs_III
 	branch = main
+[submodule "TI-05/heatSyncJava"]
+	path = TI-05/heatSyncJava
+	url = https://github.com/LuisAugusto0/heatSyncJava
+[submodule "TI-05/ti5-graph"]
+	path = TI-05/ti5-graph
+	url = https://github.com/mouroz/ti5-graph
+[submodule "Grafos"]
+	path = Grafos
+	url = https://github.com/LuisAugusto0/Grafos
+[submodule "TI-04/TI-4_Bakumatsu_The_Last_Blade"]
+	path = TI-04/TI-4_Bakumatsu_The_Last_Blade
+	url = https://github.com/LuisAugusto0/TI-4_Bakumatsu_The_Last_Blade
+[submodule "Redes_1/BatalhaNaval"]
+	path = Redes_1/BatalhaNaval
+	url = https://github.com/LuisAugusto0/BatalhaNaval
+[submodule "Arquitetura_III/SimulatorTomasuloAlgorithm"]
+	path = Arquitetura_III/SimulatorTomasuloAlgorithm
+	url = https://github.com/Mateus-Fernandes-Barbosa/SimulatorTomasuloAlgorithm
+[submodule "Laboratorio_de_Desenvolvimento_Mobile/Vamo-Rachar"]
+	path = Laboratorio_de_Desenvolvimento_Mobile/Vamo-Rachar
+	url = https://github.com/LuisAugusto0/Vamo-Rachar
+[submodule "Projeto_e_Analise_de_Algoritmos/TED-Problem"]
+	path = Projeto_e_Analise_de_Algoritmos/TED-Problem
+	url = https://github.com/vfmoraes/TED-Problem
