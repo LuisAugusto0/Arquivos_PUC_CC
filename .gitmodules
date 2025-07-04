@@ -24,9 +24,6 @@
 [submodule "TI-05/ti5-graph"]
 	path = TI-05/ti5-graph
 	url = https://github.com/mouroz/ti5-graph
-[submodule "Grafos"]
-	path = Grafos
-	url = https://github.com/LuisAugusto0/Grafos
 [submodule "TI-04/TI-4_Bakumatsu_The_Last_Blade"]
 	path = TI-04/TI-4_Bakumatsu_The_Last_Blade
 	url = https://github.com/LuisAugusto0/TI-4_Bakumatsu_The_Last_Blade
